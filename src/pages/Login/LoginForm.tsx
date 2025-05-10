@@ -377,7 +377,7 @@ const LoginForm: React.FC = () => {
               <span className="text-gray-600">¿No tienes una cuenta? </span>
               <button 
                 type="button"
-                onClick={() => navigate("/register-user")}
+                onClick={() => navigate("/signup")}
                 className="font-medium text-indigo-600 hover:text-indigo-800"
               >
                 Regístrate
