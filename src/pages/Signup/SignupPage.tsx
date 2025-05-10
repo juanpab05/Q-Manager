@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import supabase from '@/services/supabase'; // Assuming supabase service is here
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { registerUser } from '@/api/userService'; // Import registerUser directly
 
 const SignupPage: React.FC = () => {
   const navigate = useNavigate();
