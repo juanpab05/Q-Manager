@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import useMediaQuery from "@/hooks/useMediaQuery";
@@ -40,6 +40,36 @@ const LoginForm: React.FC = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const navigate = useNavigate();
   const auth = useAuth();
+
+  // Check for confirmation success in URL
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const confirmation = urlParams.get('confirmation');
+    
+    if (confirmation === 'success') {
+      toast.success("¡Email confirmado! Ya puedes iniciar sesión con tu cuenta.", {
+        autoClose: 5000
+      });
+      
+      // Remove the confirmation param from the URL to prevent showing the message on refresh
+      const newUrl = window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
+    }
+    
+    // Check for error in URL hash (when confirmation link fails)
+    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+    const error = hashParams.get('error');
+    
+    if (error) {
+      const errorDesc = hashParams.get('error_description');
+      toast.error(errorDesc?.replace(/\+/g, ' ') || "Error al confirmar el email", {
+        autoClose: 7000
+      });
+      
+      // Remove the error param from the URL to prevent showing the message on refresh
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 

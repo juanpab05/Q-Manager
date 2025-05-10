@@ -72,7 +72,7 @@ export default function HomePage() {
             {!auth.isAuthenticated ? (
               <>
                 <Link
-                  to="/register-user" // Link to the new registration page
+                  to="/signup" // Change to use the proper signup page that has email confirmation
                   className={`${secondaryButtonClasses} bg-transparent border-2 border-purple-600 text-purple-600 hover:bg-purple-50`}
                 >
                   Regístrate
