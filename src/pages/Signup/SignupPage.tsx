@@ -1,14 +1,34 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import supabase from '@/services/supabase'; // Assuming supabase service is here
+import { useNavigate, Link } from 'react-router-dom';
+import supabase from '@/services/supabase';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useMediaQuery from '@/hooks/useMediaQuery';
+
+// SVG Icons
+const EyeIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={className}>
+    <path d="M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+    <path fillRule="evenodd" d="M.664 10.59a1.651 1.651 0 0 1 0-1.186A10.004 10.004 0 0 1 10 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0 1 10 17c-4.257 0-7.893-2.66-9.336-6.41ZM14 10a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" clipRule="evenodd" />
+  </svg>
+);
+
+const EyeSlashIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={className}>
+    <path fillRule="evenodd" d="M3.28 2.22a.75.75 0 0 0-1.06 1.06l14.5 14.5a.75.75 0 1 0 1.06-1.06l-1.745-1.745a10.029 10.029 0 0 0 3.3-4.38c.145-.382.145-.806 0-1.188a10.01 10.01 0 0 0-2.29-3.577l-1.521-1.522a10.007 10.007 0 0 0-1.53-.962L3.28 2.22ZM7.75 7.25c0-.219.029-.43.084-.635l1.972 1.972a2.5 2.5 0 0 1-.635.084A2.5 2.5 0 0 1 7.5 10a2.5 2.5 0 0 1 1.637-2.353L7.75 7.25Z" clipRule="evenodd" />
+    <path d="m10.748 13.93 1.523 1.523a9.987 9.987 0 0 1-1.523.962A10.007 10.007 0 0 1 10 17c-4.257 0-7.893-2.66-9.336-6.41a1.652 1.652 0 0 1 0-1.188A10.007 10.007 0 0 1 2.94 6.095l-1.546-1.546A11.508 11.508 0 0 0 .006 9.41a1.651 1.651 0 0 0 0 1.186A11.479 11.479 0 0 0 10 18.5c1.905 0 3.7-.462 5.29-.126L10.748 13.93Z" />
+  </svg>
+);
 
 const SignupPage: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [registeredEmail, setRegisteredEmail] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  
   const [formData, setFormData] = useState({
     nombre: '',
     cedula: '',
@@ -28,6 +48,9 @@ const SignupPage: React.FC = () => {
     confirmPassword: '',
     priorityMotive: ''
   });
+
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
 
   const validateForm = (): boolean => {
     const errors: any = {};
@@ -116,189 +139,238 @@ const SignupPage: React.FC = () => {
     }
   };
   
-  // Basic styling, can be enhanced with Tailwind similar to your other pages
-  const inputClasses = "w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent";
-  const buttonClasses = "w-full py-3 px-4 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-300";
-
+  const inputBaseClasses = "w-full py-3 px-4 rounded-lg bg-slate-50 border border-gray-300 text-neutral-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors";
+  const primaryButtonClasses = "w-full py-3 px-4 rounded-lg text-white font-semibold text-base shadow-md hover:shadow-lg active:scale-95 transition-all duration-300 ease-in-out flex items-center justify-center";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <ToastContainer position="top-right" autoClose={5000} />
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Crear una cuenta
-        </h2>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+      <main className='flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28'>
+        <ToastContainer position={isMobile ? "bottom-center" : "top-right"} autoClose={3500} theme="light" />
+        <div className={`bg-white rounded-2xl sm:rounded-3xl shadow-xl w-full max-w-xl lg:max-w-2xl overflow-hidden`}>
+          <div className={`flex flex-col justify-center p-6 sm:p-8 md:p-10 w-full`}>
+            {!registrationSuccess ? (
+              <form onSubmit={handleSubmit} className='flex flex-col w-full space-y-5'>
+                <div className="text-center sm:text-left mb-4">
+                  <h2 className="font-bold text-2xl sm:text-3xl text-neutral-800">Crea tu Cuenta</h2>
+                  <p className="text-sm mt-2 text-neutral-600">
+                    Ingresa tus datos para registrarte en Q-Manager.
+                  </p>
+                </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow-xl rounded-2xl sm:px-10">
-          {!registrationSuccess ? (
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="nombre" className="block text-sm font-medium text-gray-700">
-                  Nombre completo
-                </label>
-                <div className="mt-1">
-                  <input id="nombre" name="nombre" type="text" required className={inputClasses} onChange={handleChange} value={formData.nombre} />
+                {/* Nombre */}
+                <div>
+                  <label htmlFor="nombre" className="sr-only">Nombre completo</label>
+                  <input
+                    id="nombre"
+                    name="nombre"
+                    type="text"
+                    placeholder="Nombre Completo"
+                    value={formData.nombre}
+                    onChange={handleChange}
+                    className={inputBaseClasses}
+                    required
+                  />
                   {formErrors.nombre && <p className="mt-1 text-sm text-red-600">{formErrors.nombre}</p>}
                 </div>
-              </div>
-              
-              <div>
-                <label htmlFor="cedula" className="block text-sm font-medium text-gray-700">
-                  Cédula
-                </label>
-                <div className="mt-1">
-                  <input id="cedula" name="cedula" type="text" required className={inputClasses} onChange={handleChange} value={formData.cedula} />
+                
+                {/* Cédula */}
+                <div>
+                  <label htmlFor="cedula" className="sr-only">Cédula</label>
+                  <input
+                    id="cedula"
+                    name="cedula"
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="Cédula (solo números)"
+                    pattern="[0-9]*"
+                    value={formData.cedula}
+                    onChange={handleChange}
+                    className={inputBaseClasses}
+                    required
+                  />
                   {formErrors.cedula && <p className="mt-1 text-sm text-red-600">{formErrors.cedula}</p>}
                 </div>
-              </div>
 
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Correo Electrónico
-                </label>
-                <div className="mt-1">
-                  <input id="email" name="email" type="email" autoComplete="email" required className={inputClasses} onChange={handleChange} value={formData.email} />
+                {/* Email */}
+                <div>
+                  <label htmlFor="email" className="sr-only">Correo Electrónico</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Correo Electrónico"
+                    inputMode="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={inputBaseClasses}
+                    required
+                  />
                   {formErrors.email && <p className="mt-1 text-sm text-red-600">{formErrors.email}</p>}
                 </div>
-              </div>
-              
-              <div>
-                <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
-                  Número de Teléfono
-                </label>
-                <div className="mt-1">
-                  <input id="phoneNumber" name="phoneNumber" type="tel" required className={inputClasses} onChange={handleChange} value={formData.phoneNumber} />
+                
+                {/* Teléfono */}
+                <div>
+                  <label htmlFor="phoneNumber" className="sr-only">Número de Teléfono</label>
+                  <input
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    type="tel"
+                    placeholder="Teléfono"
+                    inputMode="tel"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    className={inputBaseClasses}
+                    required
+                  />
                   {formErrors.phoneNumber && <p className="mt-1 text-sm text-red-600">{formErrors.phoneNumber}</p>}
                 </div>
-              </div>
 
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                  Contraseña
-                </label>
-                <div className="mt-1">
-                  <input id="password" name="password" type="password" autoComplete="new-password" required className={inputClasses} onChange={handleChange} value={formData.password} />
-                  {formErrors.password && <p className="mt-1 text-sm text-red-600">{formErrors.password}</p>}
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                  Confirmar Contraseña
-                </label>
-                <div className="mt-1">
-                  <input id="confirmPassword" name="confirmPassword" type="password" autoComplete="new-password" required className={inputClasses} onChange={handleChange} value={formData.confirmPassword} />
-                  {formErrors.confirmPassword && <p className="mt-1 text-sm text-red-600">{formErrors.confirmPassword}</p>}
-                </div>
-              </div>
-
-              {/* Prioridad */}
-              <div className="mt-4">
-                <div className="flex items-center">
-                  <input 
-                    type="checkbox" 
-                    id="hasPriority" 
-                    name="hasPriority" 
-                    checked={formData.hasPriority} 
-                    onChange={handleChange} 
-                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                  />
-                  <label htmlFor="hasPriority" className="ml-2 block text-sm font-medium text-gray-700">
-                    Usuario Prioritario
-                  </label>
-                </div>
-                
-                {formData.hasPriority && (
-                  <div className="mt-2">
-                    <label htmlFor="priorityMotive" className="block text-sm font-medium text-gray-700">
-                      Motivo de Prioridad
-                    </label>
-                    <select
-                      id="priorityMotive"
-                      name="priorityMotive"
-                      value={formData.priorityMotive}
+                {/* Password */}
+                <div>
+                  <label htmlFor="password" className="sr-only">Contraseña</label>
+                  <div className="relative">
+                    <input
+                      id="password"
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Contraseña (mínimo 8 caracteres)"
+                      value={formData.password}
                       onChange={handleChange}
-                      className={`${inputClasses} mt-1`}
+                      className={`${inputBaseClasses} pr-10`}
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={togglePasswordVisibility}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-indigo-600 focus:outline-none focus:ring-indigo-500 rounded-md"
+                      aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
                     >
-                      <option value="">Seleccione un motivo</option>
-                      <option value="A">Mujer embarazada</option>
-                      <option value="B">Persona con movilidad reducida</option>
-                      <option value="C">Adulto mayor</option>
-                      <option value="D">Otro</option>
-                    </select>
-                    {formErrors.priorityMotive && <p className="mt-1 text-sm text-red-600">{formErrors.priorityMotive}</p>}
+                      {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
+                    </button>
+                    {formErrors.password && <p className="mt-1 text-sm text-red-600">{formErrors.password}</p>}
                   </div>
-                )}
-              </div>
+                </div>
 
-              <div>
-                <button type="submit" className={buttonClasses} disabled={loading}>
-                  {loading ? 'Registrando...' : 'Crear cuenta'}
+                {/* Confirm Password */}
+                <div>
+                  <label htmlFor="confirmPassword" className="sr-only">Confirmar Contraseña</label>
+                  <div className="relative">
+                    <input
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="Confirmar Contraseña"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      className={`${inputBaseClasses} pr-10`}
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={toggleConfirmPasswordVisibility}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-indigo-600 focus:outline-none focus:ring-indigo-500 rounded-md"
+                      aria-label={showConfirmPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                    >
+                      {showConfirmPassword ? <EyeSlashIcon /> : <EyeIcon />}
+                    </button>
+                    {formErrors.confirmPassword && <p className="mt-1 text-sm text-red-600">{formErrors.confirmPassword}</p>}
+                  </div>
+                </div>
+
+                {/* Prioridad */}
+                <div className="pt-2">
+                  <label className="flex items-center text-sm text-neutral-700 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      id="hasPriority"
+                      name="hasPriority"
+                      checked={formData.hasPriority}
+                      onChange={handleChange}
+                      className="form-checkbox h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 mr-3"
+                    />
+                    Soy usuario prioritario
+                  </label>
+                  
+                  {formData.hasPriority && (
+                    <div className="mt-3 space-y-2">
+                      <label htmlFor="priorityMotive" className="block text-neutral-700 text-sm font-medium">
+                        Motivo de Prioridad:
+                      </label>
+                      <select
+                        id="priorityMotive"
+                        name="priorityMotive"
+                        value={formData.priorityMotive}
+                        onChange={handleChange}
+                        className={`${inputBaseClasses} appearance-none`}
+                        required={formData.hasPriority}
+                      >
+                        <option value="">Seleccione un motivo</option>
+                        <option value="A">Mujer embarazada</option>
+                        <option value="B">Persona con movilidad reducida</option>
+                        <option value="C">Adulto mayor (tercera edad)</option>
+                        <option value="D">Otro caso que requiera prioridad</option>
+                      </select>
+                      {formErrors.priorityMotive && <p className="mt-1 text-sm text-red-600">{formErrors.priorityMotive}</p>}
+                    </div>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  className={`${primaryButtonClasses} ${loading ? 'bg-indigo-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'}`}
+                  disabled={loading}
+                >
+                  {loading ? 'Registrando...' : 'Crear Cuenta'}
+                </button>
+                
+                <div className="text-center text-sm text-neutral-600 pt-2">
+                  ¿Ya tienes una cuenta?{' '}
+                  <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500 hover:underline">
+                    Inicia Sesión aquí
+                  </Link>
+                </div>
+              </form>
+            ) : (
+              <div className="text-center space-y-6">
+                <div className="text-green-600 flex flex-col items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <p className="mt-2 text-lg font-medium">¡Registro Exitoso!</p>
+                </div>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <div className="flex items-center mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span className="font-semibold text-blue-800">Importante: Confirma tu correo</span>
+                  </div>
+                  <p className="text-blue-700 mb-2 text-sm">
+                    Te hemos enviado un correo a <span className="font-medium">{registeredEmail}</span> con un enlace de confirmación.
+                  </p>
+                  <p className="text-blue-700 text-sm">
+                    <strong>Debes hacer clic en el enlace para activar tu cuenta</strong> antes de poder iniciar sesión.
+                  </p>
+                </div>
+                <div className="space-y-3">
+                  <p className="text-gray-600 text-sm">
+                    Si no encuentras el correo, revisa tu carpeta de spam o correo no deseado.
+                  </p>
+                  <p className="text-gray-600 text-sm">
+                    El enlace de confirmación expirará en 24 horas.
+                  </p>
+                </div>
+                <button
+                  onClick={() => navigate('/login')}
+                  className={`${primaryButtonClasses} bg-indigo-600 hover:bg-indigo-700`}
+                >
+                  Ir a Iniciar Sesión
                 </button>
               </div>
-            </form>
-          ) : (
-            <div className="text-center space-y-6">
-              <div className="text-green-600 flex flex-col items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <p className="mt-2 text-lg font-medium">¡Registro Exitoso!</p>
-              </div>
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <div className="flex items-center mb-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  <span className="font-semibold text-blue-800">Importante: Confirma tu correo</span>
-                </div>
-                <p className="text-blue-700 mb-2 text-sm">
-                  Te hemos enviado un correo a <span className="font-medium">{registeredEmail}</span> con un enlace de confirmación.
-                </p>
-                <p className="text-blue-700 text-sm">
-                  <strong>Debes hacer clic en el enlace para activar tu cuenta</strong> antes de poder iniciar sesión.
-                </p>
-              </div>
-              <div className="space-y-3">
-                <p className="text-gray-600 text-sm">
-                  Si no encuentras el correo, revisa tu carpeta de spam o correo no deseado.
-                </p>
-                <p className="text-gray-600 text-sm">
-                  El enlace de confirmación expirará en 24 horas.
-                </p>
-              </div>
-              <button
-                onClick={() => navigate('/login')}
-                className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Ir a Iniciar Sesión
-              </button>
-            </div>
-          )}
-          
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">¿Ya tienes una cuenta?</span>
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <button
-                onClick={() => navigate('/login')}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Iniciar sesión
-              </button>
-            </div>
+            )}
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };
