@@ -175,7 +175,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 setUser(session.user);
                 
                 // Make sure we wait for the profile data to be fetched and set
-                const userProfileData = await fetchAndSetUserProfile(session.user.id);
+                await fetchAndSetUserProfile(session.user.id);
                 
                 // Check if this is a new user (post-email-confirmation)
                 // We'll check the auth metadata to see if this is a first login after email confirmation
