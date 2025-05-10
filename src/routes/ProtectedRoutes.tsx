@@ -10,7 +10,7 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, requireAdmin }) => {
   const navigate = useNavigate();
-  const { user, userProfile, loading, isAuthenticated } = useAuth();
+  const { user, userProfile, loading, isAuthenticated, refreshUserProfile } = useAuth();
 
   // Solo mostrar loading si es la primera carga o si no hay usuario autenticado
   const shouldShowLoading = loading && (!user || !userProfile);
@@ -19,6 +19,13 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
     // Si no está autenticado y no está cargando, redirigir a login
     if (!loading && !isAuthenticated) {
       navigate("/login", { replace: true });
+      return;
+    }
+
+    // If we're authenticated but don't have user profile data, try to refresh it
+    if (isAuthenticated && user && !userProfile && !loading) {
+      console.log("ProtectedRoute: Obteniendo datos de usuario...");
+      refreshUserProfile();
       return;
     }
 
@@ -44,7 +51,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
         navigate("/", { replace: true });
       }
     }
-  }, [user, userProfile, loading, isAuthenticated, role, requireAdmin, navigate]);
+  }, [user, userProfile, loading, isAuthenticated, role, requireAdmin, navigate, refreshUserProfile]);
 
   // Solo mostrar loading en la carga inicial
   if (shouldShowLoading) {

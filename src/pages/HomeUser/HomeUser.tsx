@@ -62,13 +62,26 @@ const ActionCard: React.FC<Action> = ({ title, description, to, icon }) => (
 const HomeUserPage: React.FC = () => {
   const navigate = useNavigate();
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const { user, userProfile } = useAuth();
+  const { user, userProfile, loading: authLoading, refreshUserProfile } = useAuth();
 
   React.useEffect(() => {
     if (!user) {
       navigate("/login", { replace: true });
     }
   }, [navigate, user]);
+
+  // Ensure we have the latest user data when the component mounts
+  React.useEffect(() => {
+    // This is necessary to ensure we have fresh data when navigating to this page
+    const fetchCurrentUser = async () => {
+      if (user && !userProfile && !authLoading) {
+        console.log("HomeUserPage: Obteniendo datos de usuario...");
+        await refreshUserProfile();
+      }
+    };
+    
+    fetchCurrentUser();
+  }, [user, userProfile, authLoading, refreshUserProfile]);
 
   if (!user || !userProfile) {
     return (

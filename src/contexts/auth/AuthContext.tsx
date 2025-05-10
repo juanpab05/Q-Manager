@@ -31,6 +31,7 @@ interface AuthContextType {
   logout: () => Promise<void>;
   isAuthenticated: boolean;
   updateLastActivity: () => void;
+  refreshUserProfile: () => Promise<any | null>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -64,11 +65,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.log(`AuthContext: Iniciando fetchAndSetUserProfile para userId: ${userId}`);
       setLoading(true);
       
-      // Clear the loaded profile ID reference to force a fresh fetch
-      // This ensures we always get the latest data after sign-in events
-      if (loadedProfileId.current === userId) {
-        loadedProfileId.current = null;
-      }
+      // Always get fresh profile data on explicit fetch requests, regardless of loadedProfileId
+      // This ensures we always have the latest data when a fetch is requested
+      loadedProfileId.current = null;
       
       // Get fresh profile data
       const profile = await userService.getUserById(userId);
@@ -226,6 +225,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         
         console.log(`AuthContext: Evento de autenticación: ${event}`);
         
+        // Ensure we set loading state for all auth events
+        setLoading(true);
+        
         // Si es el mismo usuario que ya tenemos, solo actualizar el objeto user
         if (session?.user && user?.id === session.user.id) {
           setUser(session.user);
@@ -237,6 +239,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           
           // Update last activity timestamp
           updateLastActivity();
+          setLoading(false);
           return;
         }
         
@@ -459,6 +462,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  // Function to refresh the user's profile data
+  const refreshUserProfile = async (): Promise<any | null> => {
+    if (!user) {
+      console.log('AuthContext: Cannot refresh user profile, no user logged in');
+      return null;
+    }
+    
+    console.log(`AuthContext: Refreshing user profile for ${user.id}`);
+    return await fetchAndSetUserProfile(user.id);
+  };
+
   const contextValue = {
     user,
     userProfile,
@@ -471,6 +485,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     logout,
     isAuthenticated: !!user,
     updateLastActivity,
+    refreshUserProfile
   };
   
   // console.log("AuthContext: Provider rendering with state:", contextValue);

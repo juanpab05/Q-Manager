@@ -12,31 +12,68 @@ import "react-toastify/dist/ReactToastify.css";
 const PersonalData: React.FC = () => {
   const navigate = useNavigate();
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const { userProfile, loading: authLoading, isAuthenticated } = useAuth();
+  const { userProfile, loading: authLoading, isAuthenticated, user, refreshUserProfile } = useAuth();
   
   // State for edit mode
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  
+  // Determine if user is a worker
+  const isWorker = userProfile?.userType === 'worker' || userProfile?.userType === 'admin';
   
   // Form state
   const [formData, setFormData] = useState({
     nombre: "",
     cedula: "",
     email: "",
-    phone_number: ""
+    phone_number: "",
+    // Additional field for worker role display (not editable)
+    role: ""
   });
 
   // Initialize form data when userProfile changes
   useEffect(() => {
     if (userProfile) {
+      // Determine the role text
+      let roleText = "";
+      if (userProfile.userType === 'worker') {
+        roleText = "Trabajador";
+      } else if (userProfile.userType === 'admin') {
+        roleText = "Administrador";
+      } else if (userProfile.userType === 'actor') {
+        roleText = "Usuario con Prioridad";
+      } else {
+        roleText = "Usuario Regular";
+      }
+      
       setFormData({
         nombre: userProfile.nombre || "",
         cedula: userProfile.cedula?.toString() || "",
         email: userProfile.email || "",
-        phone_number: userProfile.phone_number || ""
+        phone_number: userProfile.phone_number || "",
+        role: roleText
       });
+      
+      console.log("PersonalData: Datos de usuario cargados correctamente", userProfile);
     }
   }, [userProfile]);
+
+  // Ensure we have the latest user data when the component mounts
+  useEffect(() => {
+    // This is necessary to ensure we have fresh data when navigating to this page
+    const fetchCurrentUser = async () => {
+      if (isAuthenticated && !authLoading) {
+        // If we're already authenticated but don't have a userProfile,
+        // trigger a refresh of the user profile
+        if (!userProfile && user?.id) {
+          console.log("PersonalData: Obteniendo datos de usuario...");
+          await refreshUserProfile();
+        }
+      }
+    };
+    
+    fetchCurrentUser();
+  }, [isAuthenticated, authLoading, userProfile, user, refreshUserProfile]);
 
   useEffect(() => {
     // If auth is not loading and user is not authenticated, redirect to login
@@ -71,11 +108,24 @@ const PersonalData: React.FC = () => {
   const handleCancelEdit = () => {
     // Reset form data to original values
     if (userProfile) {
+      // Determine the role text again
+      let roleText = "";
+      if (userProfile.userType === 'worker') {
+        roleText = "Trabajador";
+      } else if (userProfile.userType === 'admin') {
+        roleText = "Administrador";
+      } else if (userProfile.userType === 'actor') {
+        roleText = "Usuario con Prioridad";
+      } else {
+        roleText = "Usuario Regular";
+      }
+      
       setFormData({
         nombre: userProfile.nombre || "",
         cedula: userProfile.cedula?.toString() || "",
         email: userProfile.email || "",
-        phone_number: userProfile.phone_number || ""
+        phone_number: userProfile.phone_number || "",
+        role: roleText
       });
     }
     setIsEditing(false);
@@ -118,7 +168,9 @@ const PersonalData: React.FC = () => {
       // Convert cedula to number before updating
       const dataToUpdate = {
         ...formData,
-        cedula: cedulaNumber
+        cedula: cedulaNumber,
+        // Remove the role field as it's just for display
+        role: undefined
       };
 
       await userService.updateUser(userProfile.id, dataToUpdate);
@@ -187,6 +239,21 @@ const PersonalData: React.FC = () => {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6 mb-8 sm:mb-10">
+            {/* Role field - only displayed, not editable */}
+            <div>
+              <label className="block text-sm font-semibold text-neutral-600 mb-1">
+                Tipo de Usuario:
+              </label>
+              <p className="w-full p-3 rounded-lg bg-slate-50 border border-gray-300 text-neutral-800 text-base">
+                {formData.role}
+              </p>
+              {isWorker && (
+                <p className="text-xs text-gray-500 mt-1">
+                  Este campo no es editable. Si necesitas cambiar tu rol, contacta al administrador.
+                </p>
+              )}
+            </div>
+
             <div>
               <label htmlFor="nombre" className="block text-sm font-semibold text-neutral-600 mb-1">
                 Nombre:
@@ -290,6 +357,21 @@ const PersonalData: React.FC = () => {
               )}
             </div>
 
+            {/* Display worker access point info if available */}
+            {userProfile.access_point && (
+              <div>
+                <label className="block text-sm font-semibold text-neutral-600 mb-1">
+                  Punto de Acceso Asignado:
+                </label>
+                <p className="w-full p-3 rounded-lg bg-slate-50 border border-gray-300 text-neutral-800 text-base">
+                  {userProfile.access_point.name || "No asignado"}
+                </p>
+                <p className="text-xs text-gray-500 mt-1">
+                  La asignación de puntos de acceso la realiza el administrador.
+                </p>
+              </div>
+            )}
+
             <div>
               <label className="block text-sm font-semibold text-neutral-600 mb-1">
                 Contraseña:
@@ -307,7 +389,7 @@ const PersonalData: React.FC = () => {
                 </button>
               </div>
               <p className="text-xs text-gray-500 mt-1">
-                Por seguridad, para cambiar tu contraseña serás redirigido a una página específica.
+                Por seguridad, se te redirigirá a una página específica para cambiar tu contraseña.
               </p>
             </div>
           </form>
