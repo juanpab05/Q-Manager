@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import imgRegister from '@/assets/imagenCreateUser.png'; // Consider using a different image or none for regular users
+// import imgRegister from '@/assets/imagenCreateUser.png'; // Consider using a different image or none for regular users
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { registerUser, UserRegistrationData } from '@/api/userService';
 import { ToastContainer, toast } from 'react-toastify';

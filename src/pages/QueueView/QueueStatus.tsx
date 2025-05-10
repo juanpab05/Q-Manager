@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 // Navbar import is intentionally removed
 import { getQueueStatus, subscribeToTicketUpdates } from '@/api/ticketService';
 // import { getAllAnnouncements } from '@/api/announcementService'; // Removed
-import { formatMediaUrl } from '@/utils/mediaUtils'; // This might be unused now
 import { AnimatePresence, motion } from 'framer-motion';
 import supabase from '@/utils/supabaseClient';
 import AnnouncementsCarousel from '@/components/AnnouncementsCarousel/AnnouncementsCarousel'; // Added
@@ -202,12 +201,6 @@ const QueueStatusView: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const hasTicketChanged = (oldTicket: Ticket | null, newTicket: Ticket | null) => {
-    if ((!oldTicket && newTicket) || (oldTicket && !newTicket)) return true;
-    if (!oldTicket && !newTicket) return false;
-    return oldTicket?.id !== newTicket?.id || oldTicket?.status !== newTicket?.status;
   };
 
   const shouldAnimate = (ticket: Ticket | null) => {
@@ -506,7 +499,7 @@ const QueueStatusView: React.FC = () => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {queueStatus.next_tickets.map((ticket, index) => {
+                {queueStatus.next_tickets.map((ticket) => {
                   const isUpdated = shouldAnimate(ticket);
                   
                   return (

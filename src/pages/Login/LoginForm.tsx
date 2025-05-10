@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { useAuth } from "@/contexts/auth/AuthContext";
@@ -88,7 +88,7 @@ const LoginForm: React.FC = () => {
       // Format phone number to include country code if not present
       const formattedPhone = phoneNumber.startsWith('+') ? phoneNumber : `+${phoneNumber}`;
       
-      const { data, error } = await supabase.auth.signInWithOtp({
+      const { error } = await supabase.auth.signInWithOtp({
         phone: formattedPhone,
       });
 
@@ -119,7 +119,7 @@ const LoginForm: React.FC = () => {
       // Format phone number to include country code if not present
       const formattedPhone = phoneNumber.startsWith('+') ? phoneNumber : `+${phoneNumber}`;
       
-      const { data, error } = await supabase.auth.verifyOtp({
+      const { error } = await supabase.auth.verifyOtp({
         phone: formattedPhone,
         token: otp,
         type: 'sms',

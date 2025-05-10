@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import imgRegister from '@/assets/imagenCreateUser.png';
+// import imgRegister from '@/assets/imagenCreateUser.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import useMediaQuery from '@/hooks/useMediaQuery';

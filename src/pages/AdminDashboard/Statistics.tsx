@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { getSystemStatistics, SystemStatistics } from '@/api/accessPointService';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  Cell, LineChart, Line, AreaChart, Area, TooltipProps
+  Cell, TooltipProps
 } from 'recharts';
 
 // Color palette to maintain design consistency
