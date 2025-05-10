@@ -15,6 +15,10 @@ import supabase from "@/services/supabase";
 import userService from "@/services/userService";
 import { User } from "@supabase/supabase-js";
 
+// Define the inactivity timeout (24 hours in milliseconds)
+const INACTIVITY_TIMEOUT = 24 * 60 * 60 * 1000; // 24 hours
+const LAST_ACTIVITY_KEY = 'last_activity_timestamp';
+
 interface AuthContextType {
   user: User | null;
   userProfile: any | null; // Consider defining a more specific type for userProfile
@@ -26,6 +30,7 @@ interface AuthContextType {
   updatePassword: (password: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   isAuthenticated: boolean;
+  updateLastActivity: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -125,6 +130,42 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  // Function to update the user's last activity timestamp
+  const updateLastActivity = () => {
+    if (user) {
+      const timestamp = Date.now();
+      localStorage.setItem(LAST_ACTIVITY_KEY, timestamp.toString());
+      console.log('AuthContext: Updated last activity timestamp', new Date(timestamp).toISOString());
+    }
+  };
+
+  // Function to check if the user has been inactive for too long
+  const checkInactivity = () => {
+    if (!user) return;
+    
+    const lastActivityStr = localStorage.getItem(LAST_ACTIVITY_KEY);
+    if (!lastActivityStr) {
+      // If no last activity, set it now
+      updateLastActivity();
+      return;
+    }
+    
+    const lastActivity = parseInt(lastActivityStr, 10);
+    const currentTime = Date.now();
+    const timeSinceLastActivity = currentTime - lastActivity;
+    
+    console.log('AuthContext: Time since last activity:', Math.round(timeSinceLastActivity / 60000), 'minutes');
+    
+    if (timeSinceLastActivity > INACTIVITY_TIMEOUT) {
+      console.log('AuthContext: User inactive for too long, logging out automatically');
+      // User has been inactive for too long, log them out
+      logout();
+    } else {
+      // Update the timestamp as the user is still active
+      updateLastActivity();
+    }
+  };
+
   useEffect(() => {
     isMounted.current = true;
     setLoading(true);
@@ -136,19 +177,47 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (!isMounted.current) return;
         
         if (data.session?.user) {
+          // Check for inactivity before setting the user
+          const lastActivityStr = localStorage.getItem(LAST_ACTIVITY_KEY);
+          if (lastActivityStr) {
+            const lastActivity = parseInt(lastActivityStr, 10);
+            const currentTime = Date.now();
+            const timeSinceLastActivity = currentTime - lastActivity;
+            
+            if (timeSinceLastActivity > INACTIVITY_TIMEOUT) {
+              console.log('AuthContext: User inactive for too long, logging out on initialization');
+              await supabase.auth.signOut();
+              setUser(null);
+              setUserProfile(null);
+              loadedProfileId.current = null;
+              localStorage.removeItem(LAST_ACTIVITY_KEY);
+              setLoading(false);
+              return;
+            }
+          }
+          
+          // User is active or no activity recorded yet
           setUser(data.session.user);
           await fetchAndSetUserProfile(data.session.user.id);
+          updateLastActivity();
         }
       } catch (error) {
         console.error("Error al inicializar Auth:", error);
       } finally {
         if (isMounted.current) {
-        setLoading(false);
+          setLoading(false);
         }
       }
     };
     
     initializeAuth();
+    
+    // Set up a periodic check for inactivity
+    const inactivityCheckInterval = setInterval(() => {
+      if (user) {
+        checkInactivity();
+      }
+    }, 60000); // Check every minute
     
     // Suscribirse a cambios en la autenticación
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -165,6 +234,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           if (event === 'USER_UPDATED') {
             await fetchAndSetUserProfile(session.user.id);
           }
+          
+          // Update last activity timestamp
+          updateLastActivity();
           return;
         }
         
@@ -176,6 +248,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 
                 // Make sure we wait for the profile data to be fetched and set
                 await fetchAndSetUserProfile(session.user.id);
+                
+                // Update last activity timestamp on sign in
+                updateLastActivity();
                 
                 // Check if this is a new user (post-email-confirmation)
                 // We'll check the auth metadata to see if this is a first login after email confirmation
@@ -246,6 +321,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             setUser(null);
             setUserProfile(null);
             loadedProfileId.current = null;
+            localStorage.removeItem(LAST_ACTIVITY_KEY);
             break;
             
           default:
@@ -257,7 +333,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     return () => {
       isMounted.current = false;
-        subscription.unsubscribe();
+      subscription.unsubscribe();
+      clearInterval(inactivityCheckInterval);
     };
   }, []);
 
@@ -268,6 +345,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         console.error("AuthContext: Login error:", error.message);
         return false;
       }
+      
+      // Set last activity timestamp upon successful login
+      if (data.user) {
+        updateLastActivity();
+      }
+      
       return !!data.user;
     } catch (err) {
       console.error("AuthContext: CATCH block login error:", err);
@@ -310,6 +393,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return { success: false, error: error.message };
       }
       
+      // Set last activity timestamp upon successful verification
+      updateLastActivity();
+      
       return { success: true };
     } catch (err: any) {
       console.error("AuthContext: Verify OTP error:", err);
@@ -344,6 +430,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return { success: false, error: error.message };
       }
       
+      // Update last activity timestamp after password update
+      updateLastActivity();
+      
       return { success: true };
     } catch (err: any) {
       console.error("AuthContext: Update password error:", err);
@@ -362,6 +451,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUser(null);
       setUserProfile(null);
       loadedProfileId.current = null;
+      localStorage.removeItem(LAST_ACTIVITY_KEY);
     } catch (err) {
       console.error("AuthContext: CATCH block logout error:", err);
     } finally {
@@ -380,6 +470,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     updatePassword,
     logout,
     isAuthenticated: !!user,
+    updateLastActivity,
   };
   
   // console.log("AuthContext: Provider rendering with state:", contextValue);

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link, NavLink } from "react-router-dom";
 import { useAuth } from '@/contexts/auth/AuthContext';
+import supabase from '@/utils/supabaseClient';
 
 const useMediaQuery = (query: string): boolean => {
   const [matches, setMatches] = useState(false);
@@ -34,12 +35,32 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       console.log("Navbar: Attempting to logout...");
+      
+      // Clear any local storage items first
+      localStorage.removeItem("usuario");
+      localStorage.removeItem("last_activity_timestamp");
+      
+      // Use both the auth context logout and a direct Supabase signOut for redundancy
+      // This ensures we cover both the context state and the actual auth session
       await auth.logout();
+      
+      // Also try a direct signOut as a fallback
+      await supabase.auth.signOut();
+      
       console.log("Navbar: Logout completed, navigating to home");
-      localStorage.removeItem("usuario"); // Clear any user data in localStorage
-      navigate("/");
+      
+      // Force a page reload to clear any remaining state
+      window.location.href = '/';
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
+      
+      // Even if there's an error, try to navigate home
+      navigate("/");
+      
+      // If all else fails, force a page reload
+      if (auth?.isAuthenticated) {
+        window.location.reload();
+      }
     }
   };
 
@@ -82,6 +103,14 @@ const Navbar = () => {
   const logoutBtn = "px-4 py-2 rounded-md text-sm font-medium text-white bg-red-500 hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-800 transition-all duration-200 ease-out transform hover:scale-105 active:scale-95";
   const mobileLogoutBtn = `block w-full text-left px-4 py-3 text-base rounded-md ${logoutBtn}`;
 
+  // Function to handle clicks on logout buttons with event capturing
+  const handleLogoutClick = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent any default behavior
+    e.stopPropagation(); // Stop event propagation
+    handleLogout(); // Call the logout function
+    return false; // Ensure no additional handlers are called
+  };
+
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${scrolled || menuOpen ? "bg-white shadow-xl backdrop-blur-md" : "bg-transparent shadow-md"}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -104,7 +133,12 @@ const Navbar = () => {
                 <NavLink to="/about" className={getClass}>Sobre nosotros</NavLink>
 
                 {isAuthenticated ? (
-                  <button onClick={handleLogout} className={logoutBtn}>Cerrar sesión</button>
+                  <button 
+                    onClick={handleLogoutClick}
+                    className={logoutBtn}
+                  >
+                    Cerrar sesión
+                  </button>
                 ) : (
                   <>
                     <NavLink to="/register-user" className={getClass}>Regístrate</NavLink>
@@ -156,7 +190,15 @@ const Navbar = () => {
             <NavLink to="/about" className={getMobileClass} onClick={() => setMenuOpen(false)}>Sobre nosotros</NavLink>
 
             {isAuthenticated ? (
-              <button onClick={() => { handleLogout(); setMenuOpen(false); }} className={mobileLogoutBtn}>Cerrar sesión</button>
+              <button 
+                onClick={(e) => { 
+                  setMenuOpen(false);
+                  handleLogoutClick(e);
+                }} 
+                className={mobileLogoutBtn}
+              >
+                Cerrar sesión
+              </button>
             ) : (
               <>
                 <NavLink to="/register-user" className={getMobileClass} onClick={() => setMenuOpen(false)}>Regístrate</NavLink>
