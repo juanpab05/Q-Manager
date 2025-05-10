@@ -21,7 +21,7 @@ interface TeamMember {
 // Datos de los miembros del equipo (reemplaza con tus datos reales)
 const teamMembers: TeamMember[] = [
 // { id: 1, name: "David Santiago Guerrero Delgado", role: "Desarrollador Frontend"},
-  { id: 1, name: "Cristian Daniel Guaza Mejia", role: "Desarrollador Fullstack & DB"},
+  // { id: 1, name: "Cristian Daniel Guaza Mejia", role: "Desarrollador Fullstack & DB"},
 //  { id: 3, name: "Jhonier Mendez Bravo", role: "Desarrollador Backend"},
 //  { id: 4, name: "Juan Pablo Pazmiño Caicedo", role: "Desarrollador Backend & DB"},
 //  { id: 5, name: "Fernando Cardona Giraldo", role: "Desarollador Backend"},
