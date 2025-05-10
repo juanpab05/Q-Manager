@@ -56,7 +56,7 @@ export default function HomePage() {
             Bienvenido a <span className="text-indigo-600">Q-Manager</span>
           </h1>
           <p className="text-neutral-600 text-base sm:text-lg mb-8 max-w-xl lg:max-w-2xl mx-auto">
-            Gestiona usuarios, crea turnos y organiza el flujo de atención de manera eficiente, rápida y sin complicaciones. ¡Todo bajo tu control!
+            Optimiza tu tiempo con nuestro sistema de gestión de turnos. Una experiencia más ágil y ordenada para todos los usuarios.
           </p>
 
           {/* Botones de navegación */}
@@ -104,17 +104,17 @@ export default function HomePage() {
             <FeatureHighlightCard
               icon={<LightBulbIcon className="w-10 h-10 sm:w-12 sm:h-12" />}
               title="Intuitivo y Fácil de Usar"
-              description="Diseñado para una experiencia de usuario fluida, permitiendo gestionar turnos y usuarios sin complicaciones."
+              description="Diseñado para una experiencia sencilla, permitiéndote solicitar y hacer seguimiento a tus turnos sin complicaciones."
             />
             <FeatureHighlightCard
               icon={<ClockIcon className="w-10 h-10 sm:w-12 sm:h-12" />}
-              title="Eficiencia y Rapidez"
-              description="Optimiza tu tiempo y recursos con nuestra herramienta, garantizando procesos ágiles y una atención rápida."
+              title="Ahorra Tiempo"
+              description="Evita esperas innecesarias y planifica mejor tu día con nuestro eficiente sistema de gestión de turnos."
             />
             <FeatureHighlightCard
               icon={<CogIcon className="w-10 h-10 sm:w-12 sm:h-12" />}
-              title="Control Total"
-              description="Mantén todo organizado y bajo control, desde la creación de usuarios hasta la gestión detallada de los puntos de atención."
+              title="Información en Tiempo Real"
+              description="Mantente informado sobre el estado de tu turno y los tiempos estimados de espera."
             />
           </div>
         </div>
