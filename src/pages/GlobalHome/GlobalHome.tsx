@@ -33,7 +33,7 @@ const FeatureHighlightCard: React.FC<FeatureHighlightProps> = ({ icon, title, de
     <div className="text-indigo-600 mb-4">
       {icon}
     </div>
-    <h3 className="text-xl font-semibold text-neutral-700 mb-2">{title}</h3>
+    <h3 className="text-xl font-semibold text-neutral-700 mb-2 text-center">{title}</h3>
     <p className="text-neutral-600 text-sm text-center">{description}</p>
   </div>
 );

@@ -100,26 +100,15 @@ const SignupPage: React.FC = () => {
       // Store the registered email for the success message
       setRegisteredEmail(formData.email);
       
-      // Now register the user profile in your database
-      try {
-        await registerUser({
-          nombre: formData.nombre,
-          cedula: formData.cedula,
-          email: formData.email,
-          phone_number: formData.phoneNumber,
-          password: formData.password,
-          has_priority: formData.hasPriority,
-          motive: formData.hasPriority ? formData.priorityMotive : '',
-        }, 'actor'); // Register as an actor type
-        
-        setRegistrationSuccess(true);
-        toast.success('¡Registro exitoso! Por favor, revisa tu correo para confirmar tu cuenta.');
-      } catch (profileError: any) {
-        console.error("Error registering user profile:", profileError);
-        // Even if profile creation fails, auth was successful, so show confirmation message
-        setRegistrationSuccess(true);
-        toast.warning('Cuenta creada, pero hubo un problema con tu perfil. Por favor contacta a soporte después de confirmar tu correo.');
-      }
+      // Set registration as successful - we'll save profile data after email confirmation
+      setRegistrationSuccess(true);
+      toast.success('¡Registro exitoso! Por favor, revisa tu correo para confirmar tu cuenta.');
+      
+      // Don't attempt to save the profile data here since the user isn't authenticated yet
+      // The profile data will be created after email confirmation and login
+      console.log('Usuario creado exitosamente en Auth. ID:', authData.user.id);
+      console.log('Se creará el perfil completo después de la confirmación del correo.');
+      
     } catch (error: any) {
       console.error("SignupPage: Error during handleSubmit:", error);
       toast.error(error.message || 'Ocurrió un error durante el registro.');
