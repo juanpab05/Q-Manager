@@ -51,6 +51,7 @@ const RequestTicketPage: React.FC = () => {
   const [successData, setSuccessData] = useState<SuccessData | null>(null);
   const [pendingTicket, setPendingTicket] = useState<PendingTicketData | null>(null);
   const [isCheckingPendingTicket, setIsCheckingPendingTicket] = useState<boolean>(true);
+  const [userPriority, setUserPriority] = useState<boolean>(false);
 
   useEffect(() => {
     const checkAuth = () => {
@@ -89,26 +90,59 @@ const RequestTicketPage: React.FC = () => {
     // Check user priority status
     const checkPriorityStatus = async () => {
       try {
+        // First check if actor data is available in userProfile
         if (authContext.userProfile?.actor) {
           console.log('User priority status from profile:', authContext.userProfile.actor.has_priority);
-        } else {
-          console.log('User profile does not have actor data, checking API...');
-          const { data: { user } } = await supabase.auth.getUser();
-          
-          if (user) {
-            // Check actor table directly
-            const { data: actorData, error } = await supabase
-              .from('actors')
-              .select('has_priority, motive')
-              .eq('user_id', user.id)
-              .single();
-              
-            if (error && error.code !== 'PGRST116') {
-              console.error('Error fetching user priority status:', error);
-            } else if (actorData) {
-              console.log('User priority status from API:', actorData.has_priority);
-            } else {
-              console.log('No actor data found for user');
+          setUserPriority(authContext.userProfile.actor.has_priority);
+          return; // Exit if we have data from the profile
+        } 
+        
+        // If actor property doesn't exist and we have details field, try that (for backward compatibility)
+        if (authContext.userProfile?.details && authContext.userProfile.userType === 'actor') {
+          console.log('User priority status from profile details:', authContext.userProfile.details.has_priority);
+          setUserPriority(authContext.userProfile.details.has_priority);
+          return; // Exit if we found priority info in details
+        }
+        
+        // If we don't have actor data in the profile, check API directly
+        console.log('User profile does not have actor data, checking API...');
+        const { data: { user } } = await supabase.auth.getUser();
+        
+        if (user) {
+          // Check actor table directly
+          const { data: actorData, error } = await supabase
+            .from('actors')
+            .select('has_priority, motive')
+            .eq('user_id', user.id)
+            .single();
+            
+          if (error && error.code !== 'PGRST116') {
+            console.error('Error fetching user priority status:', error);
+          } else if (actorData) {
+            console.log('User priority status from API:', actorData.has_priority);
+            setUserPriority(actorData.has_priority);
+          } else {
+            console.log('No actor data found for user');
+            setUserPriority(false);
+            
+            // If no actor record exists, try to create one
+            try {
+              console.log('Creating actor record for user:', user.id);
+              const { error: createError } = await supabase
+                .from('actors')
+                .insert({
+                  user_id: user.id,
+                  has_priority: false,
+                  motive: ''
+                });
+                
+              if (createError) {
+                console.error('Error creating actor record:', createError);
+              } else {
+                console.log('Actor record created successfully');
+              }
+            } catch (err) {
+              console.error('Error creating actor record:', err);
             }
           }
         }
@@ -118,10 +152,9 @@ const RequestTicketPage: React.FC = () => {
     };
     
     checkPriorityStatus();
-
     checkAuth();
     checkExistingTicket();
-  }, [authContext, navigate]);
+  }, [authContext, navigate, authContext.userProfile]);
 
   const handleServiceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
@@ -179,16 +212,14 @@ const RequestTicketPage: React.FC = () => {
       return;
     }
 
-    const userProfile = authContext.userProfile; // Get userProfile
-    // Determine if the user/ticket is priority based on their profile
-    const isPriority = userProfile?.actor?.has_priority || false;
-    console.log('Is user priority?', isPriority, 'User profile:', userProfile);
+    // Use the state variable instead of looking up the profile each time
+    console.log('Is user priority?', userPriority);
 
     const payload: TicketRequestData = {
       service: serviceToSend,
       modality: selectedModality,
       user_id: authContext.user.id,
-      is_priority: isPriority, // Pass is_priority in the payload
+      is_priority: userPriority, // Use state variable for priority
     };
 
     try {

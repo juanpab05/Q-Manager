@@ -51,7 +51,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const isMounted = useRef(true);
 
   const fetchAndSetUserProfile = async (userId: string): Promise<any | null> => {
-    if (!userId || loadedProfileId.current === userId) {
+    if (!userId) {
       return userProfile;
     }
 
@@ -59,12 +59,55 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.log(`AuthContext: Iniciando fetchAndSetUserProfile para userId: ${userId}`);
       setLoading(true);
       
+      // Clear the loaded profile ID reference to force a fresh fetch
+      // This ensures we always get the latest data after sign-in events
+      if (loadedProfileId.current === userId) {
+        loadedProfileId.current = null;
+      }
+      
+      // Get fresh profile data
       const profile = await userService.getUserById(userId);
       
       if (!isMounted.current) return null;
       
       if (!profile) {
         console.error(`AuthContext: No se pudo obtener el perfil para el usuario ${userId}`);
+        
+        // If profile fetch fails but we have a valid user, try to ensure actor record exists
+        // This helps with first-time logins where profile might be incomplete
+        if (user && user.id === userId) {
+          try {
+            console.log(`AuthContext: Verificando/creando registro de actor para ${userId}`);
+            // Check if actor record exists
+            const { data: actorData, error: actorQueryError } = await supabase
+              .from('actors')
+              .select('*')
+              .eq('user_id', userId)
+              .maybeSingle();
+              
+            if (!actorData && (!actorQueryError || actorQueryError.code === 'PGRST116')) {
+              // Create actor record if it doesn't exist
+              const { error: actorCreateError } = await supabase
+                .from('actors')
+                .insert({
+                  user_id: userId,
+                  has_priority: false,
+                  motive: ''
+                });
+                
+              if (actorCreateError) {
+                console.error('AuthContext: Error creating actor record:', actorCreateError);
+              } else {
+                console.log('AuthContext: Actor record created successfully');
+                // Try fetching the profile again after creating actor record
+                return await fetchAndSetUserProfile(userId);
+              }
+            }
+          } catch (error) {
+            console.error('AuthContext: Error en la verificación/creación de actor:', error);
+          }
+        }
+        
         return null;
       }
 
@@ -130,7 +173,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           case 'SIGNED_IN':
             if (session?.user) {
                 setUser(session.user);
-                await fetchAndSetUserProfile(session.user.id);
+                
+                // Make sure we wait for the profile data to be fetched and set
+                const userProfileData = await fetchAndSetUserProfile(session.user.id);
                 
                 // Check if this is a new user (post-email-confirmation)
                 // We'll check the auth metadata to see if this is a first login after email confirmation
@@ -185,6 +230,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                         }
                         
                         // Refresh user profile
+                        // Force fresh fetch by clearing the loaded profile ID
+                        loadedProfileId.current = null;
                         await fetchAndSetUserProfile(session.user.id);
                       }
                     }

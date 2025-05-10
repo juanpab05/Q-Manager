@@ -72,7 +72,20 @@ const QueueStatusView: React.FC = () => {
     // Check if user is admin or worker (staff)
     const checkUserStatus = async () => {
       try {
-        // If we have user data and userProfile
+        // First check if we have a userProfile and use that data if available
+        if (auth.userProfile) {
+          // Set staff status from userProfile
+          setIsStaff(auth.userProfile.is_staff || auth.userProfile.is_superuser);
+          
+          // Check for priority status in the actor data if present
+          if (auth.userProfile.details && auth.userProfile.userType === 'actor') {
+            console.log('User priority status from userProfile:', auth.userProfile.details.has_priority);
+            setIsPriority(auth.userProfile.details.has_priority);
+            return; // Exit early as we already have the data
+          }
+        }
+        
+        // Fallback to direct query if userProfile doesn't have what we need
         if (auth.user?.id) {
           // Check for worker/admin status
           const { data, error } = await supabase
@@ -107,7 +120,7 @@ const QueueStatusView: React.FC = () => {
     };
     
     checkUserStatus();
-  }, [auth.user]);
+  }, [auth.user, auth.userProfile]); // Add userProfile as dependency
 
   useEffect(() => {
     // Run schema fix first
@@ -137,7 +150,7 @@ const QueueStatusView: React.FC = () => {
       // Add to updates for animation purposes
       setUpdates(prev => [...prev, {id: payload.new.id, type: 'ticket'}]);
       // Refresh data on any ticket change
-    fetchData();
+      fetchData();
     });
     
     // Use a simple interval for access point updates since we don't have the subscription function
@@ -147,16 +160,7 @@ const QueueStatusView: React.FC = () => {
       ticketUnsubscribe();
       clearInterval(intervalId);
     };
-  }, []);
-
-  // useEffect(() => { // Removed block for announcement rotation
-  //   if (announcements.length > 1) {
-  //     const rotationIntervalId = setInterval(() => {
-  //       setCurrentAnnouncementIndex(prev => (prev + 1) % announcements.length);
-  //     }, 5000);
-  //     return () => clearInterval(rotationIntervalId);
-  //   }
-  // }, [announcements]);
+  }, [auth.userProfile]); // Add userProfile as dependency to re-run when profile is updated
 
   // Remove update animations after they've played
   useEffect(() => {

@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import supabase from '@/services/supabase';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from '@/contexts/auth/AuthContext';
 
 // Iconos
 const EyeIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
@@ -30,13 +31,28 @@ const ResetPasswordPage: React.FC = () => {
   
   const navigate = useNavigate();
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const auth = useAuth(); // Use the auth context
 
   // Verificar si hay una sesión de recuperación al cargar la página
   useEffect(() => {
     const checkSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
-      if (error || !data.session) {
-        setError('La sesión de recuperación ha expirado o es inválida. Por favor, solicite un nuevo enlace de recuperación.');
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        if (error) {
+          console.error('Error checking session:', error);
+          setError('La sesión de recuperación ha expirado o es inválida. Por favor, solicite un nuevo enlace de recuperación.');
+          return;
+        }
+        
+        if (!data.session) {
+          console.log('No active session found for password reset');
+          setError('La sesión de recuperación ha expirado o es inválida. Por favor, solicite un nuevo enlace de recuperación.');
+        } else {
+          console.log('Valid session found for password reset');
+        }
+      } catch (err) {
+        console.error('Error in checkSession:', err);
+        setError('Ocurrió un error al verificar su sesión. Por favor, intente nuevamente.');
       }
     };
     
@@ -60,15 +76,16 @@ const ResetPasswordPage: React.FC = () => {
     }
 
     setLoading(true);
+    
     try {
-      const { error } = await supabase.auth.updateUser({
-        password: newPassword
-      });
-
-      if (error) {
-        throw error;
+      // Use auth context's updatePassword method instead of direct Supabase call
+      const result = await auth.updatePassword(newPassword);
+      
+      if (!result.success) {
+        throw new Error(result.error || 'Error al actualizar contraseña');
       }
 
+      console.log('Password update successful');
       setSuccess(true);
       toast.success('Contraseña actualizada con éxito. Serás redirigido al inicio de sesión en unos momentos.');
       
@@ -76,9 +93,15 @@ const ResetPasswordPage: React.FC = () => {
       setTimeout(() => {
         navigate('/login');
       }, 3000);
-    } catch (error: any) {
-      console.error('Error al restablecer contraseña:', error);
-      toast.error(error.message || 'Error al restablecer la contraseña');
+    } catch (err: any) {
+      console.error('Error al restablecer contraseña:', err);
+      
+      // Show different error messages based on the error type
+      if (err.message?.includes('session')) {
+        toast.error('La sesión ha expirado. Por favor, solicite un nuevo enlace de recuperación.');
+      } else {
+        toast.error(err.message || 'Error al restablecer la contraseña');
+      }
     } finally {
       setLoading(false);
     }
