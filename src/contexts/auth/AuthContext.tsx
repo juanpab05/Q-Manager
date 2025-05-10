@@ -131,6 +131,67 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             if (session?.user) {
                 setUser(session.user);
                 await fetchAndSetUserProfile(session.user.id);
+                
+                // Check if this is a new user (post-email-confirmation)
+                // We'll check the auth metadata to see if this is a first login after email confirmation
+                const metadata = session.user.user_metadata;
+                const fullName = metadata?.full_name;
+                const cedula = metadata?.cedula;
+                const phone = metadata?.phone;
+                
+                if (fullName && cedula) {
+                  console.log(`AuthContext: Detected first login after email confirmation. Creating user profile for: ${fullName}`);
+                  try {
+                    // Try to fetch existing profile
+                    const { data: existingProfile } = await supabase
+                      .from('users')
+                      .select('*')
+                      .eq('id', session.user.id)
+                      .single();
+                      
+                    // Only create profile if it doesn't exist yet
+                    if (!existingProfile) {
+                      // Create user profile now that we have a valid session
+                      const { error: insertError } = await supabase
+                        .from('users')
+                        .insert({
+                          id: session.user.id,
+                          email: session.user.email,
+                          nombre: fullName,
+                          cedula: cedula,
+                          phone_number: phone || '',
+                          is_staff: false,
+                          is_superuser: false
+                        });
+                        
+                      if (insertError) {
+                        console.error('AuthContext: Error creating user profile after email confirmation:', insertError);
+                      } else {
+                        console.log('AuthContext: User profile created successfully after email confirmation');
+                        
+                        // Also create actor record for the user
+                        const { error: actorError } = await supabase
+                          .from('actors')
+                          .insert({
+                            user_id: session.user.id,
+                            has_priority: false,
+                            motive: ''
+                          });
+                          
+                        if (actorError) {
+                          console.error('AuthContext: Error creating actor record:', actorError);
+                        } else {
+                          console.log('AuthContext: Actor record created successfully');
+                        }
+                        
+                        // Refresh user profile
+                        await fetchAndSetUserProfile(session.user.id);
+                      }
+                    }
+                  } catch (error) {
+                    console.error('AuthContext: Error in profile creation after email confirmation:', error);
+                  }
+                }
             }
             break;
             

@@ -247,12 +247,28 @@ const SignupPage: React.FC = () => {
                 </svg>
                 <p className="mt-2 text-lg font-medium">¡Registro Exitoso!</p>
               </div>
-              <p className="text-gray-700">
-                Te hemos enviado un correo a <span className="font-medium">{registeredEmail}</span> con un enlace de confirmación.
-              </p>
-              <p className="text-gray-600">
-                Por favor, revisa tu bandeja de entrada y haz clic en el enlace para activar tu cuenta.
-              </p>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div className="flex items-center mb-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <span className="font-semibold text-blue-800">Importante: Confirma tu correo</span>
+                </div>
+                <p className="text-blue-700 mb-2 text-sm">
+                  Te hemos enviado un correo a <span className="font-medium">{registeredEmail}</span> con un enlace de confirmación.
+                </p>
+                <p className="text-blue-700 text-sm">
+                  <strong>Debes hacer clic en el enlace para activar tu cuenta</strong> antes de poder iniciar sesión.
+                </p>
+              </div>
+              <div className="space-y-3">
+                <p className="text-gray-600 text-sm">
+                  Si no encuentras el correo, revisa tu carpeta de spam o correo no deseado.
+                </p>
+                <p className="text-gray-600 text-sm">
+                  El enlace de confirmación expirará en 24 horas.
+                </p>
+              </div>
               <button
                 onClick={() => navigate('/login')}
                 className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
