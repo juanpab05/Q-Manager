@@ -1,6 +1,6 @@
 // src/pages/RequestTicketPage.tsx
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/auth/AuthContext'; 
 import { requestTicket, checkPendingTicket } from '@/api/ticketService';

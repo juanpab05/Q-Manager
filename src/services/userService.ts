@@ -1,6 +1,4 @@
 import supabase from './supabase';
-import { auth } from './supabase';
-import { User } from '@supabase/supabase-js';
 
 // Interfaces para los tipos de datos
 export interface UserProfile {

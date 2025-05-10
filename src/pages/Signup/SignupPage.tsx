@@ -1,17 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import supabase from '@/services/supabase'; // Assuming supabase service is here
-import userService from '@/services/userService'; // Your user service
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { registerUser } from '@/api/userService'; // Import registerUser directly
-
-// Interface for actor data if created immediately after signup
-interface ActorData {
-  user_ptr_id: string; // This should be the UUID from auth.users
-  has_priority: boolean;
-  motive?: string | null;
-}
 
 const SignupPage: React.FC = () => {
   const navigate = useNavigate();
