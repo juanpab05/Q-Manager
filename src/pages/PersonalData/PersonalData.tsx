@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/contexts/auth/AuthContext"; // Use AuthContext
-// No need for getUserProfile from @/api/userService if using AuthContext.userProfile
+import { useAuth } from "@/contexts/auth/AuthContext";
+import userService from "@/services/userService";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // UserProfile type can be imported from AuthContext or userService if defined globally
 // For now, let's rely on the type inferred from useAuth().userProfile
@@ -10,7 +12,31 @@ import { useAuth } from "@/contexts/auth/AuthContext"; // Use AuthContext
 const PersonalData: React.FC = () => {
   const navigate = useNavigate();
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const { userProfile, loading: authLoading, isAuthenticated } = useAuth(); // Get data from AuthContext
+  const { userProfile, loading: authLoading, isAuthenticated } = useAuth();
+  
+  // State for edit mode
+  const [isEditing, setIsEditing] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  
+  // Form state
+  const [formData, setFormData] = useState({
+    nombre: "",
+    cedula: "",
+    email: "",
+    phone_number: ""
+  });
+
+  // Initialize form data when userProfile changes
+  useEffect(() => {
+    if (userProfile) {
+      setFormData({
+        nombre: userProfile.nombre || "",
+        cedula: userProfile.cedula?.toString() || "",
+        email: userProfile.email || "",
+        phone_number: userProfile.phone_number || ""
+      });
+    }
+  }, [userProfile]);
 
   useEffect(() => {
     // If auth is not loading and user is not authenticated, redirect to login
@@ -23,9 +49,87 @@ const PersonalData: React.FC = () => {
     "py-3 px-6 rounded-lg font-semibold text-base shadow-md hover:shadow-lg active:scale-95 transition-all duration-300 ease-in-out flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2";
   
   const actionButtonClasses = `${baseButtonStyles} w-full sm:w-auto bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-100 focus:ring-indigo-500`;
+  
+  const primaryButtonClasses = `${baseButtonStyles} w-full sm:w-auto bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500`;
 
   const handleGoBack = () => {
     navigate("/home-user");
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleCancelEdit = () => {
+    // Reset form data to original values
+    if (userProfile) {
+      setFormData({
+        nombre: userProfile.nombre || "",
+        cedula: userProfile.cedula?.toString() || "",
+        email: userProfile.email || "",
+        phone_number: userProfile.phone_number || ""
+      });
+    }
+    setIsEditing(false);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!userProfile?.id) {
+      toast.error("No se pueden actualizar los datos en este momento");
+      return;
+    }
+
+    try {
+      setIsSaving(true);
+      
+      // Simple validation
+      if (!formData.nombre || !formData.email || !formData.cedula) {
+        toast.error("Por favor completa todos los campos obligatorios");
+        setIsSaving(false);
+        return;
+      }
+
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        toast.error("Por favor ingresa un correo electrónico válido");
+        setIsSaving(false);
+        return;
+      }
+
+      // Cedula validation - must be a number
+      const cedulaNumber = parseInt(formData.cedula, 10);
+      if (isNaN(cedulaNumber) || cedulaNumber.toString() !== formData.cedula.trim()) {
+        toast.error("La cédula debe ser un número válido sin espacios ni caracteres especiales");
+        setIsSaving(false);
+        return;
+      }
+
+      // Convert cedula to number before updating
+      const dataToUpdate = {
+        ...formData,
+        cedula: cedulaNumber
+      };
+
+      await userService.updateUser(userProfile.id, dataToUpdate);
+      toast.success("Datos actualizados correctamente");
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error al actualizar los datos:", error);
+      toast.error("No se pudieron actualizar los datos. Inténtalo de nuevo más tarde.");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   // Show loading indicator while AuthContext is loading or if userProfile is not yet available
@@ -44,7 +148,7 @@ const PersonalData: React.FC = () => {
     return (
       <>
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-          <p className="text-gray-600 text-lg">Redirigiendo a login...</p> {/* Or display nothing as redirect happens */}
+          <p className="text-gray-600 text-lg">Redirigiendo a login...</p>
         </div>
       </>
     );
@@ -71,6 +175,7 @@ const PersonalData: React.FC = () => {
   // At this point, userProfile should be available
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+      <ToastContainer position={isMobile ? "bottom-center" : "top-right"} />
       <main className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28">
         <div
           className={`w-full ${
@@ -81,61 +186,180 @@ const PersonalData: React.FC = () => {
             Mis Datos Personales
           </h2>
 
-          <div className="space-y-5 sm:space-y-6 mb-8 sm:mb-10">
+          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6 mb-8 sm:mb-10">
             <div>
-              <label className="block text-sm font-semibold text-neutral-600 mb-1">
+              <label htmlFor="nombre" className="block text-sm font-semibold text-neutral-600 mb-1">
                 Nombre:
               </label>
-              <p className="w-full p-3 rounded-lg bg-slate-50 border border-gray-300 text-neutral-800 text-base">
-                {userProfile.nombre || "No disponible"}
-              </p>
+              {isEditing ? (
+                <input
+                  id="nombre"
+                  name="nombre"
+                  type="text"
+                  value={formData.nombre}
+                  onChange={handleInputChange}
+                  className="w-full p-3 rounded-lg bg-white border border-gray-300 text-neutral-800 text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  required
+                />
+              ) : (
+                <p className="w-full p-3 rounded-lg bg-slate-50 border border-gray-300 text-neutral-800 text-base">
+                  {userProfile.nombre || "No disponible"}
+                </p>
+              )}
+              {isEditing && (
+                <p className="text-xs text-gray-500 mt-1">
+                  Ingresa tu nombre completo.
+                </p>
+              )}
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-neutral-600 mb-1">
+              <label htmlFor="cedula" className="block text-sm font-semibold text-neutral-600 mb-1">
                 Cédula:
               </label>
-              <p className="w-full p-3 rounded-lg bg-slate-50 border border-gray-300 text-neutral-800 text-base">
-                {userProfile.cedula || "No disponible"}
-              </p>
+              {isEditing ? (
+                <input
+                  id="cedula"
+                  name="cedula"
+                  type="text"
+                  value={formData.cedula}
+                  onChange={handleInputChange}
+                  className="w-full p-3 rounded-lg bg-white border border-gray-300 text-neutral-800 text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  required
+                />
+              ) : (
+                <p className="w-full p-3 rounded-lg bg-slate-50 border border-gray-300 text-neutral-800 text-base">
+                  {userProfile.cedula || "No disponible"}
+                </p>
+              )}
+              {isEditing && (
+                <p className="text-xs text-gray-500 mt-1">
+                  Ingresa solo números, sin puntos ni guiones.
+                </p>
+              )}
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-neutral-600 mb-1">
+              <label htmlFor="email" className="block text-sm font-semibold text-neutral-600 mb-1">
                 Correo Electrónico:
               </label>
-              <p className="w-full p-3 rounded-lg bg-slate-50 border border-gray-300 text-neutral-800 text-base">
-                {userProfile.email || "No disponible"}
-              </p>
+              {isEditing ? (
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full p-3 rounded-lg bg-white border border-gray-300 text-neutral-800 text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  required
+                />
+              ) : (
+                <p className="w-full p-3 rounded-lg bg-slate-50 border border-gray-300 text-neutral-800 text-base">
+                  {userProfile.email || "No disponible"}
+                </p>
+              )}
+              {isEditing && (
+                <p className="text-xs text-gray-500 mt-1">
+                  Ingresa un correo electrónico válido (ejemplo@dominio.com).
+                </p>
+              )}
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-neutral-600 mb-1">
+              <label htmlFor="phone_number" className="block text-sm font-semibold text-neutral-600 mb-1">
                 Teléfono:
               </label>
-              <p className="w-full p-3 rounded-lg bg-slate-50 border border-gray-300 text-neutral-800 text-base">
-                {userProfile.phone_number || "No disponible"}
-              </p>
+              {isEditing ? (
+                <input
+                  id="phone_number"
+                  name="phone_number"
+                  type="tel"
+                  value={formData.phone_number}
+                  onChange={handleInputChange}
+                  className="w-full p-3 rounded-lg bg-white border border-gray-300 text-neutral-800 text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                />
+              ) : (
+                <p className="w-full p-3 rounded-lg bg-slate-50 border border-gray-300 text-neutral-800 text-base">
+                  {userProfile.phone_number || "No disponible"}
+                </p>
+              )}
+              {isEditing && (
+                <p className="text-xs text-gray-500 mt-1">
+                  Ingresa tu número de teléfono con formato internacional (ej. +571234567890).
+                </p>
+              )}
             </div>
 
             <div>
               <label className="block text-sm font-semibold text-neutral-600 mb-1">
                 Contraseña:
               </label>
-              <p className="w-full p-3 rounded-lg bg-slate-50 border border-gray-300 text-neutral-800 text-base tracking-widest">
-                ••••••••
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                <p className="w-full sm:flex-1 p-3 rounded-lg bg-slate-50 border border-gray-300 text-neutral-800 text-base tracking-widest">
+                  ••••••••
+                </p>
+                <button
+                  type="button"
+                  onClick={() => navigate("/reset-password")}
+                  className="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
+                >
+                  Cambiar contraseña
+                </button>
+              </div>
+              <p className="text-xs text-gray-500 mt-1">
+                Por seguridad, para cambiar tu contraseña serás redirigido a una página específica.
               </p>
             </div>
-          </div>
+          </form>
 
-          <div className="flex justify-center mt-6 sm:mt-8">
-            <button
-              type="button"
-              onClick={handleGoBack}
-              className={actionButtonClasses}
-            >
-              Regresar
-            </button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6 sm:mt-8">
+            {isEditing ? (
+              <>
+                <button
+                  type="button"
+                  onClick={handleCancelEdit}
+                  className={actionButtonClasses}
+                  disabled={isSaving}
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  onClick={handleSubmit}
+                  className={primaryButtonClasses}
+                  disabled={isSaving}
+                >
+                  {isSaving ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Guardando...
+                    </>
+                  ) : (
+                    "Guardar Cambios"
+                  )}
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={handleGoBack}
+                  className={actionButtonClasses}
+                >
+                  Regresar
+                </button>
+                <button
+                  type="button"
+                  onClick={handleEditClick}
+                  className={primaryButtonClasses}
+                >
+                  Editar Mis Datos
+                </button>
+              </>
+            )}
           </div>
         </div>
       </main>
