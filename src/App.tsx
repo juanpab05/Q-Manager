@@ -1,12 +1,15 @@
 import './styles/App.css'
 import AppRoutes from './routes/AppRoutes'
 // import AuthProvider from '@/contexts/auth/AuthProvider' 
-import { AuthProvider } from '@/contexts/auth/AuthContext'
+import { AuthProvider } from './contexts/auth/AuthContext'
+import NotificationProvider from './contexts/NotificationContext'
 
 function App() {
   return (
     <AuthProvider>
-      <AppRoutes/>
+      <NotificationProvider>
+        <AppRoutes/>
+      </NotificationProvider>
     </AuthProvider>
   )
 }

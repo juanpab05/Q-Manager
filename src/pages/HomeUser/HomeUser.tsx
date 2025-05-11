@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import QueueStatusView from "../QueueView/QueueStatus";
+import NotificationPermission from "@/components/NotificationPermission";
 
 interface Action {
   title: string;
@@ -220,6 +221,7 @@ const HomeUserPage: React.FC = () => {
 
   return (
     <>
+      <NotificationPermission />
       <div className="py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
         <header className="mb-10 text-center">
           <h1 className="text-4xl font-bold text-neutral-800">
