@@ -153,8 +153,8 @@ const HomeUserPage: React.FC = () => {
 
   const workerActions: Action[] = [
     {
-      title: "Gestionar Colas",
-      description: "Administra los puntos de acceso y la atención de tickets.",
+      title: "Gestionar Cola",
+      description: "Administra tu punto de acceso y la atención de tickets.",
       to: "/worker/manage-queue",
       icon: <QueueIcon />,
     },
