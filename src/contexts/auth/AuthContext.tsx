@@ -132,14 +132,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Mejorar el perfil con información de actor/worker
       try {
         // Verificar si es un actor
-        const { data: actorData, error: actorError } = await supabase
+        const { data: actorData } = await supabase
           .from('actors')
           .select('*')
           .eq('user_id', userId)
           .maybeSingle();
 
         // Verificar si es un worker
-        const { data: workerData, error: workerError } = await supabase
+        const { data: workerData } = await supabase
           .from('workers')
           .select('*')
           .eq('user_id', userId)
