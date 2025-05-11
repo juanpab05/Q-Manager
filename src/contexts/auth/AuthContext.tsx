@@ -140,13 +140,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // Function to check if the user has been inactive for too long
   const checkInactivity = () => {
-    if (!user) return;
+    if (!user) return false;
     
     const lastActivityStr = localStorage.getItem(LAST_ACTIVITY_KEY);
     if (!lastActivityStr) {
       // If no last activity, set it now
       updateLastActivity();
-      return;
+      return false;
     }
     
     const lastActivity = parseInt(lastActivityStr, 10);
@@ -157,11 +157,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     
     if (timeSinceLastActivity > INACTIVITY_TIMEOUT) {
       console.log('AuthContext: User inactive for too long, logging out automatically');
-      // User has been inactive for too long, log them out
-      logout();
+      // User has been inactive for too long
+      return true;
     } else {
       // Update the timestamp as the user is still active
       updateLastActivity();
+      return false;
+    }
+  };
+
+  // Force logout due to inactivity
+  const forceLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      setUser(null);
+      setUserProfile(null);
+      loadedProfileId.current = null;
+      localStorage.removeItem(LAST_ACTIVITY_KEY);
+    } catch (error) {
+      console.error("AuthContext: Error during forced logout:", error);
     }
   };
 
@@ -185,11 +199,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             
             if (timeSinceLastActivity > INACTIVITY_TIMEOUT) {
               console.log('AuthContext: User inactive for too long, logging out on initialization');
-              await supabase.auth.signOut();
-              setUser(null);
-              setUserProfile(null);
-              loadedProfileId.current = null;
-              localStorage.removeItem(LAST_ACTIVITY_KEY);
+              await forceLogout();
               setLoading(false);
               return;
             }
@@ -213,10 +223,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     
     // Set up a periodic check for inactivity
     const inactivityCheckInterval = setInterval(() => {
-      if (user) {
-        checkInactivity();
+      if (user && checkInactivity()) {
+        forceLogout();
       }
     }, 60000); // Check every minute
+    
+    // Also check on visibility change (when user comes back to the tab/window)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && user) {
+        if (checkInactivity()) {
+          forceLogout();
+        }
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     
     // Suscribirse a cambios en la autenticación
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -331,6 +352,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             // No hacer nada para otros eventos
             break;
         }
+        
+        if (isMounted.current) {
+          setLoading(false);
+        }
       }
     );
 
@@ -338,6 +363,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       isMounted.current = false;
       subscription.unsubscribe();
       clearInterval(inactivityCheckInterval);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
 
@@ -446,15 +472,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = async (): Promise<void> => {
     try {
       setLoading(true);
+      
+      // First clear state to ensure UI responds immediately
+      setUser(null);
+      setUserProfile(null);
+      loadedProfileId.current = null;
+      localStorage.removeItem(LAST_ACTIVITY_KEY);
+      
+      // Then sign out from supabase
       const { error } = await supabase.auth.signOut();
       if (error) {
         console.error("AuthContext: Logout error:", error);
         throw error;
       }
-      setUser(null);
-      setUserProfile(null);
-      loadedProfileId.current = null;
-      localStorage.removeItem(LAST_ACTIVITY_KEY);
     } catch (err) {
       console.error("AuthContext: CATCH block logout error:", err);
     } finally {
@@ -487,8 +517,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     updateLastActivity,
     refreshUserProfile
   };
-  
-  // console.log("AuthContext: Provider rendering with state:", contextValue);
 
   return (
     <AuthContext.Provider value={contextValue}>
