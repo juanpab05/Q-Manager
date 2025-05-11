@@ -72,7 +72,7 @@ const AboutPage: React.FC = () => {
             <p className="text-lg sm:text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
               Q-Manager es un Sistema de Manejo de Atención a Usuarios diseñado para coordinar y
               gestionar la atención en múltiples puntos, otorgando prioridades y optimizando el flujo
-              de manera eficiente, rápida y sin complicaciones. Nuestro objetivo es transformar la experiencia de espera.
+              de manera eficiente, rápida y sin complicaciones. Nuestro objetivo es mejorar la experiencia de espera.
             </p>
           </section>
 
@@ -88,10 +88,10 @@ const AboutPage: React.FC = () => {
                 title="Nuestra Misión"
               >
                 <p className="mb-3">
-                  Revolucionar la experiencia de gestión de filas y atención al cliente mediante una plataforma intuitiva y eficiente que elimine tiempos de espera innecesarios y proporcione datos valiosos para la toma de decisiones.
+                  Mejorar la experiencia de gestión de filas y atención al cliente mediante una plataforma intuitiva y eficiente que organice los tiempos de espera y proporcione datos valiosos para la toma de decisiones.
                 </p>
                 <p>
-                  Nos comprometemos a mejorar la satisfacción tanto de los usuarios como de la organización, implementando tecnología de vanguardia que respete el tiempo de todos los involucrados y optimice recursos.
+                  Nos comprometemos a mejorar la satisfacción tanto de los usuarios como de la organización, implementando tecnología de vanguardia que optimice los flujos de atención y maximice la eficiencia de recursos.
                 </p>
               </IconSection>
 
@@ -105,10 +105,10 @@ const AboutPage: React.FC = () => {
                 title="Nuestra Visión"
               >
                 <p className="mb-3">
-                  Ser reconocidos como el estándar de excelencia en sistemas de gestión de atención al usuario, optimizando la experiencia del cliente en cada interacción.
+                  Ser reconocidos como el estándar de excelencia en sistemas de gestión de filas y atención al usuario, optimizando la experiencia del cliente en cada interacción.
                 </p>
                 <p>
-                  Aspiramos a construir un futuro donde las filas físicas sean cosa del pasado, reemplazadas por experiencias digitales fluidas que respeten el tiempo de cada persona y generen eficiencias operativas significativas.
+                  Aspiramos a crear un sistema donde los tiempos de espera sean predecibles, la atención sea personalizada, y los recursos sean utilizados de manera óptima, generando una experiencia positiva tanto para los clientes como para el personal.
                 </p>
               </IconSection>
 
