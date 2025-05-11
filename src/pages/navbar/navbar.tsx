@@ -145,7 +145,10 @@ const Navbar = () => {
     return (
       <span 
         className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center"
-        onClick={() => clearNotifications()}
+        onClick={(e) => {
+          e.stopPropagation();
+          clearNotifications();
+        }}
       >
         {notificationCount > 9 ? '9+' : notificationCount}
       </span>
@@ -179,7 +182,7 @@ const Navbar = () => {
                     {shouldShowNotifications && (
                       <Link 
                         to="/home-user"
-                        className="relative p-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 rounded-full"
+                        className="relative p-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 rounded-full inline-flex items-center justify-center"
                         title="Notificaciones"
                         onClick={() => clearNotifications()}
                       >
@@ -212,7 +215,7 @@ const Navbar = () => {
               {isAuthenticated && shouldShowNotifications && (
                 <Link 
                   to="/home-user"
-                  className="relative p-2 mr-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 rounded-full"
+                  className="relative p-2 mr-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 rounded-full inline-flex items-center justify-center"
                   title="Notificaciones"
                   onClick={() => clearNotifications()}
                 >

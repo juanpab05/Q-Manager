@@ -8,6 +8,7 @@ import React, {
   useContext,
   ReactNode,
   useRef,
+  useMemo,
 } from "react";
 // auth is deprecated, use supabase.auth directly for all auth operations
 // import { auth } from "../../services/supabase"; 
@@ -39,7 +40,19 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = (): AuthContextType => {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error("useAuth debe usarse dentro de AuthProvider");
-  return ctx;
+  
+  // Crea una versión memoizada del contexto para evitar renderizaciones innecesarias
+  const memoizedCtx = useMemo(() => {
+    return {
+      ...ctx,
+      // Asegurarnos de que userProfile siempre tenga al menos un objeto vacío para evitar errores null
+      userProfile: ctx.userProfile || {},
+      // Asegurarnos de que isAuthenticated refleje correctamente el estado de autenticación
+      isAuthenticated: !!ctx.user
+    };
+  }, [ctx]);
+  
+  return memoizedCtx;
 };
 
 interface AuthProviderProps {
@@ -65,9 +78,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.log(`AuthContext: Iniciando fetchAndSetUserProfile para userId: ${userId}`);
       setLoading(true);
       
-      // Always get fresh profile data on explicit fetch requests, regardless of loadedProfileId
+      // Always get fresh profile data on explicit fetch requests
       // This ensures we always have the latest data when a fetch is requested
-      loadedProfileId.current = null;
       
       // Get fresh profile data
       const profile = await userService.getUserById(userId);
@@ -116,9 +128,45 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       console.log(`AuthContext: Perfil obtenido exitosamente:`, profile);
-      setUserProfile(profile);
-      loadedProfileId.current = userId;
-      return profile;
+      
+      // Mejorar el perfil con información de actor/worker
+      try {
+        // Verificar si es un actor
+        const { data: actorData, error: actorError } = await supabase
+          .from('actors')
+          .select('*')
+          .eq('user_id', userId)
+          .maybeSingle();
+
+        // Verificar si es un worker
+        const { data: workerData, error: workerError } = await supabase
+          .from('workers')
+          .select('*')
+          .eq('user_id', userId)
+          .maybeSingle();
+          
+        // Crear un perfil enriquecido
+        const enrichedProfile = {
+          ...profile,
+          actor: actorData || null,
+          worker: workerData || null,
+          isActor: !!actorData,
+          isWorker: !!workerData,
+          isAdmin: workerData?.is_admin || false,
+          userType: workerData ? (workerData.is_admin ? 'admin' : 'worker') : (actorData ? 'actor' : 'user')
+        };
+        
+        console.log(`AuthContext: Perfil enriquecido:`, enrichedProfile);
+        setUserProfile(enrichedProfile);
+        loadedProfileId.current = userId;
+        return enrichedProfile;
+      } catch (enrichmentError) {
+        console.error(`AuthContext: Error al enriquecer el perfil:`, enrichmentError);
+        // En caso de error, usar el perfil básico
+        setUserProfile(profile);
+        loadedProfileId.current = userId;
+        return profile;
+      }
     } catch (error) {
       console.error(`AuthContext: Error al cargar el perfil del usuario ${userId}:`, error);
       return null;

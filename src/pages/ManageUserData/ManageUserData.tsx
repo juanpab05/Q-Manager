@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { 
   UserProfile, 
@@ -32,12 +32,23 @@ const ManageUserData: React.FC = () => {
   const [selectAll, setSelectAll] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedUsersToDelete, setSelectedUsersToDelete] = useState<UserListItem[]>([]);
+  // Referencia para saber si el componente está montado
+  const isMounted = useRef(true);
 
   // Form validation
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
+    // Configurar la referencia de montado
+    isMounted.current = true;
+    
+    // Cargar usuarios inmediatamente
     fetchUsers();
+    
+    // Limpiar al desmontar
+    return () => {
+      isMounted.current = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -47,6 +58,9 @@ const ManageUserData: React.FC = () => {
   }, [searchTerm, priorityFilter, users]);
 
   const fetchUsers = async () => {
+    // Si el componente no está montado, no hacer nada
+    if (!isMounted.current) return;
+    
     try {
       setLoading(true);
       // First, ensure data integrity by running the cleanup function
@@ -61,7 +75,11 @@ const ManageUserData: React.FC = () => {
         // Continue with data fetching even if cleanup fails
       }
 
+      console.log("[ManageUserData] Fetching users data...");
       const actorsData = await getActors();
+      
+      // Verificar si el componente sigue montado después de la operación asíncrona
+      if (!isMounted.current) return;
       
       if (!actorsData || !Array.isArray(actorsData)) {
         // Ensure actorsData is an array even if empty
@@ -86,16 +104,26 @@ const ManageUserData: React.FC = () => {
         selected: false
       }));
       
+      // Verificar nuevamente si el componente sigue montado
+      if (!isMounted.current) return;
+      
       setUsers(usersWithSelection);
       setFilteredUsers(usersWithSelection);
-      setLoading(false);
+      console.log("[ManageUserData] Users data loaded successfully:", usersWithSelection.length, "users");
     } catch (error) {
-      console.error("Error fetching users:", error);
+      console.error("[ManageUserData] Error fetching users:", error);
+      // Verificar si el componente sigue montado antes de actualizar el estado
+      if (!isMounted.current) return;
+      
       toast.error("Error al cargar la lista de usuarios (actores).");
       setError(`Error al cargar la lista de usuarios (actores): ${error instanceof Error ? error.message : 'Error desconocido'}`);
       setUsers([]);
       setFilteredUsers([]);
-      setLoading(false);
+    } finally {
+      // Verificar si el componente sigue montado antes de actualizar el estado
+      if (isMounted.current) {
+        setLoading(false);
+      }
     }
   };
 
