@@ -91,7 +91,7 @@ const AboutPage: React.FC = () => {
                   Revolucionar la experiencia de gestión de filas y atención al cliente mediante una plataforma intuitiva y eficiente que elimine tiempos de espera innecesarios y proporcione datos valiosos para la toma de decisiones.
                 </p>
                 <p>
-                  Nos comprometemos a mejorar la satisfacción tanto de los usuarios como de las organizaciones, implementando tecnología de vanguardia que respete el tiempo de todos los involucrados y optimice recursos.
+                  Nos comprometemos a mejorar la satisfacción tanto de los usuarios como de la organización, implementando tecnología de vanguardia que respete el tiempo de todos los involucrados y optimice recursos.
                 </p>
               </IconSection>
 
@@ -105,7 +105,7 @@ const AboutPage: React.FC = () => {
                 title="Nuestra Visión"
               >
                 <p className="mb-3">
-                  Ser reconocidos globalmente como el estándar de excelencia en sistemas de gestión de atención al usuario, presente en diversas industrias y sectores.
+                  Ser reconocidos como el estándar de excelencia en sistemas de gestión de atención al usuario, optimizando la experiencia del cliente en cada interacción.
                 </p>
                 <p>
                   Aspiramos a construir un futuro donde las filas físicas sean cosa del pasado, reemplazadas por experiencias digitales fluidas que respeten el tiempo de cada persona y generen eficiencias operativas significativas.
@@ -171,15 +171,6 @@ const AboutPage: React.FC = () => {
                 </div>
               ))}
             </div>
-          </section>
-
-          {/* Banner Final */}
-          <section className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-center text-white">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4">¿Listo para transformar la experiencia de espera?</h2>
-            <p className="mb-6 max-w-2xl mx-auto">Únete a las organizaciones que ya están mejorando la satisfacción de sus usuarios con Q-Manager.</p>
-            <a href="/register-user" className="inline-block bg-white text-indigo-600 font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all hover:bg-indigo-50 transform hover:scale-105 hover:-translate-y-1">
-              Comenzar ahora
-            </a>
           </section>
           
         </div>
