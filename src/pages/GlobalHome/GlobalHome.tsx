@@ -2,23 +2,30 @@ import {Link } from "react-router-dom"; // Import Link
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { useAuth } from "@/contexts/auth/AuthContext"; // Ensure useAuth is imported
 
-// --- Iconos SVG ---
-const LightBulbIcon = ({ className = "w-8 h-8" }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.354a15.055 15.055 0 0 1-4.5 0M10.5 14.25h3M12 14.25a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v5.25a2.25 2.25 0 0 0 2.25 2.25m2.25-2.25a2.25 2.25 0 0 1-2.25-2.25M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-  </svg>
+// --- Updated modern icons ---
+const UserFriendlyIcon = ({ className = "w-8 h-8" }: { className?: string }) => (
+  <div className="p-3 rounded-xl bg-gradient-to-br from-indigo-400 to-blue-600 shadow-md">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`${className} text-white`}>
+      <path fillRule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z" clipRule="evenodd" />
+      <path fillRule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zm9.586 4.594a.75.75 0 00-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 00-1.06 1.06l1.5 1.5a.75.75 0 001.116-.062l3-3.75z" clipRule="evenodd" />
+    </svg>
+  </div>
 );
 
-const ClockIcon = ({ className = "w-8 h-8" }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-  </svg>
+const TimeIcon = ({ className = "w-8 h-8" }: { className?: string }) => (
+  <div className="p-3 rounded-xl bg-gradient-to-br from-amber-400 to-orange-600 shadow-md">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`${className} text-white`}>
+      <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z" clipRule="evenodd" />
+    </svg>
+  </div>
 );
 
-const CogIcon = ({ className = "w-8 h-8" }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12a7.5 7.5 0 0 0 15 0m-15 0a7.5 7.5 0 1 1 15 0m-15 0H3m18 0h-1.5m-15.036-7.126A11.956 11.956 0 0 1 12 2.25c1.993 0 3.717.62 5.286 1.626m-.002 12.246A11.952 11.952 0 0 1 12 21.75c-1.993 0-3.717-.62-5.286-1.626M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-  </svg>
+const NotificationIcon = ({ className = "w-8 h-8" }: { className?: string }) => (
+  <div className="p-3 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 shadow-md">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`${className} text-white`}>
+      <path fillRule="evenodd" d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z" clipRule="evenodd" />
+    </svg>
+  </div>
 );
 
 // Feature Card Component
@@ -29,8 +36,8 @@ interface FeatureHighlightProps {
 }
 
 const FeatureHighlightCard: React.FC<FeatureHighlightProps> = ({ icon, title, description }) => (
-  <div className="flex flex-col items-center p-6 bg-indigo-50 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
-    <div className="text-indigo-600 mb-4">
+  <div className="flex flex-col items-center p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:translate-y-[-4px]">
+    <div className="mb-4 transform transition-transform hover:scale-110">
       {icon}
     </div>
     <h3 className="text-xl font-semibold text-neutral-700 mb-2 text-center">{title}</h3>
@@ -95,26 +102,26 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Sección de Características Clave */}
+        {/* Sección de Beneficios para Usuarios */}
         <div className="px-6 py-10 sm:px-10 sm:py-16 md:px-16 md:py-20 bg-slate-50 border-t border-slate-200">
           <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-800 mb-10 sm:mb-12 text-center">
-            ¿Por qué elegir nuestro sistema?
+            Mejora tu experiencia como usuario
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto">
             <FeatureHighlightCard
-              icon={<LightBulbIcon className="w-10 h-10 sm:w-12 sm:h-12" />}
-              title="Intuitivo y Fácil de Usar"
-              description="Diseñado para una experiencia sencilla, permitiéndote solicitar y hacer seguimiento a tus turnos sin complicaciones."
+              icon={<UserFriendlyIcon className="w-8 h-8" />}
+              title="Fácil de Usar"
+              description="Solicita tu turno en segundos, sin filas físicas iniciales y sin necesidad de complicados procedimientos."
             />
             <FeatureHighlightCard
-              icon={<ClockIcon className="w-10 h-10 sm:w-12 sm:h-12" />}
-              title="Ahorra Tiempo"
-              description="Evita esperas innecesarias y planifica mejor tu día con nuestro eficiente sistema de gestión de turnos."
+              icon={<TimeIcon className="w-8 h-8" />}
+              title="Libertad de Movimiento"
+              description="Conoce tu tiempo de espera estimado y aprovéchalo como prefieras, sin estar atado a una sala de espera."
             />
             <FeatureHighlightCard
-              icon={<CogIcon className="w-10 h-10 sm:w-12 sm:h-12" />}
-              title="Información en Tiempo Real"
-              description="Mantente informado sobre el estado de tu turno y los tiempos estimados de espera."
+              icon={<NotificationIcon className="w-8 h-8" />}
+              title="Notificaciones Oportunas"
+              description="Recibe alertas cuando tu turno se acerque, permitiéndote llegar justo a tiempo para ser atendido."
             />
           </div>
         </div>
