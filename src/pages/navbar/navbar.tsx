@@ -38,7 +38,12 @@ const Navbar = () => {
   const navigate = useNavigate();
   const auth = useAuth();
   const isAuthenticated = auth?.isAuthenticated;
+  const userProfile = auth?.userProfile;
   const { notificationCount, clearNotifications } = useNotifications();
+  
+  // Check if the user is a regular user or actor who should see notifications
+  const shouldShowNotifications = userProfile && 
+    (userProfile.userType === "user" || userProfile.userType === "actor");
   
   const handleLogout = async () => {
     try {
@@ -170,16 +175,18 @@ const Navbar = () => {
 
                 {isAuthenticated ? (
                   <div className="flex items-center space-x-4">
-                    {/* Botón de notificaciones */}
-                    <Link 
-                      to="/home-user"
-                      className="relative p-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 rounded-full"
-                      title="Notificaciones"
-                      onClick={() => clearNotifications()}
-                    >
-                      <BellIcon />
-                      <NotificationBadge />
-                    </Link>
+                    {/* Botón de notificaciones - solo para usuarios regulares y actores */}
+                    {shouldShowNotifications && (
+                      <Link 
+                        to="/home-user"
+                        className="relative p-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 rounded-full"
+                        title="Notificaciones"
+                        onClick={() => clearNotifications()}
+                      >
+                        <BellIcon />
+                        <NotificationBadge />
+                      </Link>
+                    )}
                     
                     <button 
                       onClick={handleLogoutClick}
@@ -201,8 +208,8 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           {isMobile && (
             <div className="flex items-center">
-              {/* Mobile Notification Button */}
-              {isAuthenticated && (
+              {/* Mobile Notification Button - solo para usuarios regulares y actores */}
+              {isAuthenticated && shouldShowNotifications && (
                 <Link 
                   to="/home-user"
                   className="relative p-2 mr-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 rounded-full"

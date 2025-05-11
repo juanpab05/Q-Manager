@@ -72,6 +72,15 @@ const ManageUserData: React.FC = () => {
         return; // Return early
       }
       
+      // Verifica si hay duplicados
+      const userIds = actorsData.map(actor => actor.id);
+      const uniqueUserIds = [...new Set(userIds)];
+      if (userIds.length !== uniqueUserIds.length) {
+        console.log(`[ManageUserData] Detectados ${userIds.length - uniqueUserIds.length} registros duplicados (IDs de actores) de ${userIds.length} registros totales`);
+      } else {
+        console.log(`[ManageUserData] No se detectaron duplicados. ${userIds.length} usuarios cargados.`);
+      }
+      
       const usersWithSelection = actorsData.map(actor => ({
         ...actor,
         selected: false

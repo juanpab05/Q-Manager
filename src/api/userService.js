@@ -658,7 +658,7 @@ export const getActors = async () => {
     const filteredData = data.filter(actor => !workerIds.includes(actor.user_id));
 
     // Transformamos los datos para manejar mejor la estructura en el frontend
-    return filteredData.map(actor => ({
+    const transformedData = filteredData.map(actor => ({
       id: actor.user_id,
       actor_id: actor.id,
       nombre: actor.user?.nombre || 'Sin nombre',
@@ -673,6 +673,21 @@ export const getActors = async () => {
         motive: actor.motive || ''
       }
     }));
+    
+    // Eliminar duplicados basados en el ID de usuario
+    const uniqueUserIds = new Set();
+    const uniqueActors = transformedData.filter(actor => {
+      if (uniqueUserIds.has(actor.id)) {
+        return false; // Ya existe este ID, filtrar este duplicado
+      } else {
+        uniqueUserIds.add(actor.id);
+        return true; // Primer registro con este ID, mantenerlo
+      }
+    });
+    
+    console.log(`[userService] Filtrado ${transformedData.length - uniqueActors.length} actores duplicados`);
+    
+    return uniqueActors;
   } catch (error) {
     console.error('Error al obtener actores:', error);
     throw error;
