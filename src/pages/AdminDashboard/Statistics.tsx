@@ -4,7 +4,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { getSystemStatistics, SystemStatistics } from '@/api/accessPointService';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  Cell, TooltipProps, PieChart, Pie, LineChart, Line, Area, AreaChart
+  Cell, TooltipProps, PieChart, Pie
 } from 'recharts';
 
 // Color palette for design consistency and better visualizations
