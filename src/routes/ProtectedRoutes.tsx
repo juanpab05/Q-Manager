@@ -53,7 +53,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
     };
     
     const checkPermissionsAndSetState = () => {
-      console.log("ProtectedRoute: Verificando permisos con userProfile:", userProfile);
+      console.log("userProfile:", userProfile);
       
       // Si está autenticado y tenemos el perfil, verificar permisos
       if (isAuthenticated && userProfile) {

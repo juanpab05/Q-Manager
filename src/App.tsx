@@ -7,6 +7,7 @@ import NotificationProvider from './contexts/NotificationContext'
 
 function App() {
   const [isInitialized, setIsInitialized] = useState(false);
+  console.log("App: isInitialized", isInitialized);
   
   useEffect(() => {
     // Simulamos un pequeño retraso para asegurar que los contextos se inicialicen correctamente

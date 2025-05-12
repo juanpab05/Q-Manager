@@ -206,7 +206,7 @@ const HomeUserPage: React.FC = () => {
   ];
 
   let actions: Action[] = [];
-  
+  console.log("HomeUserPage: userProfile", userProfile);
   if (userProfile.userType === "user" || userProfile.userType === "actor") {
     actions = actorActions;
   } else if (userProfile.userType === "worker") {
