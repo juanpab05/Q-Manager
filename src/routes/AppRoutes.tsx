@@ -42,7 +42,6 @@ const AppRoutes: React.FC = () => (
         <Route path="/recover-password" element={<RecoverPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/personal-data" element={<PersonalData />} />
-        <Route path="/test-auth" element={<TestAuth />} />
         <Route path="/register-user" element={<CreateRegularUserForm />} />
         {/* Página de perfil (requiere estar logueado) */}
         <Route
@@ -63,6 +62,13 @@ const AppRoutes: React.FC = () => (
             </ProtectedRoute>
           }
         />
+
+        <Route path="/test-auth" element={
+            <ProtectedRoute role="worker" requireAdmin={true}>
+                <TestAuth />
+            </ProtectedRoute>
+          } />
+
 
         {/* Solicitar turno (pública) */}
         <Route path="/solicitar-turno" element={<RequestTicketPage />} />
