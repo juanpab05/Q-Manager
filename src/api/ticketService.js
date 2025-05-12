@@ -184,7 +184,7 @@ export const getQueueStatus = async () => {
     for (const ticket of lastAttendedTickets) {
       if (ticket.punto_acceso_id && priorityAccessPointIds.includes(ticket.punto_acceso_id) && !priorityLastAttended) {
         priorityLastAttended = ticket;
-      } else if (ticket.punto_acceso_id && normalAccessPointIds.includes(ticket.punto_acceso_id) && !normalLastAttended) {
+      } else if (ticket.punto_acceso_id && normalAccessPointIds.includes(ticket.punto_acceso_id) && !normalLastAttended && !ticket.is_priority) {
         normalLastAttended = ticket;
       }
     }
