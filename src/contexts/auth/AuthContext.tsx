@@ -311,92 +311,92 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
         
         // Para eventos que realmente cambian el estado de autenticación
-        // switch (event) {
-        //   case 'SIGNED_IN':
-        //     if (session?.user) {
-        //         setUser(session.user);
+        switch (event) {
+          case 'SIGNED_IN':
+            if (session?.user) {
+                setUser(session.user);
                 
-        //         // Make sure we wait for the profile data to be fetched and set
-        //         await fetchAndSetUserProfile(session.user.id);
+                // Make sure we wait for the profile data to be fetched and set
+                await fetchAndSetUserProfile(session.user.id);
                 
-        //         // Update last activity timestamp on sign in
-        //         updateLastActivity();
+                // Update last activity timestamp on sign in
+                updateLastActivity();
                 
-        //         // Check if this is a new user (post-email-confirmation)
-        //         // We'll check the auth metadata to see if this is a first login after email confirmation
-        //         const metadata = session.user.user_metadata;
-        //         const fullName = metadata?.full_name;
-        //         const cedula = metadata?.cedula;
-        //         const phone = metadata?.phone;
+                // Check if this is a new user (post-email-confirmation)
+                // We'll check the auth metadata to see if this is a first login after email confirmation
+                const metadata = session.user.user_metadata;
+                const fullName = metadata?.full_name;
+                const cedula = metadata?.cedula;
+                const phone = metadata?.phone;
                 
-        //         if (fullName && cedula) {
-        //           try {
-        //             // Try to fetch existing profile
-        //             const { data: existingProfile } = await supabase
-        //               .from('users')
-        //               .select('*')
-        //               .eq('id', session.user.id)
-        //               .single();
+                if (fullName && cedula) {
+                  try {
+                    // Try to fetch existing profile
+                    const { data: existingProfile } = await supabase
+                      .from('users')
+                      .select('*')
+                      .eq('id', session.user.id)
+                      .single();
                       
-        //             // Only create profile if it doesn't exist yet
-        //             if (!existingProfile) {
-        //               // Create user profile now that we have a valid session
-        //               const { error: insertError } = await supabase
-        //                 .from('users')
-        //                 .insert({
-        //                   id: session.user.id,
-        //                   email: session.user.email,
-        //                   nombre: fullName,
-        //                   cedula: cedula,
-        //                   phone_number: phone || '',
-        //                   is_staff: false,
-        //                   is_superuser: false
-        //                 });
+                    // Only create profile if it doesn't exist yet
+                    if (!existingProfile) {
+                      // Create user profile now that we have a valid session
+                      const { error: insertError } = await supabase
+                        .from('users')
+                        .insert({
+                          id: session.user.id,
+                          email: session.user.email,
+                          nombre: fullName,
+                          cedula: cedula,
+                          phone_number: phone || '',
+                          is_staff: false,
+                          is_superuser: false
+                        });
                         
-        //               if (insertError) {
-        //                 console.error('AuthContext: Error creating user profile after email confirmation:', insertError);
-        //               } else {
-        //                 console.log('AuthContext: User profile created successfully after email confirmation');
+                      if (insertError) {
+                        console.error('AuthContext: Error creating user profile after email confirmation:', insertError);
+                      } else {
+                        console.log('AuthContext: User profile created successfully after email confirmation');
                         
-        //                 // Also create actor record for the user
-        //                 const { error: actorError } = await supabase
-        //                   .from('actors')
-        //                   .insert({
-        //                     user_id: session.user.id,
-        //                     has_priority: false,
-        //                     motive: ''
-        //                   });
+                        // Also create actor record for the user
+                        const { error: actorError } = await supabase
+                          .from('actors')
+                          .insert({
+                            user_id: session.user.id,
+                            has_priority: false,
+                            motive: ''
+                          });
                           
-        //                 if (actorError) {
-        //                   console.error('AuthContext: Error creating actor record:', actorError);
-        //                 } else {
-        //                   console.log('AuthContext: Actor record created successfully');
-        //                 }
+                        if (actorError) {
+                          console.error('AuthContext: Error creating actor record:', actorError);
+                        } else {
+                          console.log('AuthContext: Actor record created successfully');
+                        }
                         
-        //                 // Refresh user profile
-        //                 // Force fresh fetch by clearing the loaded profile ID
-        //                 loadedProfileId.current = null;
-        //                 await fetchAndSetUserProfile(session.user.id);
-        //               }
-        //             }
-        //           } catch (error) {
-        //             console.error('AuthContext: Error in profile creation after email confirmation:', error);
-        //           }
-        //         }
-        //     }
-        //     break;
+                        // Refresh user profile
+                        // Force fresh fetch by clearing the loaded profile ID
+                        loadedProfileId.current = null;
+                        await fetchAndSetUserProfile(session.user.id);
+                      }
+                    }
+                  } catch (error) {
+                    console.error('AuthContext: Error in profile creation after email confirmation:', error);
+                  }
+                }
+            }
+            break;
             
-        //   case 'SIGNED_OUT':
-        //     setUser(null);
-        //     setUserProfile(null);
-        //     loadedProfileId.current = null;
-        //     localStorage.removeItem(LAST_ACTIVITY_KEY);
-        //     break;
+          case 'SIGNED_OUT':
+            setUser(null);
+            setUserProfile(null);
+            loadedProfileId.current = null;
+            localStorage.removeItem(LAST_ACTIVITY_KEY);
+            break;
             
-        //   default:
-        //     // No hacer nada para otros eventos
-        //     break;
-        // }
+          default:
+            // No hacer nada para otros eventos
+            break;
+        }
         
         if (isMounted.current) {
           setLoading(false);
