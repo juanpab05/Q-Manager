@@ -155,16 +155,22 @@ export const getQueueStatus = async () => {
       
     if (currentError) throw currentError;
     
-    // Separate priority and normal current tickets by access point IDs
+    // Separate priority and normal current tickets by access point IDs AND ticket priority
     let priorityCurrentTicket = null;
     let normalCurrentTicket = null;
     
     for (const ticket of currentTickets) {
-      if (ticket.punto_acceso_id && priorityAccessPointIds.includes(ticket.punto_acceso_id) && !priorityCurrentTicket) {
+      const accessPointId = ticket.punto_acceso_id;
+      if (!accessPointId) continue;
+      
+      if (priorityAccessPointIds.includes(accessPointId) && ticket.is_priority && !priorityCurrentTicket) {
+        // Ticket prioritario en punto prioritario
         priorityCurrentTicket = ticket;
-      } else if (ticket.punto_acceso_id && normalAccessPointIds.includes(ticket.punto_acceso_id) && !normalCurrentTicket) {
+      } else if (normalAccessPointIds.includes(accessPointId) && !ticket.is_priority && !normalCurrentTicket) {
+        // Ticket normal en punto normal
         normalCurrentTicket = ticket;
       }
+      // We ignore priority tickets in normal points or normal tickets in priority points for this specific view
     }
     
     // Get last attended tickets
@@ -177,14 +183,19 @@ export const getQueueStatus = async () => {
 
     if (lastError) throw lastError;
     
-    // Separate priority and normal last attended tickets
+    // Separate priority and normal last attended tickets by access point IDs AND ticket priority
     let priorityLastAttended = null;
     let normalLastAttended = null;
     
     for (const ticket of lastAttendedTickets) {
-      if (ticket.punto_acceso_id && priorityAccessPointIds.includes(ticket.punto_acceso_id) && !priorityLastAttended) {
+      const accessPointId = ticket.punto_acceso_id;
+      if (!accessPointId) continue;
+      
+      if (priorityAccessPointIds.includes(accessPointId) && ticket.is_priority && !priorityLastAttended) {
+        // Ticket prioritario atendido en punto prioritario
         priorityLastAttended = ticket;
-      } else if (ticket.punto_acceso_id && normalAccessPointIds.includes(ticket.punto_acceso_id) && !normalLastAttended && !ticket.is_priority) {
+      } else if (normalAccessPointIds.includes(accessPointId) && !ticket.is_priority && !normalLastAttended) {
+        // Ticket normal atendido en punto normal
         normalLastAttended = ticket;
       }
     }

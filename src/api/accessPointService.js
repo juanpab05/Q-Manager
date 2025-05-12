@@ -791,60 +791,88 @@ export const getCurrentTicket = async (accessPointId) => {
   try {
     console.log(`[accessPointService] Obteniendo ticket actual para el punto de acceso ${accessPointId}`);
     
+    // Obtener información del punto de acceso para saber si es prioritario
+    const { data: accessPoint, error: accessPointError } = await supabase
+      .from('access_points')
+      .select('is_priority')
+      .eq('id', accessPointId)
+      .single();
+      
+    if (accessPointError) {
+      console.error(`[accessPointService] Error al obtener información del punto de acceso:`, accessPointError);
+      // Decide how to handle this error - maybe return null or throw?
+      // Returning null might be safer for the UI
+      return null; 
+    }
+    
+    const isPriorityAccessPoint = accessPoint.is_priority;
+
     // Primero intentamos usar la función RPC para obtener el ticket con datos de usuario
     const { data: rpcData, error: rpcError } = await supabase.rpc('get_current_ticket_with_user', {
       p_access_point_id: accessPointId
     });
     
-    if (rpcError) {
-      console.error(`[accessPointService] Error al llamar RPC para obtener ticket actual:`, rpcError);
-      
-      // Fallback a la implementación directa si el RPC falla
+    let potentialTicket = null;
+    let source = 'RPC';
+
+    if (!rpcError && rpcData) {
+      potentialTicket = rpcData;
+      console.log(`[accessPointService] Obtención de ticket actual mediante RPC exitosa`);
+    } else {
+      if (rpcError) {
+        console.error(`[accessPointService] Error al llamar RPC para obtener ticket actual:`, rpcError);
+      }
+      // Fallback a la implementación directa si el RPC falla o no devuelve datos
+      source = 'Direct Query';
       console.log(`[accessPointService] Intentando obtener ticket actual mediante consulta directa...`);
       
-      // En lugar de usar la relación automática, primero obtenemos el ticket
       const { data: ticketData, error: ticketError } = await supabase
-    .from('tickets')
+        .from('tickets')
         .select('*')
-        .eq('punto_acceso_id', accessPointId) // Usar el nombre correcto de la columna
-    .eq('status', 'EN_ATENCIÓN')
-    .single();
+        .eq('punto_acceso_id', accessPointId)
+        .eq('status', 'EN_ATENCIÓN')
+        .maybeSingle(); // Use maybeSingle to handle no rows gracefully
 
       if (ticketError) {
-    // Si no hay ticket en atención, no es un error real (código PGRST116)
-        if (ticketError.code === 'PGRST116') {
-      return null;
-    }
-        console.error(`[accessPointService] Error al obtener ticket actual del punto de acceso ${accessPointId}:`, ticketError);
-        throw ticketError;
-      }
+        console.error(`[accessPointService] Error al obtener ticket actual (directo):`, ticketError);
+        // Don't throw, just means no ticket found or db error
+      } else if (ticketData) {
+        // Si encontramos un ticket, consultamos el usuario por separado
+        if (ticketData.user_id) {
+          const { data: userData, error: userError } = await supabase
+            .from('users')
+            .select('id, nombre, email, phone_number, cedula')
+            .eq('id', ticketData.user_id)
+            .single();
 
-      // Si encontramos un ticket, consultamos el usuario por separado
-      if (ticketData && ticketData.user_id) {
-        const { data: userData, error: userError } = await supabase
-          .from('users')
-          .select('id, nombre, email, phone_number, cedula')
-          .eq('id', ticketData.user_id)
-          .single();
-
-        if (userError) {
-          console.warn(`[accessPointService] Error al obtener datos del usuario del ticket:`, userError);
-          // Continuamos con el ticket aunque no obtengamos el usuario
-        } else {
-          // Añadimos el usuario al ticket
-          ticketData.user = userData;
+          if (userError) {
+            console.warn(`[accessPointService] Error al obtener datos del usuario del ticket:`, userError);
+          } else {
+            ticketData.user = userData;
+          }
         }
+        potentialTicket = ticketData;
+        console.log(`[accessPointService] Obtención de ticket actual (directo) exitosa`);
       }
-
-      return ticketData;
     }
     
-    // Si el RPC fue exitoso, devolvemos los datos
-    console.log(`[accessPointService] Obtención de ticket actual mediante RPC exitosa`);
-    return rpcData;
+    // Verificar la coherencia entre el ticket y el punto de acceso
+    if (potentialTicket) {
+      if ( (isPriorityAccessPoint && !potentialTicket.is_priority) || 
+           (!isPriorityAccessPoint && potentialTicket.is_priority) ) {
+        console.warn(`[accessPointService] Ticket (${potentialTicket.ticket_number}, priority=${potentialTicket.is_priority}) no coincide con el tipo de punto de acceso ${accessPointId} (priority=${isPriorityAccessPoint}). Fuente: ${source}. Devolviendo null.`);
+        return null; // Ticket encontrado pero no coincide con el tipo de punto
+      }
+      // El ticket coincide, devolverlo
+      return potentialTicket;
+    } else {
+      // No se encontró ningún ticket en atención para este punto
+      return null;
+    }
+
   } catch (error) {
-    console.error(`[accessPointService] Error al obtener ticket actual del punto de acceso ${accessPointId}:`, error);
-    throw error;
+    console.error(`[accessPointService] Error general al obtener ticket actual del punto de acceso ${accessPointId}:`, error);
+    throw error; // Rethrow unexpected errors
   }
 };
 
