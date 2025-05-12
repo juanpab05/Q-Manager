@@ -424,6 +424,20 @@ export const nextTicket = async (accessPointId) => {
   console.log(`[accessPointService] Obteniendo siguiente ticket para el punto de acceso ${accessPointId}`);
   
   try {
+    // Primero obtenemos información sobre el punto de acceso para saber si es prioritario
+    const { data: accessPoint, error: accessPointError } = await supabase
+      .from('access_points')
+      .select('is_priority')
+      .eq('id', accessPointId)
+      .single();
+      
+    if (accessPointError) {
+      console.error(`[accessPointService] Error al obtener información del punto de acceso:`, accessPointError);
+      throw accessPointError;
+    }
+    
+    const isPriorityAccessPoint = accessPoint.is_priority;
+    
     // Intentar usar la función RPC para obtener el siguiente ticket
     const { data: rpcData, error: rpcError } = await supabase.rpc('get_next_ticket', {
       p_access_point_id: accessPointId
@@ -435,29 +449,42 @@ export const nextTicket = async (accessPointId) => {
       // Fallback a la implementación anterior si el RPC falla
       console.log(`[accessPointService] Intentando obtener siguiente ticket mediante actualización directa...`);
       
-  // Primero obtenemos el siguiente ticket pendiente (prioridad primero, luego FIFO)
-  const { data: pendingTickets, error: pendingError } = await supabase
-    .from('tickets')
-    .select('*')
-    .eq('status', 'PENDIENTE')
-    .order('is_priority', { ascending: false })
-    .order('created_at', { ascending: true })
-    .limit(1);
+      // Primero obtenemos el siguiente ticket pendiente
+      const query = supabase
+        .from('tickets')
+        .select('*')
+        .eq('status', 'PENDIENTE');
+        
+      // Filtrar según el tipo de punto de acceso
+      if (isPriorityAccessPoint) {
+        // Punto prioritario: solo tomar tickets prioritarios
+        query.eq('is_priority', true);
+      } else {
+        // Punto normal: solo tomar tickets normales
+        query.eq('is_priority', false);
+      }
+      
+      // Ordenar primero por prioridad (si hay varios prioritarios), luego por tiempo
+      const { data: pendingTickets, error: pendingError } = await query
+        .order('created_at', { ascending: true })
+        .limit(1);
 
-  if (pendingError) {
+      if (pendingError) {
         console.error('[accessPointService] Error al obtener siguiente ticket:', pendingError);
-    throw pendingError;
-  }
+        throw pendingError;
+      }
 
       // Si no hay tickets pendientes, devolvemos un mensaje en el formato esperado
-  if (!pendingTickets || pendingTickets.length === 0) {
+      if (!pendingTickets || pendingTickets.length === 0) {
         return {
           ticket: null,
-          message: 'No hay tickets pendientes en la cola'
+          message: isPriorityAccessPoint ? 
+            'No hay tickets prioritarios pendientes en la cola' : 
+            'No hay tickets normales pendientes en la cola'
         };
-  }
+      }
 
-  const nextTicket = pendingTickets[0];
+      const nextTicket = pendingTickets[0];
       
       // Obtener la información del usuario para este ticket
       let userData = null;
@@ -475,40 +502,57 @@ export const nextTicket = async (accessPointId) => {
         }
       }
 
-  // Actualizamos el ticket para marcarlo como EN_ATENCIÓN y asignarle el punto de acceso
-  const { data: updatedTicket, error: updateError } = await supabase
-    .from('tickets')
-    .update({
-      status: 'EN_ATENCIÓN',
+      // Actualizamos el ticket para marcarlo como EN_ATENCIÓN y asignarle el punto de acceso
+      const { data: updatedTicket, error: updateError } = await supabase
+        .from('tickets')
+        .update({
+          status: 'EN_ATENCIÓN',
           punto_acceso_id: accessPointId, // Usar el nombre correcto de la columna
-      updated_at: new Date().toISOString()
-    })
-    .eq('id', nextTicket.id)
-    .select()
-    .single();
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', nextTicket.id)
+        .select()
+        .single();
 
-  if (updateError) {
+      if (updateError) {
         console.error(`[accessPointService] Error al actualizar estado del ticket ${nextTicket.id}:`, updateError);
-    throw updateError;
-  }
+        throw updateError;
+      }
       
       // Añadir la información del usuario al ticket
       if (userData) {
         updatedTicket.user = userData;
       }
 
-  // Incrementamos el contador de tickets atendidos en el punto de acceso
-  try {
-    await incrementTicketsAtendidos(accessPointId);
-  } catch (error) {
+      // Incrementamos el contador de tickets atendidos en el punto de acceso
+      try {
+        await incrementTicketsAtendidos(accessPointId);
+      } catch (error) {
         console.warn(`[accessPointService] Error al incrementar tickets atendidos del punto de acceso ${accessPointId}:`, error);
-    // Continuamos aunque falle esta parte
-  }
+        // Continuamos aunque falle esta parte
+      }
 
       return {
         ticket: updatedTicket,
         message: `Ticket ${updatedTicket.ticket_number} asignado para atención`
       };
+    }
+    
+    // Verificar que el ticket retornado por el RPC coincide con el tipo de punto de acceso
+    if (rpcData && rpcData.ticket) {
+      if (isPriorityAccessPoint && !rpcData.ticket.is_priority) {
+        // Si el punto es prioritario pero el ticket no lo es, rechazar
+        return {
+          ticket: null,
+          message: 'Este punto solo puede atender tickets prioritarios (P-XXX)'
+        };
+      } else if (!isPriorityAccessPoint && rpcData.ticket.is_priority) {
+        // Si el punto es normal pero el ticket es prioritario, rechazar
+        return {
+          ticket: null,
+          message: 'Este punto solo puede atender tickets normales (N-XXX)'
+        };
+      }
     }
     
     // Si el RPC funcionó pero necesitamos añadir la información del usuario
