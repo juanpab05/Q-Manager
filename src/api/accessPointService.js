@@ -438,15 +438,18 @@ export const nextTicket = async (accessPointId) => {
     
     const isPriorityAccessPoint = accessPoint.is_priority;
     
-    // Intentar usar la función RPC para obtener el siguiente ticket
-    const { data: rpcData, error: rpcError } = await supabase.rpc('get_next_ticket', {
-      p_access_point_id: accessPointId
+    // Intentar usar la función RPC correcta para obtener el siguiente ticket
+    // Esta función ya considera la prioridad del punto de acceso
+    const { data: rpcData, error: rpcError } = await supabase.rpc('get_next_ticket_for_attention', {
+      punto_acceso_id_param: accessPointId // Argument name matches the function definition
     });
     
     if (rpcError) {
       console.error(`[accessPointService] Error al llamar RPC para obtener siguiente ticket:`, rpcError);
       
-      // Fallback a la implementación anterior si el RPC falla
+      // The fallback logic below might need review/removal if it doesn't
+      // correctly mimic get_next_ticket_for_attention's behavior.
+      // For now, we keep the fallback but note it might be inconsistent.
       console.log(`[accessPointService] Intentando obtener siguiente ticket mediante actualización directa...`);
       
       // Primero obtenemos el siguiente ticket pendiente
@@ -538,6 +541,8 @@ export const nextTicket = async (accessPointId) => {
       };
     }
     
+    // Remove the frontend checks as the RPC now handles priority correctly
+    /*
     // Verificar que el ticket retornado por el RPC coincide con el tipo de punto de acceso
     if (rpcData && rpcData.ticket) {
       if (isPriorityAccessPoint && !rpcData.ticket.is_priority) {
@@ -554,6 +559,7 @@ export const nextTicket = async (accessPointId) => {
         };
       }
     }
+    */
     
     // Si el RPC funcionó pero necesitamos añadir la información del usuario
     if (rpcData && rpcData.ticket && rpcData.ticket.user_id) {
