@@ -24,6 +24,7 @@ const ManageQueue: React.FC = () => {
   const [currentTicket, setCurrentTicket] = useState<Ticket | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [userData, setUserData] = useState<{id: string, role: string, is_admin: boolean} | null>(null);
+  const [noTicketsAvailable, setNoTicketsAvailable] = useState<boolean>(false);
 
   useEffect(() => {
     // Utilizar el contexto de autenticación si está disponible, de lo contrario usar localStorage
@@ -120,6 +121,7 @@ const ManageQueue: React.FC = () => {
   const handleSelectAccessPoint = async (point: AccessPoint) => {
     setSelectedPoint(point);
     setMessage(null);
+    setNoTicketsAvailable(false); // Reset when switching points
     
     // No clear current ticket immediately to avoid flashing
     // The useEffect will fetch the current ticket
@@ -167,19 +169,23 @@ const ManageQueue: React.FC = () => {
       // Check if response is the object with ticket and message structure
       if (response && typeof response === 'object' && 'ticket' in response) {
         // Response is of type { ticket: Ticket, message: string }
-      if (response.ticket) {
-        setCurrentTicket(response.ticket);
+        if (response.ticket) {
+          setCurrentTicket(response.ticket);
+          setNoTicketsAvailable(false); // Tickets are available since we got one
         } else {
           setCurrentTicket(null);
+          setNoTicketsAvailable(true); // No tickets available
         }
         setMessage(response.message);
       } else if (response) {
         // Response is a direct Ticket object (for backward compatibility)
         setCurrentTicket(response);
+        setNoTicketsAvailable(false);
         setMessage('Ticket asignado para atención');
       } else {
         // Response is null or undefined
         setCurrentTicket(null);
+        setNoTicketsAvailable(true);
         setMessage('No hay tickets pendientes en la cola');
       }
       
@@ -197,6 +203,7 @@ const ManageQueue: React.FC = () => {
       // Si el error indica que no hay tickets pendientes, actualizar la UI
       if (err.message && err.message.includes('No hay tickets pendientes')) {
         setCurrentTicket(null);
+        setNoTicketsAvailable(true);
         setMessage('No hay tickets pendientes en la cola');
       }
     }
@@ -397,9 +404,11 @@ const ManageQueue: React.FC = () => {
                         <>
                           <button
                             onClick={handleNextTicket}
-                            disabled={selectedPoint.estado !== 'ACTIVO'}
+                            disabled={selectedPoint.estado !== 'ACTIVO' || noTicketsAvailable}
                             className={`py-3 px-4 bg-indigo-600 text-white rounded-lg ${
-                              selectedPoint.estado === 'ACTIVO' ? 'hover:bg-indigo-700' : 'opacity-50 cursor-not-allowed'
+                              (selectedPoint.estado === 'ACTIVO' && !noTicketsAvailable) 
+                                ? 'hover:bg-indigo-700' 
+                                : 'opacity-50 cursor-not-allowed'
                             }`}
                           >
                             Siguiente Ticket
