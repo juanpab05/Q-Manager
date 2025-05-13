@@ -13,16 +13,29 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
   const { user, userProfile, loading, isAuthenticated, refreshUserProfile } = useAuth();
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const [hasInitialized, setHasInitialized] = useState(false);
 
   // Solo mostrar loading si es la primera carga o si no hay usuario autenticado
   const shouldShowLoading = loading || isCheckingAuth;
 
   useEffect(() => {
     let authCheckTimeout: number | null = null;
+    let authRetryCount = 0;
+    const MAX_RETRIES = 3;
     
     const checkAuthAndPermissions = async () => {
       setIsCheckingAuth(true);
       console.log("ProtectedRoute: Verificando autenticación y permisos...");
+      
+      // First time initialization flag to prevent premature redirects during refresh
+      if (!hasInitialized && loading) {
+        console.log("ProtectedRoute: Initial loading, waiting for auth to initialize...");
+        setHasInitialized(true);
+        authCheckTimeout = window.setTimeout(() => {
+          checkAuthAndPermissions();
+        }, 500);
+        return;
+      }
       
       // Si no está autenticado y no está cargando, redirigir a login
       if (!loading && !isAuthenticated) {
@@ -37,6 +50,20 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
         console.log("ProtectedRoute: Autenticado pero sin perfil, obteniendo datos de usuario...");
         try {
           await refreshUserProfile();
+          
+          // If we still don't have a user profile after refresh, retry a few times
+          if (!userProfile && authRetryCount < MAX_RETRIES) {
+            authRetryCount++;
+            console.log(`ProtectedRoute: Intentando obtener perfil de usuario (intento ${authRetryCount}/${MAX_RETRIES})...`);
+            
+            // Aumentar el tiempo de espera con cada intento
+            const retryDelay = 500 * Math.pow(2, authRetryCount);
+            authCheckTimeout = window.setTimeout(() => {
+              checkAuthAndPermissions();
+            }, retryDelay);
+            return;
+          }
+          
           // Damos un pequeño tiempo para que los datos se actualicen en el contexto
           authCheckTimeout = window.setTimeout(() => {
             checkPermissionsAndSetState();
@@ -84,6 +111,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
           console.log("ProtectedRoute: Usuario autorizado para acceder a la ruta");
           setIsAuthorized(true);
         }
+      } else if (!loading && !isAuthenticated) {
+        // Si no está autenticado y no está cargando, redirigir a login
+        console.log("ProtectedRoute: No autenticado (en verificación de permisos), redirigiendo a login");
+        navigate("/login", { replace: true });
       } else {
         console.log("ProtectedRoute: Sin información de perfil para verificar permisos");
         setIsAuthorized(false);
@@ -100,7 +131,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
         window.clearTimeout(authCheckTimeout);
       }
     };
-  }, [user, userProfile, loading, isAuthenticated, role, requireAdmin, navigate, refreshUserProfile]);
+  }, [user, userProfile, loading, isAuthenticated, role, requireAdmin, navigate, refreshUserProfile, hasInitialized]);
 
   // Mostrar un indicador de carga mientras se verifica la autenticación y los permisos
   if (shouldShowLoading) {

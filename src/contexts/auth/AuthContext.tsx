@@ -177,18 +177,44 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Function to update the user's last activity timestamp
+  // Function to update the last activity timestamp
   const updateLastActivity = () => {
     if (user) {
-      const timestamp = Date.now();
-      localStorage.setItem(LAST_ACTIVITY_KEY, timestamp.toString());
-      console.log('AuthContext: Updated last activity timestamp', new Date(timestamp).toISOString());
+      try {
+        localStorage.setItem(LAST_ACTIVITY_KEY, Date.now().toString());
+        // Also store the user ID to prevent race conditions on refresh
+        localStorage.setItem('auth_user_id', user.id);
+        console.log('AuthContext: Last activity updated for user', user.id);
+      } catch (e) {
+        console.error('AuthContext: Error updating last activity timestamp:', e);
+      }
     }
   };
 
   // Function to check if the user has been inactive for too long
   const checkInactivity = () => {
-    if (!user) return false;
+    // Don't check inactivity if we're in the loading/initialization phase
+    if (loading) {
+      console.log('AuthContext: Skipping inactivity check during loading phase');
+      return false;
+    }
+    
+    if (!user) {
+      // Clean up any orphaned timestamps if there's no user but there is a timestamp
+      if (localStorage.getItem(LAST_ACTIVITY_KEY)) {
+        localStorage.removeItem(LAST_ACTIVITY_KEY);
+        localStorage.removeItem('auth_user_id');
+      }
+      return false;
+    }
+    
+    // Check if the stored user ID matches the current user ID
+    const storedUserId = localStorage.getItem('auth_user_id');
+    if (storedUserId !== user.id) {
+      // User IDs don't match, update the timestamp and user ID
+      updateLastActivity();
+      return false;
+    }
     
     const lastActivityStr = localStorage.getItem(LAST_ACTIVITY_KEY);
     if (!lastActivityStr) {
