@@ -51,29 +51,18 @@ const Navbar = () => {
       
       // Clear any local storage items first
       localStorage.removeItem("usuario");
-      localStorage.removeItem("last_activity_timestamp");
       
-      // Use both the auth context logout and a direct Supabase signOut for redundancy
-      // This ensures we cover both the context state and the actual auth session
+      // Use the auth context logout which now redirects to login page
       await auth.logout();
       
-      // Also try a direct signOut as a fallback
-      await supabase.auth.signOut();
+      // No need for additional navigation here as AuthContext will handle it
+      console.log("Navbar: Logout initiated via AuthContext");
       
-      console.log("Navbar: Logout completed, navigating to home");
-      
-      // Force a page reload to clear any remaining state
-      window.location.href = '/';
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
       
-      // Even if there's an error, try to navigate home
-      navigate("/");
-      
-      // If all else fails, force a page reload
-      if (auth?.isAuthenticated) {
-        window.location.reload();
-      }
+      // If the AuthContext logout fails, try direct navigation
+      window.location.href = '/login';
     }
   };
 

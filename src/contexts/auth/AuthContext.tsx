@@ -313,8 +313,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUserProfile(null);
       loadedProfileId.current = null;
       localStorage.removeItem(LAST_ACTIVITY_KEY);
+      localStorage.removeItem('auth_user_id');
+      sessionStorage.removeItem(USER_PROFILE_KEY);
+      
+      // Redirect to login page after force logout
+      window.location.href = '/login';
     } catch (error) {
       console.error("AuthContext: Error during forced logout:", error);
+      
+      // Still attempt to redirect even if there was an error
+      window.location.href = '/login';
     }
   };
 
@@ -614,6 +622,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUserProfile(null);
       loadedProfileId.current = null;
       localStorage.removeItem(LAST_ACTIVITY_KEY);
+      localStorage.removeItem('auth_user_id');
+      sessionStorage.removeItem(USER_PROFILE_KEY);
       
       // Then sign out from supabase
       const { error } = await supabase.auth.signOut();
@@ -621,8 +631,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         console.error("AuthContext: Logout error:", error);
         throw error;
       }
+      
+      // Redirect to login page after logout
+      window.location.href = '/login';
     } catch (err) {
       console.error("AuthContext: CATCH block logout error:", err);
+      // Still try to redirect even if there was an error
+      window.location.href = '/login';
     } finally {
       setLoading(false);
     }
