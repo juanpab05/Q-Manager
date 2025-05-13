@@ -169,8 +169,8 @@ const ManageQueue: React.FC = () => {
       // Check if response is the object with ticket and message structure
       if (response && typeof response === 'object' && 'ticket' in response) {
         // Response is of type { ticket: Ticket, message: string }
-        if (response.ticket) {
-          setCurrentTicket(response.ticket);
+      if (response.ticket) {
+        setCurrentTicket(response.ticket);
           setNoTicketsAvailable(false); // Tickets are available since we got one
         } else {
           setCurrentTicket(null);

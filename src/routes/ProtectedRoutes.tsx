@@ -171,11 +171,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
       // Si está autenticado y tenemos el perfil, verificar permisos
       if (isAuthenticated && Object.keys(currentProfile).length > 0) {
         const hasPermission = hasRequiredPermissions(currentProfile, role, requireAdmin);
-        
+
         if (role) {
           console.log(`ProtectedRoute: Requiere rol '${role}', usuario es '${currentProfile.userType}', permission: ${hasPermission}`);
         }
-        
+
         if (requireAdmin) {
           const isAdmin = currentProfile.userType === 'admin' || 
             (currentProfile.userType === 'worker' && currentProfile.isAdmin);
@@ -219,7 +219,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
           console.log("ProtectedRoute: Usuario autorizado basado en último perfil conocido");
           setIsAuthorized(true);
         } else {
-          setIsAuthorized(false);
+        setIsAuthorized(false);
         }
       }
       
