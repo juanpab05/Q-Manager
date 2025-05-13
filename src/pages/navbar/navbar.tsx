@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate, Link, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from '../../contexts/auth/AuthContext';
 import { useNotifications } from '../../contexts/NotificationContext';
-import supabase from '../../utils/supabaseClient';
 
 const useMediaQuery = (query: string): boolean => {
   const [matches, setMatches] = useState(false);
@@ -35,7 +34,6 @@ const BellIcon = () => (
 );
 
 const Navbar = () => {
-  const navigate = useNavigate();
   const auth = useAuth();
   const isAuthenticated = auth?.isAuthenticated;
   const userProfile = auth?.userProfile;
