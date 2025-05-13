@@ -19,6 +19,7 @@ import { User } from "@supabase/supabase-js";
 // Define the inactivity timeout (24 hours in milliseconds)
 const INACTIVITY_TIMEOUT = 24 * 60 * 60 * 1000; // 24 hours
 const LAST_ACTIVITY_KEY = 'last_activity_timestamp';
+const USER_PROFILE_KEY = 'cached_user_profile';
 
 interface AuthContextType {
   user: User | null;
@@ -37,17 +38,50 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Helper to safely retrieve cached profile
+const getCachedProfile = (): any | null => {
+  try {
+    const cachedData = sessionStorage.getItem(USER_PROFILE_KEY);
+    if (cachedData) {
+      return JSON.parse(cachedData);
+    }
+  } catch (e) {
+    console.error('Error retrieving cached profile:', e);
+  }
+  return null;
+};
+
+// Helper to safely cache profile
+const cacheUserProfile = (profile: any): void => {
+  if (!profile) return;
+  
+  try {
+    sessionStorage.setItem(USER_PROFILE_KEY, JSON.stringify(profile));
+    console.log('User profile cached in sessionStorage');
+  } catch (e) {
+    console.error('Error caching user profile:', e);
+  }
+};
+
 export const useAuth = (): AuthContextType => {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error("useAuth debe usarse dentro de AuthProvider");
   
   // Crea una versión memoizada del contexto para evitar renderizaciones innecesarias
   const memoizedCtx = useMemo(() => {
+    // Get potentially cached profile if current context profile is empty
+    const cachedProfile = (!ctx.userProfile || Object.keys(ctx.userProfile).length === 0) 
+      ? getCachedProfile() 
+      : null;
+    
+    // Use context profile if available, otherwise use cached profile or fallback to empty object
+    const userProfile = ctx.userProfile || cachedProfile || {};
+    
     return {
       ...ctx,
-      // Asegurarnos de que userProfile siempre tenga al menos un objeto vacío para evitar errores null
-      userProfile: ctx.userProfile || {},
-      // Asegurarnos de que isAuthenticated refleje correctamente el estado de autenticación
+      // Always provide a stable userProfile value - use context or cached
+      userProfile,
+      // Ensure isAuthenticated reflects user state
       isAuthenticated: !!ctx.user
     };
   }, [ctx]);
@@ -61,7 +95,10 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [userProfile, setUserProfile] = useState<any | null>(null);
+  const [userProfile, setUserProfile] = useState<any | null>(() => {
+    // Initialize with cached profile if available
+    return getCachedProfile();
+  });
   const [loading, setLoading] = useState<boolean>(true);
 
   // Referencia para rastrear el ID del usuario del que ya hemos cargado el perfil
@@ -78,6 +115,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.log(`AuthContext: Iniciando fetchAndSetUserProfile para userId: ${userId}`);
       setLoading(true);
       
+      // First check if we have a valid cached profile matching this user
+      const cachedProfile = getCachedProfile();
+      if (cachedProfile && cachedProfile.id === userId) {
+        console.log('AuthContext: Using cached profile during fetch');
+        setUserProfile(cachedProfile);
+        // Still fetch fresh data to update cache
+      }
+      
       // Always get fresh profile data on explicit fetch requests
       // This ensures we always have the latest data when a fetch is requested
       
@@ -88,6 +133,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       
       if (!profile) {
         console.error(`AuthContext: No se pudo obtener el perfil para el usuario ${userId}`);
+        
+        // If cached profile exists and matches user, keep using it rather than returning null
+        if (cachedProfile && cachedProfile.id === userId) {
+          return cachedProfile;
+        }
         
         // If profile fetch fails but we have a valid user, try to ensure actor record exists
         // This helps with first-time logins where profile might be incomplete
@@ -124,7 +174,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           }
         }
         
-        return null;
+        return cachedProfile || null;
       }
 
       console.log(`AuthContext: Perfil obtenido exitosamente:`, profile);
@@ -159,16 +209,31 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         console.log(`AuthContext: Perfil enriquecido:`, enrichedProfile);
         setUserProfile(enrichedProfile);
         loadedProfileId.current = userId;
+        
+        // Cache the profile for resilience against refreshes
+        cacheUserProfile(enrichedProfile);
+        
         return enrichedProfile;
       } catch (enrichmentError) {
         console.error(`AuthContext: Error al enriquecer el perfil:`, enrichmentError);
         // En caso de error, usar el perfil básico
         setUserProfile(profile);
         loadedProfileId.current = userId;
+        
+        // Cache even the basic profile 
+        cacheUserProfile(profile);
+        
         return profile;
       }
     } catch (error) {
       console.error(`AuthContext: Error al cargar el perfil del usuario ${userId}:`, error);
+      
+      // Return any cached profile if we have it
+      const cachedProfile = getCachedProfile();
+      if (cachedProfile && cachedProfile.id === userId) {
+        return cachedProfile;
+      }
+      
       return null;
     } finally {
       if (isMounted.current) {
