@@ -1,8 +1,5 @@
-// src/pages/AboutPage/AboutPage.tsx
-
 import React from 'react';
-// import Navbar from '@/pages/navbar/navbar'; // Remove this import
-import { useAuth } from '@/contexts/auth/AuthContext'; // Importamos useAuth para verificar autenticación
+import { useAuth } from '@/contexts/auth/AuthContext'; 
 
 // Placeholder para imagen de miembro del equipo
 const MemberImagePlaceholder: React.FC<{ nameInitial: string }> = ({ nameInitial }) => (
@@ -20,13 +17,7 @@ interface TeamMember {
 
 // Datos de los miembros del equipo (reemplaza con tus datos reales)
 const teamMembers: TeamMember[] = [
-// { id: 1, name: "David Santiago Guerrero Delgado", role: "Desarrollador Frontend"},
-  // { id: 1, name: "Cristian Daniel Guaza Mejia", role: "Desarrollador Fullstack & DB"},
-//  { id: 3, name: "Jhonier Mendez Bravo", role: "Desarrollador Backend"},
-//  { id: 4, name: "Juan Pablo Pazmiño Caicedo", role: "Desarrollador Backend & DB"},
-//  { id: 5, name: "Fernando Cardona Giraldo", role: "Desarollador Backend"},
-//  { id: 6, name: "Pablo Esteban Becerra Gomez", role: "Desarollador Frontend"},
-  // Añade más miembros si es necesario
+  { id: 1, name: "Cristian Daniel Guaza Mejia", role: "Desarrollador Fullstack & DB"},
 ];
 
 // Componente para las secciones con íconos
@@ -151,11 +142,11 @@ const AboutPage: React.FC = () => {
               <div className="w-20 h-1 bg-indigo-500 mx-auto rounded-full"></div>
               <div className="w-10 h-1 bg-indigo-300 mx-auto mt-1 rounded-full"></div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-10">
+            <div className="flex justify-center">
               {teamMembers.map((member) => (
                 <div
                   key={member.id}
-                  className="bg-white rounded-2xl shadow-xl p-6 pt-8 text-center flex flex-col items-center hover:shadow-2xl transition-shadow duration-300"
+                  className="bg-white rounded-2xl shadow-xl p-6 pt-8 text-center flex flex-col items-center hover:shadow-2xl transition-shadow duration-300 max-w-sm mx-auto"
                 >
                   {member.imageUrl ? (
                     <img
