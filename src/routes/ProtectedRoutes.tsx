@@ -42,6 +42,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
   const permissionChecksRef = useRef(0);
   const MAX_PERMISSION_CHECKS = 5;
   const lastProfileRef = useRef<any>(null);
+  const isVisibleRef = useRef(true);
 
   // Preserve a stable reference to the latest profile data we've seen
   // This helps address issues where userProfile temporarily becomes empty
@@ -59,7 +60,28 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
     let authRetryCount = 0;
     const MAX_RETRIES = 3;
     
+    // Handle window focus events to prevent unnecessary auth checks on tab switch
+    const handleFocus = () => {
+      isVisibleRef.current = true;
+      // Only check auth if we're in a checking state already
+      if (isCheckingAuth) {
+        checkAuthAndPermissions();
+      }
+    };
+    
+    const handleBlur = () => {
+      isVisibleRef.current = false;
+    };
+    
+    window.addEventListener('focus', handleFocus);
+    window.addEventListener('blur', handleBlur);
+    
     const checkAuthAndPermissions = async () => {
+      // Skip auth checks if the tab is not visible
+      if (!isVisibleRef.current) {
+        return;
+      }
+      
       setIsCheckingAuth(true);
       console.log("ProtectedRoute: Verificando autenticación y permisos...");
       
@@ -228,8 +250,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
 
     checkAuthAndPermissions();
     
-    // Limpieza del timeout al desmontar
+    // Cleanup function to remove event listeners
     return () => {
+      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('blur', handleBlur);
       if (authCheckTimeout) {
         window.clearTimeout(authCheckTimeout);
       }
