@@ -120,11 +120,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (cachedProfile && cachedProfile.id === userId) {
         console.log('AuthContext: Using cached profile during fetch');
         setUserProfile(cachedProfile);
-        // Still fetch fresh data to update cache
+        
+        // If we're in a normal navigation context (not login/refresh), 
+        // use the cached data and avoid the network request
+        if (loadedProfileId.current === userId) {
+          console.log('AuthContext: Using existing profile data, skipping network request');
+          setLoading(false);
+          return cachedProfile;
+        }
+        // Otherwise continue with fetch to ensure data is fresh
       }
-      
-      // Always get fresh profile data on explicit fetch requests
-      // This ensures we always have the latest data when a fetch is requested
       
       // Get fresh profile data
       const profile = await userService.getUserById(userId);

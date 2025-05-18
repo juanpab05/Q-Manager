@@ -111,11 +111,13 @@ const HomeUserPage: React.FC = () => {
 
   // Ensure we have the latest user data when the component mounts
   React.useEffect(() => {
-    // This is necessary to ensure we have fresh data when navigating to this page
+    // Only refresh if we truly don't have profile data
     const fetchCurrentUser = async () => {
-      if (user && !userProfile && !authLoading) {
+      if (user && (!userProfile || Object.keys(userProfile).length === 0) && !authLoading) {
         console.log("HomeUserPage: Obteniendo datos de usuario...");
         await refreshUserProfile();
+      } else if (userProfile) {
+        console.log("HomeUserPage: userProfile", userProfile);
       }
     };
     
