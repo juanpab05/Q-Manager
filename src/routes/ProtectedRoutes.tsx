@@ -35,233 +35,49 @@ const hasRequiredPermissions = (userProfile: any, role?: string, requireAdmin?: 
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, requireAdmin }) => {
   const navigate = useNavigate();
-  const { user, userProfile, loading, isAuthenticated, refreshUserProfile } = useAuth();
+  const { user, userProfile, loading, isAuthenticated } = useAuth();
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
-  const [hasInitialized, setHasInitialized] = useState(false);
-  const permissionChecksRef = useRef(0);
-  const MAX_PERMISSION_CHECKS = 5;
-  const lastProfileRef = useRef<any>(null);
-  const isVisibleRef = useRef(true);
-
-  // Preserve a stable reference to the latest profile data we've seen
-  // This helps address issues where userProfile temporarily becomes empty
+  
+  // Simplified authentication check - runs only once when component mounts or dependencies change
   useEffect(() => {
-    if (userProfile && Object.keys(userProfile).length > 0) {
-      lastProfileRef.current = userProfile;
+    // Set checking state
+    setIsCheckingAuth(true);
+    
+    // If still loading auth state, wait
+    if (loading) {
+      return;
     }
-  }, [userProfile]);
-
-  // Solo mostrar loading si es la primera carga o si no hay usuario autenticado
-  const shouldShowLoading = loading || isCheckingAuth;
-
-  useEffect(() => {
-    let authCheckTimeout: number | null = null;
-    let authRetryCount = 0;
-    const MAX_RETRIES = 3;
     
-    // Handle window focus events to prevent unnecessary auth checks on tab switch
-    const handleFocus = () => {
-      isVisibleRef.current = true;
-      // Only check auth if we're in a checking state already
-      if (isCheckingAuth) {
-        checkAuthAndPermissions();
-      }
-    };
-    
-    const handleBlur = () => {
-      isVisibleRef.current = false;
-    };
-    
-    window.addEventListener('focus', handleFocus);
-    window.addEventListener('blur', handleBlur);
-    
-    const checkAuthAndPermissions = async () => {
-      // Skip auth checks if the tab is not visible
-      if (!isVisibleRef.current) {
-        return;
-      }
-      
-      setIsCheckingAuth(true);
-      console.log("ProtectedRoute: Verificando autenticación y permisos...");
-      
-      // First time initialization flag to prevent premature redirects during refresh
-      if (!hasInitialized && loading) {
-        console.log("ProtectedRoute: Initial loading, waiting for auth to initialize...");
-        setHasInitialized(true);
-        authCheckTimeout = window.setTimeout(() => {
-          checkAuthAndPermissions();
-        }, 500);
-        return;
-      }
-      
-      // Si no está autenticado y no está cargando, redirigir a login
-      if (!loading && !isAuthenticated && permissionChecksRef.current >= 2) {
-        console.log("ProtectedRoute: No autenticado, redirigiendo a login");
-        navigate("/login", { replace: true });
-        setIsCheckingAuth(false);
-        return;
-      }
-
-      // Check permissions with current profile or last seen profile
-      const profileToCheck = (userProfile && Object.keys(userProfile).length > 0) 
-        ? userProfile
-        : lastProfileRef.current;
-
-      if (isAuthenticated && profileToCheck && hasRequiredPermissions(profileToCheck, role, requireAdmin)) {
-        console.log("ProtectedRoute: Usuario autorizado basado en perfil existente");
-        setIsAuthorized(true);
-        setIsCheckingAuth(false);
-        return;
-      }
-
-      // If we're authenticated but don't have user profile data, try to refresh it
-      if (isAuthenticated && user && (!userProfile || !userProfile.userType)) {
-        console.log("ProtectedRoute: Autenticado pero sin perfil, obteniendo datos de usuario...");
-        try {
-          const refreshedProfile = await refreshUserProfile();
-          
-          // Check if the refreshed profile gives us permission
-          if (refreshedProfile && hasRequiredPermissions(refreshedProfile, role, requireAdmin)) {
-            console.log("ProtectedRoute: Usuario autorizado después de refrescar perfil");
-            setIsAuthorized(true);
-            setIsCheckingAuth(false);
-            return;
-          }
-          
-          // If we still don't have a user profile after refresh, retry a few times
-          if ((!refreshedProfile || Object.keys(refreshedProfile).length === 0) && authRetryCount < MAX_RETRIES) {
-            authRetryCount++;
-            console.log(`ProtectedRoute: Intentando obtener perfil de usuario (intento ${authRetryCount}/${MAX_RETRIES})...`);
-            
-            // Aumentar el tiempo de espera con cada intento
-            const retryDelay = 500 * Math.pow(2, authRetryCount);
-            authCheckTimeout = window.setTimeout(() => {
-              checkAuthAndPermissions();
-            }, retryDelay);
-            return;
-          }
-          
-          // If we've reached max retries but we have a last known good profile, use that
-          if (lastProfileRef.current && hasRequiredPermissions(lastProfileRef.current, role, requireAdmin)) {
-            console.log("ProtectedRoute: Usuario autorizado basado en último perfil conocido");
-            setIsAuthorized(true);
-            setIsCheckingAuth(false);
-            return;
-          }
-          
-          // Count this permission check
-          permissionChecksRef.current += 1;
-          
-          // If we've made too many permission checks, make a decision to avoid infinite loop
-          if (permissionChecksRef.current >= MAX_PERMISSION_CHECKS) {
-            if (isAuthenticated) {
-              console.log("ProtectedRoute: Max permission checks reached, assuming authorized");
-              setIsAuthorized(true);
-            } else {
-              console.log("ProtectedRoute: Max permission checks reached, redirecting to login");
-              navigate("/login", { replace: true });
-            }
-            setIsCheckingAuth(false);
-            return;
-          }
-          
-          // Damos un pequeño tiempo para que los datos se actualicen en el contexto
-          authCheckTimeout = window.setTimeout(() => {
-            checkPermissionsAndSetState();
-          }, 300);
-        } catch (error) {
-          console.error("ProtectedRoute: Error al refrescar perfil:", error);
-          setIsCheckingAuth(false);
-        }
-        return;
-      }
-      
-      // Si ya tenemos la información necesaria, verificar permisos directamente
-      checkPermissionsAndSetState();
-    };
-    
-    const checkPermissionsAndSetState = () => {
-      console.log("userProfile:", userProfile);
-      
-      // Increment permission check counter to avoid infinite loops
-      permissionChecksRef.current += 1;
-      
-      // Try with current profile
-      const currentProfile = userProfile || {};
-      
-      // Si está autenticado y tenemos el perfil, verificar permisos
-      if (isAuthenticated && Object.keys(currentProfile).length > 0) {
-        const hasPermission = hasRequiredPermissions(currentProfile, role, requireAdmin);
-
-        if (role) {
-          console.log(`ProtectedRoute: Requiere rol '${role}', usuario es '${currentProfile.userType}', permission: ${hasPermission}`);
-        }
-
-        if (requireAdmin) {
-          const isAdmin = currentProfile.userType === 'admin' || 
-            (currentProfile.userType === 'worker' && currentProfile.isAdmin);
-          console.log(`ProtectedRoute: Requiere admin: ${requireAdmin}, es admin: ${isAdmin}`);
-        }
-
-        if (!hasPermission) {
-          // Before redirecting, check if our last good profile has permission
-          if (lastProfileRef.current && hasRequiredPermissions(lastProfileRef.current, role, requireAdmin)) {
-            console.log("ProtectedRoute: Usuario autorizado basado en último perfil conocido");
-            setIsAuthorized(true);
-            setIsCheckingAuth(false);
-            return;
-          }
-          
-          // If we've made too many checks, give benefit of doubt to avoid jarring UX
-          if (permissionChecksRef.current >= MAX_PERMISSION_CHECKS && isAuthenticated) {
-            console.log("ProtectedRoute: Max permission checks reached, assuming authorized");
-            setIsAuthorized(true);
-            setIsCheckingAuth(false);
-            return;
-          }
-          
-          console.log("ProtectedRoute: Usuario no tiene permisos, redirigiendo al inicio");
-          navigate("/", { replace: true });
-          setIsAuthorized(false);
-        } else {
-          console.log("ProtectedRoute: Usuario autorizado para acceder a la ruta");
-          setIsAuthorized(true);
-        }
-      } else if (!loading && !isAuthenticated && permissionChecksRef.current >= 2) {
-        // Si no está autenticado y no está cargando, redirigir a login
-        // But only after we've done a couple of checks to avoid race conditions during refresh
-        console.log("ProtectedRoute: No autenticado (en verificación de permisos), redirigiendo a login");
-        navigate("/login", { replace: true });
-      } else {
-        console.log("ProtectedRoute: Sin información de perfil para verificar permisos");
-        
-        // If we have a last known good profile with permission, use that
-        if (lastProfileRef.current && hasRequiredPermissions(lastProfileRef.current, role, requireAdmin)) {
-          console.log("ProtectedRoute: Usuario autorizado basado en último perfil conocido");
-          setIsAuthorized(true);
-        } else {
-        setIsAuthorized(false);
-        }
-      }
-      
+    // If not authenticated, redirect to login
+    if (!isAuthenticated) {
+      navigate("/login", { replace: true });
       setIsCheckingAuth(false);
-    };
-
-    checkAuthAndPermissions();
+      return;
+    }
     
-    // Cleanup function to remove event listeners
-    return () => {
-      window.removeEventListener('focus', handleFocus);
-      window.removeEventListener('blur', handleBlur);
-      if (authCheckTimeout) {
-        window.clearTimeout(authCheckTimeout);
+    // Check permissions with available profile
+    if (userProfile && Object.keys(userProfile).length > 0) {
+      const hasPermission = hasRequiredPermissions(userProfile, role, requireAdmin);
+      
+      if (hasPermission) {
+        setIsAuthorized(true);
+      } else {
+        // User doesn't have required permissions, redirect to home
+        navigate("/", { replace: true });
       }
-    };
-  }, [user, userProfile, loading, isAuthenticated, role, requireAdmin, navigate, refreshUserProfile, hasInitialized]);
+    } else {
+      // No profile data available, assume unauthorized
+      setIsAuthorized(false);
+      navigate("/", { replace: true });
+    }
+    
+    // Done checking
+    setIsCheckingAuth(false);
+  }, [user, userProfile, loading, isAuthenticated, role, requireAdmin, navigate]);
 
-  // Mostrar un indicador de carga mientras se verifica la autenticación y los permisos
-  if (shouldShowLoading) {
+  // Show loading indicator while checking
+  if (loading || isCheckingAuth) {
     return (
       <div className="flex items-center justify-center min-h-screen pt-16">
         <div className="text-center">
@@ -272,12 +88,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
     );
   }
 
-  // Si está autenticado y tiene los permisos necesarios (verificado en useEffect)
+  // If authorized, render children
   if (isAuthenticated && isAuthorized) {
     return children;
   }
 
-  // En cualquier otro caso, no renderizar nada mientras se resuelve la redirección
+  // In any other case, render nothing while redirect is happening
   return null;
 }
 

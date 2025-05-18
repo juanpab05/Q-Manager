@@ -377,22 +377,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // Also check on visibility change (when user comes back to the tab/window)
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible' && user) {
-        // Don't automatically check inactivity on tab focus - just update activity
-        updateLastActivity();
-        
-        // Only check inactivity if it's been more than 5 minutes since last activity
-        const lastActivityStr = localStorage.getItem(LAST_ACTIVITY_KEY);
-        if (lastActivityStr) {
-          const lastActivity = parseInt(lastActivityStr, 10);
-          const currentTime = Date.now();
-          const timeSinceLastActivity = currentTime - lastActivity;
-          
-          // Only do the full check if it's been more than 5 minutes
-          if (timeSinceLastActivity > 5 * 60 * 1000) {
-            if (checkInactivity()) {
-              forceLogout();
-            }
+        // Only update activity timestamp when coming back to the tab
+        // Don't trigger any authentication checks or profile refreshes
+        try {
+          localStorage.setItem(LAST_ACTIVITY_KEY, Date.now().toString());
+          if (user) {
+            localStorage.setItem('auth_user_id', user.id);
           }
+        } catch (e) {
+          console.error('AuthContext: Error updating timestamp on visibility change:', e);
         }
       }
     };
