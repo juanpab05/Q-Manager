@@ -327,38 +327,50 @@ const ManageUserData: React.FC = () => {
     if (!validateForm() || !editingUser) return;
     
     try {
+      // First update basic user information
       const userDataToUpdate: Partial<User> = {
         nombre: editedUserData.nombre,
         cedula: editedUserData.cedula,
         email: editedUserData.email,
         phone_number: editedUserData.phone_number,
       };
+      
       await updateUser(editingUser.id, userDataToUpdate);
-
+      
+      // Then update actor information if available
       if (editedUserData.actor && editingUser.id) {
         const actorPayload = {
           has_priority: editedUserData.actor.has_priority || false,
           motive: editedUserData.actor.motive || null,
         };
-
-        // Call the RPC function using the named import
-        const rpcResult = await updateActorProfileRpc(editingUser.id, actorPayload);
-
-        if (!rpcResult || !rpcResult.success) {
-          toast.error(rpcResult?.message || "Error al actualizar la información de prioridad del actor.");
-        } else {
+        
+        try {
+          const actorResult = await updateActorProfileRpc(editingUser.id, actorPayload);
+          
+          if (!actorResult || !actorResult.success) {
+            toast.error(actorResult?.message || "Error al actualizar la información de prioridad del actor.");
+            return; // Keep user in edit mode
+          }
+          
           toast.success("Información de prioridad del actor actualizada correctamente.");
+        } catch (actorError) {
+          console.error("Error actualizando prioridad del actor:", actorError);
+          toast.error("Error al actualizar la información de prioridad: " + 
+            (actorError instanceof Error ? actorError.message : "Intente nuevamente."));
+          return; // Keep user in edit mode
         }
       } else {
         toast.warn("No hay información de actor para actualizar o falta user_id.");
       }
       
+      // If we get here, everything was successful
       await fetchUsers();
       handleCancelEdit();
-
     } catch (error) {
       console.error("Error updating user (handleSaveUser):", error);
-      toast.error("Error al actualizar el usuario.");
+      toast.error("Error al actualizar el usuario: " + 
+        (error instanceof Error ? error.message : "Error desconocido"));
+      // Keep user in edit mode
     }
   };
 
@@ -454,6 +466,7 @@ const ManageUserData: React.FC = () => {
   if (editingUser) {
     return (
       <>
+        <ToastContainer position="top-right" autoClose={3000} />
         <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
           <main className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28">
             <div

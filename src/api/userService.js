@@ -806,23 +806,62 @@ export const updateActorProfileRpc = async (userId, actorData) => {
     throw new Error('User ID and Actor Data are required to update actor profile via RPC.');
   }
 
-  const { data, error } = await supabase.rpc('update_actor_profile', {
-    p_user_id: userId,
-    p_actor_data: actorData // Should be { has_priority: BOOLEAN, motive: TEXT }
-  });
+  try {
+    // First check for duplicate actors for this user_id
+    const { data: duplicateCheck, error: checkError } = await supabase
+      .from('actors')
+      .select('id, user_id')
+      .eq('user_id', userId);
+    
+    if (checkError) {
+      console.error(`[userService.updateActorProfileRpc] Error checking for duplicate actors:`, checkError);
+      throw checkError;
+    }
+    
+    // If multiple actors found for this user_id, clean them up
+    if (duplicateCheck && duplicateCheck.length > 1) {
+      console.warn(`[userService.updateActorProfileRpc] Found ${duplicateCheck.length} actor records for user ${userId}, cleaning up...`);
+      
+      // Keep the first record, delete the rest
+      const keepId = duplicateCheck[0].id;
+      const deleteIds = duplicateCheck.slice(1).map(a => a.id);
+      
+      // Delete duplicate records
+      const { error: deleteError } = await supabase
+        .from('actors')
+        .delete()
+        .in('id', deleteIds);
+        
+      if (deleteError) {
+        console.error(`[userService.updateActorProfileRpc] Error deleting duplicate actors:`, deleteError);
+        throw deleteError;
+      }
+      
+      console.log(`[userService.updateActorProfileRpc] Successfully deleted ${deleteIds.length} duplicate actor records`);
+    }
 
-  if (error) {
-    console.error(`[userService.updateActorProfileRpc] Error calling RPC for user ID ${userId}:`, error);
-    throw error; // Re-throw the original Supabase RPC error
-  }
+    // Now call the RPC function to update the actor profile
+    const { data, error } = await supabase.rpc('update_actor_profile', {
+      p_user_id: userId,
+      p_actor_data: actorData // Should be { has_priority: BOOLEAN, motive: TEXT }
+    });
 
-  if (data && !data.success) {
-    console.error(`[userService.updateActorProfileRpc] RPC call failed for user ID ${userId}:`, data.message, data.details);
-    throw new Error(data.message || 'RPC call to update actor profile failed.');
+    if (error) {
+      console.error(`[userService.updateActorProfileRpc] Error calling RPC for user ID ${userId}:`, error);
+      throw error; // Re-throw the original Supabase RPC error
+    }
+
+    if (data && !data.success) {
+      console.error(`[userService.updateActorProfileRpc] RPC call failed for user ID ${userId}:`, data.message, data.details);
+      throw new Error(data.message || 'RPC call to update actor profile failed.');
+    }
+    
+    console.log(`[userService.updateActorProfileRpc] RPC call successful for user ID ${userId}:`, data);
+    return data;
+  } catch (error) {
+    console.error(`[userService.updateActorProfileRpc] Error updating actor profile:`, error);
+    throw error;
   }
-  
-  console.log(`[userService.updateActorProfileRpc] RPC call successful for user ID ${userId}:`, data);
-  return data; 
 };
 
 // Clean up workers from actors table - this resolves issues where workers were incorrectly added to actors
