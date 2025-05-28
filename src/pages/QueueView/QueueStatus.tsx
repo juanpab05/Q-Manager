@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 // Navbar import is intentionally removed
 import { getQueueStatus, subscribeToTicketUpdates } from '@/api/ticketService';
 // import { getAllAnnouncements } from '@/api/announcementService'; // Removed
