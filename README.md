@@ -3,7 +3,7 @@
 Q-Manager is a user attention management system designed to coordinate and manage customer service queues across multiple access points. It prioritizes requests and optimizes workflow efficiently, aiming to transform the waiting experience.
 
 ## Deployed Version
-The application is deployed and accessible at: [https://q-manager-eta.vercel.app/](https://q-manager-eta.vercel.app/)
+The application is deployed and accessible at: [https://qmanager-eta.vercel.app/](https://qmanager-eta.vercel.app/)
 
 ## Features
 
