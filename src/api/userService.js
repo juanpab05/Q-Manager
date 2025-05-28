@@ -807,10 +807,12 @@ export const updateActorProfileRpc = async (userId, actorData) => {
   }
 
   try {
+    let actorToUpdateId = null;
+
     // First check for duplicate actors for this user_id
     const { data: duplicateCheck, error: checkError } = await supabase
       .from('actors')
-      .select('id, user_id')
+      .select('id, user_id') // Select id
       .eq('user_id', userId);
     
     if (checkError) {
@@ -818,49 +820,110 @@ export const updateActorProfileRpc = async (userId, actorData) => {
       throw checkError;
     }
     
-    // If multiple actors found for this user_id, clean them up
-    if (duplicateCheck && duplicateCheck.length > 1) {
-      console.warn(`[userService.updateActorProfileRpc] Found ${duplicateCheck.length} actor records for user ${userId}, cleaning up...`);
-      
-      // Keep the first record, delete the rest
-      const keepId = duplicateCheck[0].id;
-      const deleteIds = duplicateCheck.slice(1).map(a => a.id);
-      
-      // Delete duplicate records
-      const { error: deleteError } = await supabase
-        .from('actors')
-        .delete()
-        .in('id', deleteIds);
+    if (duplicateCheck && duplicateCheck.length > 0) {
+      if (duplicateCheck.length > 1) {
+        console.warn(`[userService.updateActorProfileRpc] Found ${duplicateCheck.length} actor records for user ${userId}, cleaning up...`);
         
-      if (deleteError) {
-        console.error(`[userService.updateActorProfileRpc] Error deleting duplicate actors:`, deleteError);
-        throw deleteError;
+        // Keep the first record (e.g., oldest or by some criteria if available, here just first)
+        // It's crucial that the record to keep is correctly identified.
+        // For simplicity, we keep the one with the "smallest" ID, assuming IDs are incremental.
+        // A more robust way might be to sort by a 'created_at' field if it exists.
+        const sortedDuplicates = [...duplicateCheck].sort((a, b) => String(a.id).localeCompare(String(b.id)));
+        actorToUpdateId = sortedDuplicates[0].id;
+        const deleteIds = sortedDuplicates.slice(1).map(a => a.id);
+        
+        if (deleteIds.length > 0) {
+          const { error: deleteError } = await supabase
+            .from('actors')
+            .delete()
+            .in('id', deleteIds);
+            
+          if (deleteError) {
+            console.error(`[userService.updateActorProfileRpc] Error deleting duplicate actors:`, deleteError);
+            // Potentially, we could still proceed if actorToUpdateId is set, but it's risky.
+            throw deleteError;
+          }
+          
+          console.log(`[userService.updateActorProfileRpc] Successfully deleted ${deleteIds.length} duplicate actor records`);
+        }
+      } else {
+        // Only one record found
+        actorToUpdateId = duplicateCheck[0].id;
       }
-      
-      console.log(`[userService.updateActorProfileRpc] Successfully deleted ${deleteIds.length} duplicate actor records`);
+    } else {
+      // No actor record exists for this user. This RPC is for *updating*.
+      // If an actor needs to be created, ensureUserInActors or a similar function should be used first.
+      console.error(`[userService.updateActorProfileRpc] No actor record found for user ID ${userId}. Cannot update.`);
+      // Depending on desired behavior, either throw an error or ensure actor exists.
+      // For now, let's assume an actor should exist.
+      // Option 1: Throw error
+      // throw new Error(`No actor profile found for user ID ${userId} to update.`);
+      // Option 2: Try to create one (less ideal for an "update" RPC wrapper)
+      // This might indicate a flaw in the calling logic if an update is attempted on a non-existent actor.
+      // However, to prevent errors if the previous page logic relied on this, we can try to ensure it exists.
+      // This is a common pattern seen in ensureUserInActors. Let's adapt it slightly for safety here.
+      console.log(`[userService.updateActorProfileRpc] Ensuring actor record exists for user ${userId} before update.`);
+      const { data: newActor, error: ensureError } = await supabase
+        .from('actors')
+        .insert([{ user_id: userId, has_priority: actorData.has_priority || false, motive: actorData.motive || null }])
+        .select('id')
+        .single();
+
+      if (ensureError) {
+        console.error(`[userService.updateActorProfileRpc] Error ensuring actor record for user ${userId}:`, ensureError);
+        throw ensureError;
+      }
+      if (!newActor) {
+        console.error(`[userService.updateActorProfileRpc] Failed to create and retrieve actor record for user ${userId}.`);
+        throw new Error(`Failed to establish actor record for user ${userId}.`);
+      }
+      actorToUpdateId = newActor.id;
+      console.log(`[userService.updateActorProfileRpc] Created new actor with ID ${actorToUpdateId} for user ${userId}.`);
     }
 
-    // Now call the RPC function to update the actor profile
-    const { data, error } = await supabase.rpc('update_actor_profile', {
-      p_user_id: userId,
-      p_actor_data: actorData // Should be { has_priority: BOOLEAN, motive: TEXT }
+    if (!actorToUpdateId) {
+      console.error(`[userService.updateActorProfileRpc] Could not determine a unique actor ID for user ${userId} after cleanup/check.`);
+      throw new Error(`Failed to identify a unique actor record for user ${userId}.`);
+    }
+
+    // Now call the RPC function to update the actor profile, using the specific actor ID
+    console.log(`[userService.updateActorProfileRpc] Calling RPC update_actor_profile for actor ID ${actorToUpdateId} (user ${userId})`);
+    const { data, error: rpcError } = await supabase.rpc('update_actor_profile', {
+      // Ensure your RPC is updated to accept p_actor_id
+      p_actor_id: actorToUpdateId, 
+      p_user_id: userId, // Keep p_user_id for now, RPC can use it for verification if needed
+      p_actor_data: actorData 
     });
 
-    if (error) {
-      console.error(`[userService.updateActorProfileRpc] Error calling RPC for user ID ${userId}:`, error);
-      throw error; // Re-throw the original Supabase RPC error
+    if (rpcError) {
+      console.error(`[userService.updateActorProfileRpc] Error calling RPC for actor ID ${actorToUpdateId} (user ID ${userId}):`, rpcError);
+      throw rpcError;
     }
 
-    if (data && !data.success) {
-      console.error(`[userService.updateActorProfileRpc] RPC call failed for user ID ${userId}:`, data.message, data.details);
+    // The RPC should return a structured response, e.g., { success: boolean, message: string, actor?: any }
+    if (data && data.success === false) { // Check for explicit failure from RPC
+      console.error(`[userService.updateActorProfileRpc] RPC call failed for actor ID ${actorToUpdateId} (user ID ${userId}):`, data.message, data.details);
       throw new Error(data.message || 'RPC call to update actor profile failed.');
     }
     
-    console.log(`[userService.updateActorProfileRpc] RPC call successful for user ID ${userId}:`, data);
-    return data;
+    // If data itself is the error or not what's expected (e.g. old RPCs might return error directly)
+    // This check might be redundant if RPCs always return {success: ...}
+    if (data && typeof data.success === 'undefined' && data.error) { // Heuristic for older error patterns
+        console.error(`[userService.updateActorProfileRpc] RPC returned an error object for actor ID ${actorToUpdateId}:`, data.error);
+        throw new Error(data.message || data.error.message || 'RPC call to update actor profile returned an error.');
+    }
+
+
+    console.log(`[userService.updateActorProfileRpc] RPC call successful for actor ID ${actorToUpdateId} (user ID ${userId}):`, data);
+    return data; // Assuming data is { success: true, message: string, actor: object }
   } catch (error) {
-    console.error(`[userService.updateActorProfileRpc] Error updating actor profile:`, error);
-    throw error;
+    console.error(`[userService.updateActorProfileRpc] Error updating actor profile for user ${userId}:`, error);
+    // To provide more specific feedback to the UI, you might want to avoid re-throwing generic errors
+    // if the error is already an instance of Error with a meaningful message.
+    if (error instanceof Error) {
+        throw error;
+    }
+    throw new Error(`An unexpected error occurred during actor profile update for user ${userId}.`);
   }
 };
 
