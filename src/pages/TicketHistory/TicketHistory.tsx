@@ -5,6 +5,7 @@ import { getMyTickets } from '@/api/ticketService';
 import { TicketResponseData } from '@/api/types.js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 const TicketHistoryPage: React.FC = () => {
   const auth = useAuth();
@@ -42,13 +43,7 @@ const TicketHistoryPage: React.FC = () => {
   const secondaryBtn = "py-2 px-5 rounded-lg font-semibold text-sm shadow-md hover:shadow-lg active:scale-95 transition-all duration-300 ease-in-out flex items-center";
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-        <main className="flex items-center justify-center pt-24 pb-12 px-4 text-center">
-          <p className="text-xl text-neutral-600">Cargando historial de tickets...</p>
-        </main>
-      </div>
-    );
+    return <LoadingSpinner message="Cargando historial de tickets..." />;
   }
 
   return (

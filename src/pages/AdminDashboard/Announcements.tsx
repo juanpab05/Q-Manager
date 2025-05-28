@@ -11,6 +11,7 @@ import {
 import { formatMediaUrl } from '@/utils/mediaUtils';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 const Announcements: React.FC = () => {
   // const navigate = useNavigate(); // Removed as it was for the localStorage check
@@ -214,14 +215,7 @@ const Announcements: React.FC = () => {
   };
 
   if (loading && announcements.length === 0) {
-    return (
-      <>
-        {/* <Navbar /> */}
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-          <p className="text-gray-600 text-lg">Cargando anuncios...</p>
-        </div>
-      </>
-    );
+    return <LoadingSpinner message="Cargando anuncios..." />;
   }
 
   return (

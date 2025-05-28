@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   getAllAccessPoints, 
@@ -13,6 +13,7 @@ import {
   attendTicket
 } from '@/api/accessPointService';
 import { useAuth } from '@/contexts/auth/AuthContext';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 const ManageQueue: React.FC = () => {
   const navigate = useNavigate();
@@ -226,13 +227,7 @@ const ManageQueue: React.FC = () => {
   };
 
   if (loading) {
-    return (
-      <>
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-          <p className="text-gray-600 text-lg">Cargando puntos de acceso...</p>
-        </div>
-      </>
-    );
+    return <LoadingSpinner message="Cargando puntos de acceso..." />;
   }
 
   return (

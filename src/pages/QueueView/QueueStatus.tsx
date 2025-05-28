@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 // Navbar import is intentionally removed
 import { getQueueStatus, subscribeToTicketUpdates } from '@/api/ticketService';
 // import { getAllAnnouncements } from '@/api/announcementService'; // Removed
@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import supabase from '@/utils/supabaseClient';
 import AnnouncementsCarousel from '@/components/AnnouncementsCarousel/AnnouncementsCarousel'; // Added
 import { useAuth } from '@/contexts/auth/AuthContext'; // Fixed import path
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 // interface Announcement { // Removed
 //   id: number;
@@ -310,11 +311,7 @@ const QueueStatusView: React.FC = () => {
   };
 
   if (loading && !queueStatus) {
-    return (
-      <div className="flex items-center justify-center py-12">
-        <p className="text-gray-600 text-lg">Cargando estado de la cola...</p>
-      </div>
-    );
+    return <LoadingSpinner message="Cargando estado de la cola..." />;
   }
 
   return (

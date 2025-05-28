@@ -5,6 +5,7 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import QueueStatusView from "../QueueView/QueueStatus";
 import NotificationPermission from "@/components/NotificationPermission";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 interface Action {
   title: string;
@@ -125,11 +126,7 @@ const HomeUserPage: React.FC = () => {
   }, [user, userProfile, authLoading, refreshUserProfile]);
 
   if (!user || !userProfile) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p className="text-gray-600">Cargando perfil…</p>
-      </div>
-    );
+    return <LoadingSpinner message="Cargando perfil..." />;
   }
 
   const actorActions: Action[] = [

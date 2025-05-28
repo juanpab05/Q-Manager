@@ -5,6 +5,7 @@ import { useAuth } from "@/contexts/auth/AuthContext";
 import userService from "@/services/userService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 // UserProfile type can be imported from AuthContext or userService if defined globally
 // For now, let's rely on the type inferred from useAuth().userProfile
@@ -186,41 +187,27 @@ const PersonalData: React.FC = () => {
 
   // Show loading indicator while AuthContext is loading or if userProfile is not yet available
   if (authLoading || (isAuthenticated && !userProfile)) {
-    return (
-      <>
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-          <p className="text-gray-600 text-lg">Cargando datos del perfil...</p>
-        </div>
-      </>
-    );
+    return <LoadingSpinner message="Cargando datos del perfil..." />;
   }
 
   // If not authenticated and not loading (should have been redirected by useEffect, but as a fallback)
   if (!isAuthenticated) {
-    return (
-      <>
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-          <p className="text-gray-600 text-lg">Redirigiendo a login...</p>
-        </div>
-      </>
-    );
+    return <LoadingSpinner message="Redirigiendo a login..." />;
   }
   
   // If authenticated but userProfile is somehow still null (after loading is complete)
   // This case indicates an issue with profile fetching in AuthContext, but PersonalData should handle it gracefully.
   if (!userProfile) {
     return (
-      <>
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-          <p className="text-red-600 text-lg mb-4">No se pudieron cargar los datos del perfil.</p>
-          <button
-            onClick={handleGoBack}
-            className={actionButtonClasses}
-          >
-            Regresar a Inicio
-          </button>
-        </div>
-      </>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+        <p className="text-red-600 text-lg mb-4">No se pudieron cargar los datos del perfil.</p>
+        <button
+          onClick={handleGoBack}
+          className={actionButtonClasses}
+        >
+          Regresar a Inicio
+        </button>
+      </div>
     );
   }
 

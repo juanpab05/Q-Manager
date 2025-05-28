@@ -14,6 +14,7 @@ import {
 import supabase from '@/utils/supabaseClient';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 interface UserListItem extends UserProfile {
   selected: boolean;
@@ -437,13 +438,7 @@ const ManageUserData: React.FC = () => {
   const editButtonClasses = `px-3 py-1 bg-indigo-600 text-white text-xs font-medium rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors`;
 
   if (loading) {
-    return (
-      <>
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-          <p className="text-gray-600 text-lg">Cargando usuarios...</p>
-        </div>
-      </>
-    );
+    return <LoadingSpinner message="Cargando usuarios..." />;
   }
 
   if (error && !editingUser) {

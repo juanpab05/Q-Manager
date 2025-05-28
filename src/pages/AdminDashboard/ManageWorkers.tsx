@@ -5,6 +5,7 @@ import { User, getAllWorkers, updateUser, deleteUsers, cleanupWorkersFromActors 
 // import { useNavigate } from "react-router-dom"; // Only if used for OTHER purposes now
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingSpinner from '@/components/LoadingSpinner';
 // Potentially import useAuth if you need userProfile details for display/logic later
 // import { useAuth } from "@/contexts/auth/AuthContext";
 
@@ -256,13 +257,7 @@ const ManageWorkers: React.FC = () => {
   const editButtonClasses = `px-3 py-1 bg-indigo-600 text-white text-xs font-medium rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors`;
 
   if (loading) {
-    return (
-      <>
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-          <p className="text-gray-600 text-lg">Cargando trabajadores...</p>
-        </div>
-      </>
-    );
+    return <LoadingSpinner message="Cargando trabajadores..." />;
   }
 
   if (error && !editingWorker) {

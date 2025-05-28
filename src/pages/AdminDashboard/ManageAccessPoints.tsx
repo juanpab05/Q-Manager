@@ -13,6 +13,7 @@ import { WorkerProfile as BaseWorkerProfile } from '@/api/types';
 import { useAuth } from '@/contexts/auth/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 // Extended WorkerProfile with assignment status
 interface WorkerProfile extends BaseWorkerProfile {
@@ -271,13 +272,7 @@ const ManageAccessPoints: React.FC = () => {
   };
 
   if (loading) {
-    return (
-      <>
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-          <p className="text-gray-600 text-lg">Cargando datos...</p>
-        </div>
-      </>
-    );
+    return <LoadingSpinner message="Cargando datos..." />;
   }
 
   return (
