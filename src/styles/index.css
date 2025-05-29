@@ -1,55 +1,5 @@
 @import "tailwindcss";
 
-/* Estilos base para el tema */
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  /* Variables de color para el tema claro */
-  --background-color: #ffffff;
-  --text-color: #333333;
-  --secondary-bg: #f7f7f7;
-  --border-color: #e5e5e5;
-  
-  color-scheme: light;
-  color: var(--text-color);
-  background-color: var(--background-color);
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Estilos para el modo oscuro */
-.dark {
-  --background-color: #1a1a1a;
-  --text-color: #e5e5e5;
-  --secondary-bg: #2a2a2a;
-  --border-color: #444444;
-  
-  color-scheme: dark;
-  color: var(--text-color);
-  background-color: var(--background-color);
-}
-
-/* Estilos generales */
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Transición suave para elementos al cambiar el tema */
-* {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
 
 /* ESTOS ESTILOS SE PUEDEN COMENTAR  */
 

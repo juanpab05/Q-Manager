@@ -5,7 +5,6 @@ import AppRoutes from './routes/AppRoutes'
 import { AuthProvider } from './contexts/auth/AuthContext'
 import NotificationProvider from './contexts/NotificationContext'
 import LoadingSpinner from '@/components/LoadingSpinner'
-import { ThemeProvider } from './contexts/ThemeContext'
 
 function App() {
   const [isInitialized, setIsInitialized] = useState(false);
@@ -23,7 +22,6 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider>
     <AuthProvider>
       <NotificationProvider>
         {isInitialized ? (
@@ -33,7 +31,6 @@ function App() {
         )}
       </NotificationProvider>
     </AuthProvider>
-    </ThemeProvider>
   )
 }
 

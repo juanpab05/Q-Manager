@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from '../../contexts/auth/AuthContext';
 import { useNotifications } from '../../contexts/NotificationContext';
-import ThemeToggle from '../../components/ThemeToggle';
 
 const useMediaQuery = (query: string): boolean => {
   const [matches, setMatches] = useState(false);
@@ -107,8 +106,8 @@ const Navbar = () => {
   // Enhanced mobile styling
   const getMobileClass = ({ isActive }: { isActive: boolean }) => {
     const mobileBase = "block w-full py-3.5 px-5 text-base font-medium rounded-lg transition-all duration-200 ease-in-out transform active:scale-98";
-    const mobileActive = "bg-indigo-50 text-indigo-700 font-semibold border-l-4 border-indigo-600 dark:bg-indigo-900/20 dark:text-indigo-400";
-    const mobileInactive = "text-neutral-700 hover:bg-indigo-50/50 hover:text-indigo-600 dark:text-neutral-300 dark:hover:bg-indigo-900/10 dark:hover:text-indigo-400";
+    const mobileActive = "bg-indigo-50 text-indigo-700 font-semibold border-l-4 border-indigo-600";
+    const mobileInactive = "text-neutral-700 hover:bg-indigo-50/50 hover:text-indigo-600";
     
     return isActive 
       ? `${mobileBase} ${mobileActive}` 
@@ -144,7 +143,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${scrolled || menuOpen ? "bg-white/95 shadow-xl backdrop-blur-md dark:bg-gray-900/95" : "bg-white/90 shadow-md dark:bg-gray-900/90"}`}>
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${scrolled || menuOpen ? "bg-white/95 shadow-xl backdrop-blur-md" : "bg-white/90 shadow-md"}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex-shrink-0 text-2xl font-bold text-indigo-600 hover:text-indigo-500 transition-colors duration-200 ease-out transform hover:scale-105 active:scale-100">
@@ -166,14 +165,11 @@ const Navbar = () => {
 
                 {isAuthenticated ? (
                   <div className="flex items-center space-x-4">
-                    {/* Theme Toggle */}
-                    <ThemeToggle />
-                    
                     {/* Botón de notificaciones - solo para usuarios regulares y actores */}
                     {shouldShowNotifications && (
                       <Link 
                         to="/home-user"
-                        className="relative p-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 dark:text-neutral-300 dark:hover:text-indigo-400 dark:hover:bg-gray-800 rounded-full inline-flex items-center justify-center"
+                        className="relative p-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 rounded-full inline-flex items-center justify-center"
                         title="Notificaciones"
                         onClick={() => clearNotifications()}
                       >
@@ -190,11 +186,10 @@ const Navbar = () => {
                     </button>
                   </div>
                 ) : (
-                  <div className="flex items-center space-x-4">
-                    <ThemeToggle />
+                  <>
                     <NavLink to="/register-user" className={getClass}>Regístrate</NavLink>
                     <NavLink to="/login" className={getClass}>Iniciar Sesión</NavLink>
-                  </div>
+                  </>
                 )}
               </div>
             </div>
@@ -202,16 +197,36 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           {isMobile && (
-            <div className="flex items-center space-x-2">
-              <ThemeToggle />
+            <div className="flex items-center">
+              {/* Mobile Notification Button - solo para usuarios regulares y actores */}
+              {isAuthenticated && shouldShowNotifications && (
+                <Link 
+                  to="/home-user"
+                  className="relative p-2 mr-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 rounded-full inline-flex items-center justify-center"
+                  title="Notificaciones"
+                  onClick={() => clearNotifications()}
+                >
+                  <BellIcon />
+                  <NotificationBadge />
+                </Link>
+              )}
+              
               <button
                 ref={buttonMenuRef}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-indigo-600 hover:bg-indigo-100/80 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-                aria-expanded="false"
                 onClick={() => setMenuOpen(!menuOpen)}
+                className="inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition-all duration-300 ease-in-out"
+                aria-controls="mobile-menu"
+                aria-expanded={menuOpen}
               >
                 <span className="sr-only">Abrir menú principal</span>
-                {menuOpen ? <CloseIcon /> : <MenuIcon />}
+                <div className="relative w-7 h-7">
+                  <span className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${menuOpen ? 'opacity-0 rotate-90 scale-95' : 'opacity-100 rotate-0 scale-100'}`}>
+                    <MenuIcon />
+                  </span>
+                  <span className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${menuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-95'}`}>
+                    <CloseIcon />
+                  </span>
+                </div>
               </button>
             </div>
           )}
@@ -229,7 +244,7 @@ const Navbar = () => {
           }`} 
           id="mobile-menu"
         >
-          <div className="px-3 pt-3 pb-4 space-y-1.5 bg-white dark:bg-gray-800 shadow-xl rounded-b-xl mx-2 mb-2 border border-t-0 border-gray-200/80 dark:border-gray-700/80">
+          <div className="px-3 pt-3 pb-4 space-y-1.5 bg-white shadow-xl rounded-b-xl mx-2 mb-2 border border-t-0 border-gray-200/80">
             <NavLink to="/" className={getMobileClass}>
               <div className="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2.5">
@@ -292,8 +307,8 @@ const Navbar = () => {
                 </NavLink>
               </>
             )}
-            <div className="pt-1 mt-2 border-t border-gray-200 dark:border-gray-700"></div>
-            <div className="text-xs text-center text-gray-500 dark:text-gray-400 py-1">
+            <div className="pt-1 mt-2 border-t border-gray-200"></div>
+            <div className="text-xs text-center text-gray-500 py-1">
               © {new Date().getFullYear()} Q-Manager
             </div>
           </div>
