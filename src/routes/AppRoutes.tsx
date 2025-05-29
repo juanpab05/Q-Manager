@@ -32,7 +32,7 @@ const AppRoutes: React.FC = () => (
     <Navbar />
 
     {/* Global background and padding for content area below Navbar */}
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 pt-16">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-950 pt-16">
       <Routes>
         {/* Páginas Públicas */}
         <Route path="/" element={<HomePage />} />

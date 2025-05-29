@@ -2,10 +2,15 @@ import { useTheme } from '../contexts/ThemeContext';
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
+  
+  const handleToggle = () => {
+    console.log('Toggling theme from:', theme);
+    toggleTheme();
+  };
 
   return (
     <button
-      onClick={toggleTheme}
+      onClick={handleToggle}
       className="p-2 rounded-md transition-colors duration-200 
                 dark:bg-gray-800 bg-gray-200
                 dark:text-gray-200 text-gray-800

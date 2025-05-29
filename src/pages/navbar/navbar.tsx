@@ -107,8 +107,8 @@ const Navbar = () => {
   // Enhanced mobile styling
   const getMobileClass = ({ isActive }: { isActive: boolean }) => {
     const mobileBase = "block w-full py-3.5 px-5 text-base font-medium rounded-lg transition-all duration-200 ease-in-out transform active:scale-98";
-    const mobileActive = "bg-indigo-50 text-indigo-700 font-semibold border-l-4 border-indigo-600";
-    const mobileInactive = "text-neutral-700 hover:bg-indigo-50/50 hover:text-indigo-600";
+    const mobileActive = "bg-indigo-50 text-indigo-700 font-semibold border-l-4 border-indigo-600 dark:bg-indigo-900/20 dark:text-indigo-400";
+    const mobileInactive = "text-neutral-700 hover:bg-indigo-50/50 hover:text-indigo-600 dark:text-neutral-300 dark:hover:bg-indigo-900/10 dark:hover:text-indigo-400";
     
     return isActive 
       ? `${mobileBase} ${mobileActive}` 
@@ -229,7 +229,7 @@ const Navbar = () => {
           }`} 
           id="mobile-menu"
         >
-          <div className="px-3 pt-3 pb-4 space-y-1.5 bg-white shadow-xl rounded-b-xl mx-2 mb-2 border border-t-0 border-gray-200/80">
+          <div className="px-3 pt-3 pb-4 space-y-1.5 bg-white dark:bg-gray-800 shadow-xl rounded-b-xl mx-2 mb-2 border border-t-0 border-gray-200/80 dark:border-gray-700/80">
             <NavLink to="/" className={getMobileClass}>
               <div className="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2.5">
@@ -292,8 +292,8 @@ const Navbar = () => {
                 </NavLink>
               </>
             )}
-            <div className="pt-1 mt-2 border-t border-gray-200"></div>
-            <div className="text-xs text-center text-gray-500 py-1">
+            <div className="pt-1 mt-2 border-t border-gray-200 dark:border-gray-700"></div>
+            <div className="text-xs text-center text-gray-500 dark:text-gray-400 py-1">
               © {new Date().getFullYear()} Q-Manager
             </div>
           </div>

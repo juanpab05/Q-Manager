@@ -24,15 +24,15 @@ function App() {
 
   return (
     <ThemeProvider>
-      <AuthProvider>
-        <NotificationProvider>
-          {isInitialized ? (
-            <AppRoutes />
-          ) : (
-            <LoadingSpinner message="Iniciando aplicación..." />
-          )}
-        </NotificationProvider>
-      </AuthProvider>
+    <AuthProvider>
+      <NotificationProvider>
+        {isInitialized ? (
+          <AppRoutes />
+        ) : (
+          <LoadingSpinner message="Iniciando aplicación..." />
+        )}
+      </NotificationProvider>
+    </AuthProvider>
     </ThemeProvider>
   )
 }
