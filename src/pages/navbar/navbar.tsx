@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from '../../contexts/auth/AuthContext';
 import { useNotifications } from '../../contexts/NotificationContext';
+import ThemeToggle from '../../components/ThemeToggle';
 
 const useMediaQuery = (query: string): boolean => {
   const [matches, setMatches] = useState(false);
@@ -143,7 +144,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${scrolled || menuOpen ? "bg-white/95 shadow-xl backdrop-blur-md" : "bg-white/90 shadow-md"}`}>
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${scrolled || menuOpen ? "bg-white/95 shadow-xl backdrop-blur-md dark:bg-gray-900/95" : "bg-white/90 shadow-md dark:bg-gray-900/90"}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex-shrink-0 text-2xl font-bold text-indigo-600 hover:text-indigo-500 transition-colors duration-200 ease-out transform hover:scale-105 active:scale-100">
@@ -165,11 +166,14 @@ const Navbar = () => {
 
                 {isAuthenticated ? (
                   <div className="flex items-center space-x-4">
+                    {/* Theme Toggle */}
+                    <ThemeToggle />
+                    
                     {/* Botón de notificaciones - solo para usuarios regulares y actores */}
                     {shouldShowNotifications && (
                       <Link 
                         to="/home-user"
-                        className="relative p-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 rounded-full inline-flex items-center justify-center"
+                        className="relative p-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 dark:text-neutral-300 dark:hover:text-indigo-400 dark:hover:bg-gray-800 rounded-full inline-flex items-center justify-center"
                         title="Notificaciones"
                         onClick={() => clearNotifications()}
                       >
@@ -186,10 +190,11 @@ const Navbar = () => {
                     </button>
                   </div>
                 ) : (
-                  <>
+                  <div className="flex items-center space-x-4">
+                    <ThemeToggle />
                     <NavLink to="/register-user" className={getClass}>Regístrate</NavLink>
                     <NavLink to="/login" className={getClass}>Iniciar Sesión</NavLink>
-                  </>
+                  </div>
                 )}
               </div>
             </div>
@@ -197,36 +202,16 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           {isMobile && (
-            <div className="flex items-center">
-              {/* Mobile Notification Button - solo para usuarios regulares y actores */}
-              {isAuthenticated && shouldShowNotifications && (
-                <Link 
-                  to="/home-user"
-                  className="relative p-2 mr-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 rounded-full inline-flex items-center justify-center"
-                  title="Notificaciones"
-                  onClick={() => clearNotifications()}
-                >
-                  <BellIcon />
-                  <NotificationBadge />
-                </Link>
-              )}
-              
+            <div className="flex items-center space-x-2">
+              <ThemeToggle />
               <button
                 ref={buttonMenuRef}
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-indigo-600 hover:bg-indigo-100/80 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                aria-expanded="false"
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition-all duration-300 ease-in-out"
-                aria-controls="mobile-menu"
-                aria-expanded={menuOpen}
               >
                 <span className="sr-only">Abrir menú principal</span>
-                <div className="relative w-7 h-7">
-                  <span className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${menuOpen ? 'opacity-0 rotate-90 scale-95' : 'opacity-100 rotate-0 scale-100'}`}>
-                    <MenuIcon />
-                  </span>
-                  <span className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${menuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-95'}`}>
-                    <CloseIcon />
-                  </span>
-                </div>
+                {menuOpen ? <CloseIcon /> : <MenuIcon />}
               </button>
             </div>
           )}

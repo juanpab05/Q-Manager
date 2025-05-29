@@ -5,6 +5,7 @@ import AppRoutes from './routes/AppRoutes'
 import { AuthProvider } from './contexts/auth/AuthContext'
 import NotificationProvider from './contexts/NotificationContext'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import { ThemeProvider } from './contexts/ThemeContext'
 
 function App() {
   const [isInitialized, setIsInitialized] = useState(false);
@@ -22,15 +23,17 @@ function App() {
   }, []);
 
   return (
-    <AuthProvider>
-      <NotificationProvider>
-        {isInitialized ? (
-          <AppRoutes />
-        ) : (
-          <LoadingSpinner message="Iniciando aplicación..." />
-        )}
-      </NotificationProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <NotificationProvider>
+          {isInitialized ? (
+            <AppRoutes />
+          ) : (
+            <LoadingSpinner message="Iniciando aplicación..." />
+          )}
+        </NotificationProvider>
+      </AuthProvider>
+    </ThemeProvider>
   )
 }
 
