@@ -1,5 +1,7 @@
 import React from 'react';
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Import chart components
 import StatisticsCards from './components/StatisticsCards';
@@ -61,6 +63,7 @@ const Statistics: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+      <ToastContainer position="top-right" autoClose={3000} />
       <main className="py-12 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28">
         <div className="max-w-7xl mx-auto">
           {/* Header */}

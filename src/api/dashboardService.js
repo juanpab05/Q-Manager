@@ -180,3 +180,5 @@ export const subscribeToQueueUpdates = (callback) => {
     supabase.removeChannel(subscription);
   };
 }; 
+
+ 
