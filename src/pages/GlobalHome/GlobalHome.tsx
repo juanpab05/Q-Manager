@@ -1,6 +1,7 @@
 import {Link } from "react-router-dom"; // Import Link
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { useAuth } from "@/contexts/auth/AuthContext"; // Ensure useAuth is imported
+import QueueStatusWidget from "@/components/QueueStatusWidget"; // Import the new widget
 
 // --- Updated modern icons ---
 const UserFriendlyIcon = ({ className = "w-8 h-8" }: { className?: string }) => (
@@ -55,50 +56,107 @@ export default function HomePage() {
 
   return (
     <section className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-4 sm:p-6">
-      <div className={`flex flex-col ${isMobile ? "w-full max-w-xl" : "w-full max-w-4xl lg:max-w-5xl"} bg-white rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden`}>
+      <div className={`flex flex-col ${isMobile ? "w-full max-w-xl" : "w-full max-w-6xl lg:max-w-7xl"} bg-white rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden`}>
         
-        {/* Hero Section */}
-        <div className="flex flex-col justify-center items-center text-center px-6 py-10 sm:px-10 sm:py-16 md:px-16 md:py-20 bg-white"> {/* Removed gradient from here for cleaner card */}
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-800 mb-6">
-            Bienvenido a <span className="text-indigo-600">Q-Manager</span>
-          </h1>
-          <p className="text-neutral-600 text-base sm:text-lg mb-8 max-w-xl lg:max-w-2xl mx-auto">
-            Optimiza tu tiempo con nuestro sistema de gestión de turnos. Una experiencia más ágil y ordenada para todos los usuarios.
-          </p>
+        {/* Hero Section with Queue Widgets - Two Column Layout */}
+        <div className="px-6 py-10 sm:px-10 sm:py-16 md:px-16 md:py-20 bg-white">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            
+            {/* Left Column - Welcome Message */}
+            <div className="flex flex-col justify-center text-center lg:text-left">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-800 mb-6">
+                Bienvenido a <span className="text-indigo-600">Q-Manager</span>
+              </h1>
+              <p className="text-neutral-600 text-base sm:text-lg mb-8 max-w-xl mx-auto lg:mx-0">
+                Optimiza tu tiempo con nuestro sistema de gestión de turnos. Una experiencia más ágil y ordenada para todos los usuarios.
+              </p>
 
-          {/* Botones de navegación */}
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto justify-center items-center">
-            <Link
-              to="/about" // Use Link for navigation
-              className={`${secondaryButtonClasses} bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50`}
-            >
-              Más sobre nosotros
-            </Link>
+              {/* Botones de navegación */}
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto justify-center lg:justify-start items-center lg:items-start">
+                <Link
+                  to="/about"
+                  className={`${secondaryButtonClasses} bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50`}
+                >
+                  Más sobre nosotros
+                </Link>
 
-            {/* Use auth.isAuthenticated from AuthContext for conditional rendering */}
-            {!auth.isAuthenticated ? (
-              <>
-                <Link
-                  to="/signup" // Change to use the proper signup page that has email confirmation
-                  className={`${secondaryButtonClasses} bg-transparent border-2 border-purple-600 text-purple-600 hover:bg-purple-50`}
-                >
-                  Regístrate
-                </Link>
-                <Link
-                  to="/login" // Use Link for navigation
-                  className={`${primaryButtonClasses} bg-indigo-600 hover:bg-indigo-700`}
-                >
-                  Iniciar Sesión
-                </Link>
-              </>
-            ) : (
-              <Link
-                to="/home-user" // Use Link for navigation
-                className={`${primaryButtonClasses} bg-green-500 hover:bg-green-600`} // Changed color for logged in state
-              >
-                Acceder al Sistema
-              </Link>
-            )}
+                {/* Use auth.isAuthenticated from AuthContext for conditional rendering */}
+                {!auth.isAuthenticated ? (
+                  <>
+                    <Link
+                      to="/signup"
+                      className={`${secondaryButtonClasses} bg-transparent border-2 border-purple-600 text-purple-600 hover:bg-purple-50`}
+                    >
+                      Regístrate
+                    </Link>
+                    <Link
+                      to="/login"
+                      className={`${primaryButtonClasses} bg-indigo-600 hover:bg-indigo-700`}
+                    >
+                      Iniciar Sesión
+                    </Link>
+                  </>
+                ) : (
+                  <Link
+                    to="/home-user"
+                    className={`${primaryButtonClasses} bg-green-500 hover:bg-green-600`}
+                  >
+                    Acceder al Sistema
+                  </Link>
+                )}
+              </div>
+            </div>
+
+            {/* Right Column - Queue Status Widgets */}
+            <div className="flex flex-col space-y-6">
+              <div className="text-center lg:text-left">
+                <h2 className="text-xl sm:text-2xl font-semibold text-neutral-800 mb-3">
+                  Estado de la Cola en Tiempo Real
+                </h2>
+                <p className="text-neutral-600 text-sm sm:text-base mb-6">
+                  Ve qué tickets están siendo atendidos ahora mismo.
+                </p>
+              </div>
+              
+              <div className="space-y-4">
+                {/* Widget principal con estilo carousel - más compacto */}
+                <QueueStatusWidget 
+                  variant="carousel" 
+                  showUserTicket={auth.isAuthenticated}
+                  className="w-full"
+                />
+                
+                {/* Widget compacto adicional */}
+                <QueueStatusWidget 
+                  variant="compact" 
+                  showUserTicket={auth.isAuthenticated}
+                  className="w-full"
+                />
+              </div>
+
+              {/* Call to action para usuarios no autenticados - más compacto */}
+              {!auth.isAuthenticated && (
+                <div className="text-center lg:text-left">
+                  <p className="text-neutral-600 text-sm mb-3">
+                    ¿Quieres solicitar tu turno y evitar las esperas?
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-2 justify-center lg:justify-start">
+                    <Link
+                      to="/signup"
+                      className="py-2 px-4 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition-colors"
+                    >
+                      Registrarse
+                    </Link>
+                    <Link
+                      to="/login"
+                      className="py-2 px-4 rounded-lg border border-indigo-600 text-indigo-600 text-sm font-semibold hover:bg-indigo-50 transition-colors"
+                    >
+                      Iniciar Sesión
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

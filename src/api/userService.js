@@ -701,6 +701,8 @@ export const syncMissingUsersToActors = async () => {
     
     try {
       // First attempt: Try to use the RPC function
+      // Note: This RPC may fail with "column reference 'user_id' is ambiguous" error
+      // The RPC function needs to be fixed in the database to specify table aliases
       const { data, error } = await supabase.rpc('sync_missing_users_to_actors');
       
       if (error) {
@@ -720,18 +722,7 @@ export const syncMissingUsersToActors = async () => {
       // Fallback: If RPC fails, use direct SQL queries
       console.log('[userService] RPC failed, falling back to direct database operations for syncing');
       
-      // 1. Get users that aren't in actors table
-      const { data: usersNotInActors, error: usersError } = await supabase
-        .from('users')
-        .select('id')
-        .not('id', 'in', supabase.from('actors').select('user_id'));
-        
-      if (usersError) {
-        console.error('[userService] Error getting users not in actors:', usersError);
-        throw usersError;
-      }
-      
-      // 2. Get existing actors for filtering
+      // 1. First get existing actors to know which users are already in the actors table
       const { data: existingActors, error: actorsError } = await supabase
         .from('actors')
         .select('user_id');
@@ -739,6 +730,18 @@ export const syncMissingUsersToActors = async () => {
       if (actorsError) {
         console.error('[userService] Error getting existing actors:', actorsError);
         throw actorsError;
+      }
+      
+      const existingActorIds = (existingActors || []).map(a => a.user_id);
+      
+      // 2. Get all users
+      const { data: allUsers, error: usersError } = await supabase
+        .from('users')
+        .select('id');
+        
+      if (usersError) {
+        console.error('[userService] Error getting all users:', usersError);
+        throw usersError;
       }
       
       // 3. Also exclude workers from being added
@@ -754,8 +757,7 @@ export const syncMissingUsersToActors = async () => {
       const workerIds = (workers || []).map(w => w.user_id);
       
       // 4. Find users that need to be added (not in actors and not workers)
-      const existingActorIds = (existingActors || []).map(a => a.user_id);
-      const usersToAdd = (usersNotInActors || [])
+      const usersToAdd = (allUsers || [])
         .filter(u => !existingActorIds.includes(u.id) && !workerIds.includes(u.id));
       
       console.log(`[userService] Found ${usersToAdd.length} users to add to actors table`);
