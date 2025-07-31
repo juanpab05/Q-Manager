@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from '../../contexts/auth/AuthContext';
-import { useNotifications } from '../../contexts/NotificationContext';
 
 const useMediaQuery = (query: string): boolean => {
   const [matches, setMatches] = useState(false);
@@ -27,21 +26,11 @@ const CloseIcon = () => (
   </svg>
 );
 
-const BellIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-  </svg>
-);
+
 
 const Navbar = () => {
   const auth = useAuth();
   const isAuthenticated = auth?.isAuthenticated;
-  const userProfile = auth?.userProfile;
-  const { notificationCount, clearNotifications } = useNotifications();
-  
-  // Check if the user is a regular user or actor who should see notifications
-  const shouldShowNotifications = userProfile && 
-    (userProfile.userType === "user" || userProfile.userType === "actor");
   
   const handleLogout = async () => {
     try {
@@ -125,22 +114,7 @@ const Navbar = () => {
     return false; // Ensure no additional handlers are called
   };
 
-  // Render notification badge
-  const NotificationBadge = () => {
-    if (!notificationCount) return null;
-    
-    return (
-      <span 
-        className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center"
-        onClick={(e) => {
-          e.stopPropagation();
-          clearNotifications();
-        }}
-      >
-        {notificationCount > 9 ? '9+' : notificationCount}
-      </span>
-    );
-  };
+
 
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${scrolled || menuOpen ? "bg-white/95 shadow-xl backdrop-blur-md" : "bg-white/90 shadow-md"}`}>
@@ -165,19 +139,6 @@ const Navbar = () => {
 
                 {isAuthenticated ? (
                   <div className="flex items-center space-x-4">
-                    {/* Botón de notificaciones - solo para usuarios regulares y actores */}
-                    {shouldShowNotifications && (
-                      <Link 
-                        to="/home-user"
-                        className="relative p-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 rounded-full inline-flex items-center justify-center"
-                        title="Notificaciones"
-                        onClick={() => clearNotifications()}
-                      >
-                        <BellIcon />
-                        <NotificationBadge />
-                      </Link>
-                    )}
-                    
                     <button 
                       onClick={handleLogoutClick}
                       className={logoutBtn}
@@ -198,19 +159,6 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           {isMobile && (
             <div className="flex items-center">
-              {/* Mobile Notification Button - solo para usuarios regulares y actores */}
-              {isAuthenticated && shouldShowNotifications && (
-                <Link 
-                  to="/home-user"
-                  className="relative p-2 mr-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-100/80 rounded-full inline-flex items-center justify-center"
-                  title="Notificaciones"
-                  onClick={() => clearNotifications()}
-                >
-                  <BellIcon />
-                  <NotificationBadge />
-                </Link>
-              )}
-              
               <button
                 ref={buttonMenuRef}
                 onClick={() => setMenuOpen(!menuOpen)}

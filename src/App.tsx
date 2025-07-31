@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 import AppRoutes from './routes/AppRoutes'
 // import AuthProvider from '@/contexts/auth/AuthProvider' 
 import { AuthProvider } from './contexts/auth/AuthContext'
-import NotificationProvider from './contexts/NotificationContext'
 import LoadingSpinner from '@/components/LoadingSpinner'
 
 function App() {
@@ -23,13 +22,11 @@ function App() {
 
   return (
     <AuthProvider>
-      <NotificationProvider>
         {isInitialized ? (
           <AppRoutes />
         ) : (
           <LoadingSpinner message="Iniciando aplicación..." />
         )}
-      </NotificationProvider>
     </AuthProvider>
   )
 }
