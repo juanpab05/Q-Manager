@@ -59,57 +59,64 @@ export default function HomePage() {
     <section className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-4 sm:p-6">
       <div className={`flex flex-col ${isMobile ? "w-full max-w-xl" : "w-full max-w-6xl lg:max-w-7xl"} bg-white rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden`}>
         
-        {/* Hero Section with Queue Widgets - Two Column Layout */}
-        <div className="px-6 py-10 sm:px-10 sm:py-16 md:px-16 md:py-20 bg-white">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        {/* Hero Section with Queue Widgets - Optimized Two Column Layout */}
+        <div className="px-6 py-8 sm:px-10 sm:py-12 md:px-16 md:py-16 bg-white">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-8 items-center">
             
             {/* Left Column - Welcome Message */}
-            <div className="flex flex-col justify-center text-center lg:text-left">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-800 mb-6">
+            <div className="lg:col-span-2 flex flex-col justify-center text-center lg:text-left">
+              <h1 className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold text-neutral-800 mb-4">
                 Bienvenido a <span className="text-indigo-600">Q-Manager</span>
               </h1>
-              <p className="text-neutral-600 text-base sm:text-lg mb-8 max-w-xl mx-auto lg:mx-0">
+              <p className="text-neutral-600 text-base sm:text-lg mb-6 max-w-lg mx-auto lg:mx-0">
                 Optimiza tu tiempo con nuestro sistema de gestión de turnos. Una experiencia más ágil y ordenada para todos los usuarios.
               </p>
 
               {/* Botones de navegación */}
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto justify-center lg:justify-start items-center lg:items-start">
-                <Link
-                  to="/about"
-                  className={`${secondaryButtonClasses} bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50`}
-                >
-                  Más sobre nosotros
-                </Link>
-
+              <div className="flex flex-col gap-3 w-full justify-center lg:justify-start">
                 {/* Use auth.isAuthenticated from AuthContext for conditional rendering */}
                 {!auth.isAuthenticated ? (
                   <>
                     <Link
+                      to="/login"
+                      className={`${primaryButtonClasses} bg-indigo-600 hover:bg-indigo-700 text-center`}
+                    >
+                      Iniciar Sesión
+                    </Link>
+                    <Link
                       to="/signup"
-                      className={`${secondaryButtonClasses} bg-transparent border-2 border-purple-600 text-purple-600 hover:bg-purple-50`}
+                      className={`${secondaryButtonClasses} bg-transparent border-2 border-purple-600 text-purple-600 hover:bg-purple-50 text-center`}
                     >
                       Regístrate
                     </Link>
                     <Link
-                      to="/login"
-                      className={`${primaryButtonClasses} bg-indigo-600 hover:bg-indigo-700`}
+                      to="/about"
+                      className={`${secondaryButtonClasses} bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 text-center`}
                     >
-                      Iniciar Sesión
+                      Más sobre nosotros
                     </Link>
                   </>
                 ) : (
-                  <Link
-                    to="/home-user"
-                    className={`${primaryButtonClasses} bg-green-500 hover:bg-green-600`}
-                  >
-                    Acceder al Sistema
-                  </Link>
+                  <>
+                    <Link
+                      to="/home-user"
+                      className={`${primaryButtonClasses} bg-green-500 hover:bg-green-600 text-center`}
+                    >
+                      Acceder al Sistema
+                    </Link>
+                    <Link
+                      to="/about"
+                      className={`${secondaryButtonClasses} bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 text-center`}
+                    >
+                      Más sobre nosotros
+                    </Link>
+                  </>
                 )}
               </div>
             </div>
 
             {/* Right Column - Queue Status Widgets */}
-            <div className="flex flex-col space-y-6">
+            <div className="lg:col-span-3 flex flex-col space-y-6">
               <div className="text-center lg:text-left">
                 <h2 className="text-xl sm:text-2xl font-semibold text-neutral-800 mb-3">
                   Estado de la Cola y Anuncios

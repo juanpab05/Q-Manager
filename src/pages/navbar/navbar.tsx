@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from '../../contexts/auth/AuthContext';
 import { useNotifications } from '../../contexts/NotificationContext';
-import QueueStatusBadge from '@/components/QueueStatusBadge'; // Add import for queue status badge
 
 const useMediaQuery = (query: string): boolean => {
   const [matches, setMatches] = useState(false);
@@ -166,13 +165,6 @@ const Navbar = () => {
 
                 {isAuthenticated ? (
                   <div className="flex items-center space-x-4">
-                    {/* Queue Status Badge - sempre visible para usuarios autenticados */}
-                    <QueueStatusBadge 
-                      variant="navbar" 
-                      showDetails={false}
-                      className="hidden lg:flex"
-                    />
-                    
                     {/* Botón de notificaciones - solo para usuarios regulares y actores */}
                     {shouldShowNotifications && (
                       <Link 
@@ -195,13 +187,6 @@ const Navbar = () => {
                   </div>
                 ) : (
                   <div className="flex items-center space-x-4">
-                    {/* Queue Status Badge visible for everyone */}
-                    <QueueStatusBadge 
-                      variant="navbar" 
-                      showDetails={false}
-                      className="hidden lg:flex"
-                    />
-                    
                     <NavLink to="/register-user" className={getClass}>Regístrate</NavLink>
                     <NavLink to="/login" className={getClass}>Iniciar Sesión</NavLink>
                   </div>
@@ -213,13 +198,6 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           {isMobile && (
             <div className="flex items-center">
-              {/* Queue Status Badge for mobile - compact version */}
-              <QueueStatusBadge 
-                variant="navbar" 
-                showDetails={false}
-                className="mr-2 text-xs px-2 py-1"
-              />
-              
               {/* Mobile Notification Button - solo para usuarios regulares y actores */}
               {isAuthenticated && shouldShowNotifications && (
                 <Link 

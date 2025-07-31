@@ -1,24 +1,7 @@
 import React from 'react';
 import { useAuth } from '@/contexts/auth/AuthContext'; 
 
-// Placeholder para imagen de miembro del equipo
-const MemberImagePlaceholder: React.FC<{ nameInitial: string }> = ({ nameInitial }) => (
-  <div className="w-24 h-24 sm:w-28 sm:h-28 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 text-3xl sm:text-4xl font-semibold mb-4 shadow-md">
-    {nameInitial}
-  </div>
-);
 
-interface TeamMember {
-  id: number;
-  name: string;
-  role: string;
-  imageUrl?: string;
-}
-
-// Datos de los miembros del equipo (reemplaza con tus datos reales)
-const teamMembers: TeamMember[] = [
-  { id: 1, name: "Cristian Daniel Guaza Mejia", role: "Desarrollador Fullstack & DB"},
-];
 
 // Componente para las secciones con íconos
 const IconSection: React.FC<{ icon: React.ReactNode; title: string; children: React.ReactNode }> = ({ 
@@ -133,36 +116,7 @@ const AboutPage: React.FC = () => {
             </div>
           </section>
 
-          {/* Sección Nuestro Equipo */}
-          <section className="mb-16 md:mb-20">
-            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-800 mb-6 text-center">
-              Nuestro Equipo
-            </h2>
-            <div className="relative mb-10">
-              <div className="w-20 h-1 bg-indigo-500 mx-auto rounded-full"></div>
-              <div className="w-10 h-1 bg-indigo-300 mx-auto mt-1 rounded-full"></div>
-            </div>
-            <div className="flex justify-center">
-              {teamMembers.map((member) => (
-                <div
-                  key={member.id}
-                  className="bg-white rounded-2xl shadow-xl p-6 pt-8 text-center flex flex-col items-center hover:shadow-2xl transition-shadow duration-300 max-w-sm mx-auto"
-                >
-                  {member.imageUrl ? (
-                    <img
-                      src={member.imageUrl}
-                      alt={member.name}
-                      className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover mb-5 shadow-md border-2 border-indigo-200"
-                    />
-                  ) : (
-                    <MemberImagePlaceholder nameInitial={member.name.charAt(0)} />
-                  )}
-                  <h3 className="text-xl font-semibold text-indigo-600 mb-1">{member.name}</h3>
-                  <p className="text-sm text-neutral-700 font-medium mb-2">{member.role}</p>
-                </div>
-              ))}
-            </div>
-          </section>
+
           
         </div>
       </main>
