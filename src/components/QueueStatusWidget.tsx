@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { getQueueStatus, subscribeToTicketUpdates } from '@/api/ticketService';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { useAuth } from '@/contexts/auth/AuthContext';
 
 interface Ticket {
   id: number;
@@ -48,7 +47,6 @@ const QueueStatusWidget: React.FC<QueueStatusWidgetProps> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [updates, setUpdates] = useState<{id: string, type: string}[]>([]);
-  const auth = useAuth();
 
   useEffect(() => {
     fetchData();

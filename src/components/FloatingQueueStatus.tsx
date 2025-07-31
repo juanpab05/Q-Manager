@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import QueueStatusBadge from './QueueStatusBadge';
 import QueueStatusWidget from './QueueStatusWidget';
 import { motion, AnimatePresence } from 'framer-motion';
 
