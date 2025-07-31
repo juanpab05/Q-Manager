@@ -119,10 +119,10 @@ export default function HomePage() {
             <div className="lg:col-span-3 flex flex-col space-y-6">
               <div className="text-center lg:text-left">
                 <h2 className="text-xl sm:text-2xl font-semibold text-neutral-800 mb-3">
-                  Estado de la Cola y Anuncios
+                  Estado de la Cola 
                 </h2>
                 <p className="text-neutral-600 text-sm sm:text-base mb-6">
-                  Ve qué tickets están siendo atendidos y mantente informado con nuestros anuncios.
+                  Ve qué tickets están siendo atendidos en tiempo real.
                 </p>
               </div>
               
