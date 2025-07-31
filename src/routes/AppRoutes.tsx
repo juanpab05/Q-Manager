@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "@/pages/navbar/navbar";
 import ProtectedRoute from "./ProtectedRoutes.tsx";
 import TestAuth from "@/components/TestAuth";
-import FloatingQueueStatus from "@/components/FloatingQueueStatus"; // Add import for FloatingQueueStatus
+
 
 import HomePage from "@/pages/GlobalHome/GlobalHome";
 import AboutPage from "@/pages/About/About";
@@ -144,23 +144,7 @@ const AppRoutes: React.FC = () => (
         {/* Rutas no definidas redirigen al home */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      
-      {/* Floating Queue Status Widget - appears on specific routes */}
-      <FloatingQueueStatus 
-        enabledRoutes={[
-          '/about', 
-          '/home-user', 
-          '/personal-data', 
-          '/request-ticket', 
-          '/manage-user-data',
-          '/ticket-history',
-          '/register-user',
-          '/login'
-        ]}
-        position="bottom-right"
-        autoShow={true}
-        defaultExpanded={false}
-      />
+
     </div>
   </BrowserRouter>
 );

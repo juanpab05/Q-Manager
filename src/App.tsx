@@ -5,7 +5,6 @@ import AppRoutes from './routes/AppRoutes'
 import { AuthProvider } from './contexts/auth/AuthContext'
 import NotificationProvider from './contexts/NotificationContext'
 import LoadingSpinner from '@/components/LoadingSpinner'
-// Remove the FloatingQueueStatus import since we're moving it to AppRoutes
 
 function App() {
   const [isInitialized, setIsInitialized] = useState(false);

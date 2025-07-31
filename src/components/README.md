@@ -45,26 +45,7 @@ Badge pequeño optimizado para barras de navegación y espacios reducidos.
 <QueueStatusBadge variant="sidebar" showDetails={true} />
 ```
 
-### 3. `FloatingQueueStatus`
-Widget flotante que aparece automáticamente en ciertas rutas.
-
-#### Props:
-- `enabledRoutes`: `string[]` - Rutas donde aparece el widget
-- `position`: `'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'`
-- `autoShow`: `boolean` - Si se muestra automáticamente
-- `defaultExpanded`: `boolean` - Si inicia expandido
-
-#### Ejemplo de uso:
-```tsx
-<FloatingQueueStatus 
-  enabledRoutes={['/about', '/home-user']}
-  position="bottom-right"
-  autoShow={true}
-  defaultExpanded={false}
-/>
-```
-
-### 4. `useQueueStatus` Hook
+### 3. `useQueueStatus` Hook
 Hook personalizado para obtener datos del estado de la cola.
 
 #### Opciones:
@@ -141,13 +122,7 @@ Todos los componentes incluyen:
 <QueueStatusWidget variant="detailed" />
 ```
 
-### App Level
-```tsx
-// Ya integrado en src/App.tsx
-<FloatingQueueStatus 
-  enabledRoutes={['/about', '/home-user', '/personal-data']}
-/>
-```
+
 
 ## 🛠️ Personalización
 
