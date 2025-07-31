@@ -2,6 +2,7 @@ import {Link } from "react-router-dom"; // Import Link
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { useAuth } from "@/contexts/auth/AuthContext"; // Ensure useAuth is imported
 import QueueStatusWidget from "@/components/QueueStatusWidget"; // Import the new widget
+import AnnouncementsCarousel from "@/components/AnnouncementsCarousel/AnnouncementsCarousel";
 
 // --- Updated modern icons ---
 const UserFriendlyIcon = ({ className = "w-8 h-8" }: { className?: string }) => (
@@ -111,10 +112,10 @@ export default function HomePage() {
             <div className="flex flex-col space-y-6">
               <div className="text-center lg:text-left">
                 <h2 className="text-xl sm:text-2xl font-semibold text-neutral-800 mb-3">
-                  Estado de la Cola en Tiempo Real
+                  Estado de la Cola y Anuncios
                 </h2>
                 <p className="text-neutral-600 text-sm sm:text-base mb-6">
-                  Ve qué tickets están siendo atendidos ahora mismo.
+                  Ve qué tickets están siendo atendidos y mantente informado con nuestros anuncios.
                 </p>
               </div>
               
@@ -126,12 +127,19 @@ export default function HomePage() {
                   className="w-full"
                 />
                 
-                {/* Widget compacto adicional */}
-                <QueueStatusWidget 
-                  variant="compact" 
-                  showUserTicket={auth.isAuthenticated}
-                  className="w-full"
-                />
+                {/* Componente de anuncios ajustado al tamaño del widget */}
+                <div className="bg-white rounded-lg shadow-md border border-gray-200 p-4 w-full">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="text-lg font-medium text-gray-800">Anuncios</h4>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse mr-2"></div>
+                      <span className="text-xs text-gray-500">En vivo</span>
+                    </div>
+                  </div>
+                  <div className="aspect-video rounded-lg overflow-hidden">
+                    <AnnouncementsCarousel />
+                  </div>
+                </div>
               </div>
 
               {/* Call to action para usuarios no autenticados - más compacto */}

@@ -484,59 +484,7 @@ const QueueStatusView: React.FC = () => {
         </div>
       )}
       
-      {/* Lista de tickets en espera - Mostrar solo para staff */}
-      {isStaff && queueStatus?.next_tickets && queueStatus.next_tickets.length > 0 && (
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">Todos los Tickets en Espera</h2>
-          <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Número</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Servicio</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prioridad</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hora</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {queueStatus.next_tickets.map((ticket) => {
-                  const isUpdated = shouldAnimate(ticket);
-                  
-                  return (
-                    <motion.tr 
-                      key={ticket.id}
-                      animate={isUpdated ? { 
-                        backgroundColor: ["rgba(255,255,255,0)", "rgba(219, 234, 254, 0.3)", "rgba(255,255,255,0)"] 
-                      } : {}}
-                      transition={{ duration: 1.5 }}
-                    >
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="font-medium text-gray-900">{ticket.ticket_number}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{ticket.service}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{ticket.status_display || ticket.status}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 py-1 text-xs rounded-full font-semibold ${ticket.is_priority ? 
-                        'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800'}`}>
-                        {ticket.is_priority ? 'Prioritario' : 'Normal'}
-                      </span>
-                    </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(ticket.created_at).toLocaleTimeString()}
-                      </td>
-                    </motion.tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
+
       
       {/* Anuncios */}
       <div className="mb-8">

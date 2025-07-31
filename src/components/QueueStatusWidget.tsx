@@ -162,9 +162,8 @@ const QueueStatusWidget: React.FC<QueueStatusWidgetProps> = ({
         
         {queueStatus?.statistics && (
           <div className="mt-4 pt-4 border-t border-white/20">
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-center text-sm">
               <span>En espera: {queueStatus.statistics.waiting_count}</span>
-              <span>Tiempo: ~{Math.round(queueStatus.statistics.avg_wait_time / 60)}min</span>
             </div>
           </div>
         )}
@@ -198,13 +197,13 @@ const QueueStatusWidget: React.FC<QueueStatusWidgetProps> = ({
           <>
             {/* User's ticket if available */}
             {showUserTicket && queueStatus?.user_ticket && (
-              <div className="mb-6 p-4 bg-purple-50 rounded-lg border border-purple-200">
+              <div className="mb-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
                 <div className="text-center">
-                  <div className="text-sm text-purple-600 font-medium mb-1">Tu Ticket</div>
-                  <div className="text-3xl font-bold text-purple-700">
+                  <div className="text-xs text-purple-600 font-medium mb-1">Tu Ticket</div>
+                  <div className="text-xl font-bold text-purple-700">
                     {queueStatus.user_ticket.ticket_number}
                   </div>
-                  <div className="text-sm text-gray-600 mt-1">
+                  <div className="text-xs text-gray-600 mt-1">
                     {queueStatus.user_ticket.status_display || queueStatus.user_ticket.status}
                   </div>
                 </div>
@@ -264,18 +263,12 @@ const QueueStatusWidget: React.FC<QueueStatusWidgetProps> = ({
             {/* Statistics */}
             {queueStatus?.statistics && (
               <div className="bg-gray-50 rounded-lg p-4">
-                <div className="grid grid-cols-3 gap-4 text-center">
+                <div className="grid grid-cols-2 gap-4 text-center">
                   <div>
                     <div className="text-lg font-bold text-gray-800">
                       {queueStatus.statistics.waiting_count}
                     </div>
                     <div className="text-xs text-gray-500">En espera</div>
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-gray-800">
-                      ~{Math.round(queueStatus.statistics.avg_wait_time / 60)}min
-                    </div>
-                    <div className="text-xs text-gray-500">Tiempo promedio</div>
                   </div>
                   <div>
                     <div className="text-lg font-bold text-gray-800">
@@ -361,7 +354,7 @@ const QueueStatusWidget: React.FC<QueueStatusWidgetProps> = ({
 
           {queueStatus?.statistics && (
             <div className="text-center text-xs text-gray-500 border-t pt-2">
-              {queueStatus.statistics.waiting_count} en espera • ~{Math.round(queueStatus.statistics.avg_wait_time / 60)}min promedio
+              {queueStatus.statistics.waiting_count} en espera
             </div>
           )}
 
