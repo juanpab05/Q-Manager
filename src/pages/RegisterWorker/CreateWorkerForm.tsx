@@ -134,7 +134,7 @@ const CreateWorkerForm = () => {
             toast.success("Trabajador creado con éxito.");
             setNombre(""); setCedula(""); setTelefono(""); setEmail(""); setContraseña(""); setShowPassword(false);
         } catch (error: any) {
-            let errorMessage = error.response?.data?.detail || error.message || "Ocurrió un error al crear el trabajador.";
+            const errorMessage = error.response?.data?.detail || error.message || "Ocurrió un error al crear el trabajador.";
             
             if (errorMessage.includes("permisos") || errorMessage.includes("superusuario") || errorMessage.includes("administrador")) {
                 setPermissionError(errorMessage);
