@@ -402,19 +402,23 @@ export const registerUser = async (userData, userType = 'actor') => {
         throw userError;
       }
       
-      // Crear registro en workers
+      // Crear registro en workers (inserción directa en lugar de RPC)
       console.log('[userService] Intentando insertar en workers...');
-      const { data: rpcResponse, error: rpcError } = await supabase.rpc('insert_worker', {
-        p_user_id: userId,
-        p_is_admin: userData.is_admin || false
-      });
+      const { data: workerResponse, error: workerError } = await supabase
+        .from('workers')
+        .insert([{
+          user_id: userId,
+          is_admin: userData.is_admin || false
+        }])
+        .select()
+        .single();
 
-      if (rpcError) {
-        console.error('[userService] Error al llamar función RPC para insertar trabajador:', rpcError);
-        throw rpcError;
+      if (workerError) {
+        console.error('[userService] Error al insertar trabajador en la tabla workers:', workerError);
+        throw workerError;
       }
       
-      console.log('[userService] Trabajador creado exitosamente:', rpcResponse);
+      console.log('[userService] Trabajador creado exitosamente:', workerResponse);
     }
 
     return {

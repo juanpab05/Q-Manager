@@ -655,16 +655,12 @@ export const recallTicket = async (ticketId) => {
 // Calcular estadísticas de usuarios activos
 const calculateUserStatistics = async () => {
   try {
-    console.log('[DEBUG] Starting user statistics calculation...');
-    
     // Obtener usuarios activos (que existen en la tabla users)
     const { data: activeUsers, error: usersError } = await supabase
       .from('users')
       .select('id, is_staff, is_superuser');
 
     if (usersError) throw usersError;
-    
-    console.log('[DEBUG] Total users in users table:', activeUsers.length);
 
     // Obtener trabajadores activos
     const { data: activeWorkers, error: workersError } = await supabase
@@ -673,8 +669,6 @@ const calculateUserStatistics = async () => {
       .in('user_id', activeUsers.map(u => u.id));
 
     if (workersError) throw workersError;
-    
-    console.log('[DEBUG] Total workers:', activeWorkers.length);
 
     // Crear sets para trabajar de forma más eficiente
     const workerUserIds = new Set(activeWorkers.map(w => w.user_id));
@@ -688,20 +682,11 @@ const calculateUserStatistics = async () => {
     // contamos directamente desde users
     const regularUsers = activeUsers.filter(user => !workerUserIds.has(user.id));
 
-    console.log('[DEBUG] Total active users:', activeUsers.length);
-    console.log('[DEBUG] Worker user IDs:', Array.from(workerUserIds));
-    console.log('[DEBUG] Regular users count:', regularUsers.length);
-    console.log('[DEBUG] Operational workers count:', operationalWorkers.length);
-    console.log('[DEBUG] Admin workers count:', adminWorkers.length);
-
-    const result = {
+    return {
       total_actors_non_admin: regularUsers.length, // Usuarios regulares (no trabajadores)
       total_operational_workers: operationalWorkers.length, // Trabajadores no admin
       total_admin_workers: adminWorkers.length // Trabajadores admin
     };
-    
-    console.log('[DEBUG] Final user statistics result:', result);
-    return result;
   } catch (error) {
     console.error('Error calculating user statistics:', error);
     throw error;
@@ -809,8 +794,6 @@ const calculateAccessPointStatistics = async () => {
 // Obtener estadísticas del sistema
 export const getSystemStatistics = async () => {
   try {
-    console.log('Calculating system statistics with active users only...');
-    
     // Calcular todas las estadísticas en paralelo
     const [userStats, ticketStats, accessPointStats] = await Promise.all([
       calculateUserStatistics(),
@@ -818,14 +801,11 @@ export const getSystemStatistics = async () => {
       calculateAccessPointStatistics()
     ]);
 
-    const systemStatistics = {
+    return {
       users: userStats,
       tickets: ticketStats,
       access_points: accessPointStats
     };
-
-    console.log('System statistics calculated:', systemStatistics);
-    return systemStatistics;
   } catch (error) {
     console.error('Error getting system statistics:', error);
     throw error;
