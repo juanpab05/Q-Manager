@@ -39,14 +39,26 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
   const { user, userProfile, loading, isAuthenticated } = useAuth();
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const [authTimeout, setAuthTimeout] = useState<NodeJS.Timeout | null>(null);
   
   // Simplified authentication check - runs only once when component mounts or dependencies change
   useEffect(() => {
+    // Clear any existing timeout
+    if (authTimeout) {
+      clearTimeout(authTimeout);
+    }
+    
     // Set checking state
     setIsCheckingAuth(true);
     
-    // If still loading auth state, wait
+    // If still loading auth state, wait but set a timeout
     if (loading) {
+      const timeout = setTimeout(() => {
+        console.log('ProtectedRoute: Loading timeout triggered, proceeding with available data');
+        setIsCheckingAuth(false);
+        // Continue with authentication check even if loading is still true
+      }, 10000); // 10 seconds timeout
+      setAuthTimeout(timeout);
       return;
     }
     
@@ -75,11 +87,32 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
     
     // Done checking
     setIsCheckingAuth(false);
-  }, [user, userProfile, loading, isAuthenticated, role, requireAdmin, navigate]);
+  }, [user, userProfile, loading, isAuthenticated, role, requireAdmin, navigate, authTimeout]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (authTimeout) {
+        clearTimeout(authTimeout);
+      }
+    };
+  }, [authTimeout]);
 
   // Show loading indicator while checking
   if (loading || isCheckingAuth) {
-    return <LoadingSpinner message="Verificando acceso..." />;
+    return (
+      <LoadingSpinner 
+        message="Verificando acceso..." 
+        showRetryButton={true}
+        onRetry={() => {
+          setIsCheckingAuth(false);
+          // Force a re-check by updating the dependencies
+          setTimeout(() => {
+            setIsCheckingAuth(true);
+          }, 100);
+        }}
+      />
+    );
   }
 
   // If authorized, render children
