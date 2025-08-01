@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { useAuth } from "@/contexts/auth/AuthContext";
-import supabase from "@/services/supabase";
 import imagenLogin from "@/assets/formsImage.png";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -115,19 +114,14 @@ const LoginForm: React.FC = () => {
 
     setLoading(true);
     try {
-      // Format phone number to include country code if not present
-      const formattedPhone = phoneNumber.startsWith('+') ? phoneNumber : `+${phoneNumber}`;
+      const result = await auth.sendPhoneOtp(phoneNumber);
       
-      const { error } = await supabase.auth.signInWithOtp({
-        phone: formattedPhone,
-      });
-
-      if (error) {
-        throw error;
+      if (result.success) {
+        setOtpSent(true);
+        toast.success("Se ha enviado un código de verificación a tu teléfono.");
+      } else {
+        toast.error(result.error || "Error al enviar el código de verificación.");
       }
-
-      setOtpSent(true);
-      toast.success("Se ha enviado un código de verificación a tu teléfono.");
     } catch (error: any) {
       console.error("Error al enviar OTP:", error);
       toast.error(error.message || "Error al enviar el código de verificación.");
@@ -146,22 +140,15 @@ const LoginForm: React.FC = () => {
 
     setLoading(true);
     try {
-      // Format phone number to include country code if not present
-      const formattedPhone = phoneNumber.startsWith('+') ? phoneNumber : `+${phoneNumber}`;
+      const result = await auth.verifyPhoneOtp(phoneNumber, otp);
       
-      const { error } = await supabase.auth.verifyOtp({
-        phone: formattedPhone,
-        token: otp,
-        type: 'sms',
-      });
-
-      if (error) {
-        throw error;
+      if (result.success) {
+        toast.success("Verificación exitosa.");
+        console.log("Login successful, redirecting to home-user");
+        navigate("/home-user");
+      } else {
+        toast.error(result.error || "Error al verificar el código.");
       }
-
-      toast.success("Verificación exitosa.");
-      console.log("Login successful, redirecting to home-user");
-      navigate("/home-user");
     } catch (error: any) {
       console.error("Error al verificar OTP:", error);
       toast.error(error.message || "Error al verificar el código.");
@@ -207,13 +194,12 @@ const LoginForm: React.FC = () => {
                 Email
               </button>
               <button
-                className={`${tabButtonClasses} ${authMethod === 'phone' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500 hover:text-gray-700'}`}
-                onClick={() => {
-                  setAuthMethod('phone');
-                  setOtpSent(false);
-                }}
+                className={`${tabButtonClasses} text-gray-400 cursor-not-allowed`}
+                disabled={true}
+                title="Función temporalmente deshabilitada"
               >
                 Teléfono
+                <span className="ml-1 text-xs">(Próximamente)</span>
               </button>
             </div>
 
@@ -280,6 +266,24 @@ const LoginForm: React.FC = () => {
 
             {authMethod === 'phone' && !otpSent && (
               <form onSubmit={handleSendOtp} className='flex flex-col w-full space-y-5'>
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                  <div className="flex">
+                    <div className="flex-shrink-0">
+                      <svg className="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <h3 className="text-sm font-medium text-yellow-800">
+                        Función temporalmente deshabilitada
+                      </h3>
+                      <div className="mt-2 text-sm text-yellow-700">
+                        <p>El inicio de sesión por SMS está temporalmente deshabilitado mientras configuramos el servicio. Por favor, use su correo electrónico para iniciar sesión.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div>
                   <label htmlFor="phoneNumber" className="sr-only">Número de Teléfono</label>
                   <input
@@ -288,25 +292,20 @@ const LoginForm: React.FC = () => {
                     placeholder="Número de teléfono (ej: +573001234567)"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className={inputBaseClasses}
-                    disabled={loading}
+                    className={`${inputBaseClasses} opacity-50`}
+                    disabled={true}
                   />
                   <p className="text-xs text-gray-500 mt-1">
-                    Ingresa tu número con código de país (ej: +57)
+                    Función temporalmente no disponible
                   </p>
                 </div>
 
                 <button
-                  type="submit"
-                  disabled={loading}
-                  className={`${primaryButtonClasses} ${loading ? 'bg-neutral-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'} focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2`}
+                  type="button"
+                  disabled={true}
+                  className={`${primaryButtonClasses} bg-neutral-400 cursor-not-allowed opacity-50`}
                 >
-                  {loading ? (
-                    <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-3"></div>
-                      Enviando código...
-                    </>
-                  ) : "Enviar código"}
+                  Función deshabilitada
                 </button>
               </form>
             )}

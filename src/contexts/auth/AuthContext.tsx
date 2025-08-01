@@ -427,73 +427,70 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             if (session?.user) {
                 setUser(session.user);
                 
-                // Make sure we wait for the profile data to be fetched and set
-                await fetchAndSetUserProfile(session.user.id);
-                
                 // Update last activity timestamp on sign in
                 updateLastActivity();
                 
-                // Check if this is a new user (post-email-confirmation)
-                // We'll check the auth metadata to see if this is a first login after email confirmation
+                // Check if this is a new user (post-email-confirmation or phone auth)
                 const metadata = session.user.user_metadata;
                 const fullName = metadata?.full_name;
                 const cedula = metadata?.cedula;
                 const phone = metadata?.phone;
                 
-                if (fullName && cedula) {
-                  try {
-                    // Try to fetch existing profile
-                    const { data: existingProfile } = await supabase
+                try {
+                  // Try to fetch existing profile
+                  const { data: existingProfile, error: profileError } = await supabase
+                    .from('users')
+                    .select('*')
+                    .eq('id', session.user.id)
+                    .single();
+                    
+                  // Only create profile if it doesn't exist yet
+                  if (!existingProfile && (!profileError || profileError.code === 'PGRST116')) {
+                    console.log('AuthContext: Creating user profile for new sign in');
+                    
+                    // Determine user data based on authentication method
+                    let userData = {
+                      id: session.user.id,
+                      email: session.user.email,
+                      nombre: fullName || `Usuario ${session.user.phone || 'Nuevo'}`,
+                      cedula: cedula || null,
+                      phone_number: phone || session.user.phone || '',
+                      is_staff: false,
+                      is_superuser: false
+                    };
+                    
+                    // Create user profile
+                    const { error: insertError } = await supabase
                       .from('users')
-                      .select('*')
-                      .eq('id', session.user.id)
-                      .single();
+                      .insert(userData);
                       
-                    // Only create profile if it doesn't exist yet
-                    if (!existingProfile) {
-                      // Create user profile now that we have a valid session
-                      const { error: insertError } = await supabase
-                        .from('users')
+                    if (insertError) {
+                      console.error('AuthContext: Error creating user profile after sign in:', insertError);
+                    } else {
+                      console.log('AuthContext: User profile created successfully after sign in');
+                      
+                      // Also create actor record for the user
+                      const { error: actorError } = await supabase
+                        .from('actors')
                         .insert({
-                          id: session.user.id,
-                          email: session.user.email,
-                          nombre: fullName,
-                          cedula: cedula,
-                          phone_number: phone || '',
-                          is_staff: false,
-                          is_superuser: false
+                          user_id: session.user.id,
+                          has_priority: false,
+                          motive: ''
                         });
                         
-                      if (insertError) {
-                        console.error('AuthContext: Error creating user profile after email confirmation:', insertError);
+                      if (actorError) {
+                        console.error('AuthContext: Error creating actor record:', actorError);
                       } else {
-                        console.log('AuthContext: User profile created successfully after email confirmation');
-                        
-                        // Also create actor record for the user
-                        const { error: actorError } = await supabase
-                          .from('actors')
-                          .insert({
-                            user_id: session.user.id,
-                            has_priority: false,
-                            motive: ''
-                          });
-                          
-                        if (actorError) {
-                          console.error('AuthContext: Error creating actor record:', actorError);
-                        } else {
-                          console.log('AuthContext: Actor record created successfully');
-                        }
-                        
-                        // Refresh user profile
-                        // Force fresh fetch by clearing the loaded profile ID
-                        loadedProfileId.current = null;
-                        await fetchAndSetUserProfile(session.user.id);
+                        console.log('AuthContext: Actor record created successfully');
                       }
                     }
-                  } catch (error) {
-                    console.error('AuthContext: Error in profile creation after email confirmation:', error);
                   }
+                } catch (error) {
+                  console.error('AuthContext: Error in profile creation after sign in:', error);
                 }
+                
+                // Make sure we wait for the profile data to be fetched and set
+                await fetchAndSetUserProfile(session.user.id);
             }
             break;
             
@@ -548,11 +545,43 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Format phone number to include country code if not present
       const formattedPhone = phone.startsWith('+') ? phone : `+${phone}`;
       
+      // First, check if there's an existing user with this phone number
+      const { data: existingUser, error: userError } = await supabase
+        .from('users')
+        .select('id, nombre, email')
+        .eq('phone_number', formattedPhone)
+        .single();
+        
+      if (!existingUser || userError) {
+        console.log('AuthContext: No existing user found for phone:', formattedPhone);
+        return { 
+          success: false, 
+          error: 'No existe una cuenta registrada con este número de teléfono. Por favor, regístrese primero o use su correo electrónico.' 
+        };
+      }
+      
+      console.log('AuthContext: Found existing user for phone login:', existingUser);
+      
       const { error } = await supabase.auth.signInWithOtp({
         phone: formattedPhone,
       });
 
       if (error) {
+        // Handle specific Twilio errors with user-friendly messages
+        if (error.message.includes('21608') || error.message.includes('unverified')) {
+          return { 
+            success: false, 
+            error: 'Este número no está verificado en nuestro sistema. Por favor, contacte al administrador para verificar su número de teléfono.' 
+          };
+        }
+        
+        if (error.message.includes('trial account')) {
+          return { 
+            success: false, 
+            error: 'Error en el servicio de SMS. Por favor, use su correo electrónico para iniciar sesión.' 
+          };
+        }
+        
         return { success: false, error: error.message };
       }
       
@@ -568,7 +597,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Format phone number to include country code if not present
       const formattedPhone = phone.startsWith('+') ? phone : `+${phone}`;
       
-      const { error } = await supabase.auth.verifyOtp({
+      const { data, error } = await supabase.auth.verifyOtp({
         phone: formattedPhone,
         token,
         type: 'sms',
@@ -576,6 +605,104 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       if (error) {
         return { success: false, error: error.message };
+      }
+      
+      // If verification successful and we have a user, check if profile exists
+      if (data?.user) {
+        try {
+          // First, check if there's an existing user with this phone number
+          const { data: existingUserByPhone, error: phoneError } = await supabase
+            .from('users')
+            .select('*')
+            .eq('phone_number', formattedPhone)
+            .single();
+            
+          if (existingUserByPhone && !phoneError) {
+            console.log('AuthContext: Found existing user with phone number:', existingUserByPhone);
+            
+            // Check if the Supabase Auth user ID matches the existing user ID
+            if (existingUserByPhone.id !== data.user.id) {
+              console.log('AuthContext: Phone number already associated with different user. Need to link them.');
+              
+              // Update the existing user to use the Supabase Auth user ID
+              const { error: updateError } = await supabase
+                .from('users')
+                .update({ 
+                  id: data.user.id,
+                  email: data.user.email || existingUserByPhone.email 
+                })
+                .eq('id', existingUserByPhone.id);
+                
+              if (updateError) {
+                console.error('AuthContext: Error updating user ID:', updateError);
+                return { 
+                  success: false, 
+                  error: 'Error al vincular la cuenta. Por favor, contacte al administrador.' 
+                };
+              }
+              
+              // Also update the actor record
+              const { error: actorUpdateError } = await supabase
+                .from('actors')
+                .update({ user_id: data.user.id })
+                .eq('user_id', existingUserByPhone.id);
+                
+              if (actorUpdateError) {
+                console.error('AuthContext: Error updating actor user_id:', actorUpdateError);
+              }
+              
+              console.log('AuthContext: Successfully linked phone number to existing user');
+            }
+          }
+          
+          // Check if user profile exists in our users table by ID
+          const { data: existingProfile, error: profileError } = await supabase
+            .from('users')
+            .select('*')
+            .eq('id', data.user.id)
+            .single();
+            
+          // If profile doesn't exist, create it
+          if (!existingProfile && (!profileError || profileError.code === 'PGRST116')) {
+            console.log('AuthContext: Creating user profile for phone authentication');
+            
+            // Create user profile
+            const { error: insertError } = await supabase
+              .from('users')
+              .insert({
+                id: data.user.id,
+                email: data.user.email || null,
+                nombre: `Usuario ${formattedPhone}`, // Default name based on phone
+                cedula: null, // Will need to be updated later
+                phone_number: formattedPhone,
+                is_staff: false,
+                is_superuser: false
+              });
+              
+            if (insertError) {
+              console.error('AuthContext: Error creating user profile for phone auth:', insertError);
+            } else {
+              console.log('AuthContext: User profile created successfully for phone auth');
+              
+              // Also create actor record for the user
+              const { error: actorError } = await supabase
+                .from('actors')
+                .insert({
+                  user_id: data.user.id,
+                  has_priority: false,
+                  motive: ''
+                });
+                
+              if (actorError) {
+                console.error('AuthContext: Error creating actor record for phone auth:', actorError);
+              } else {
+                console.log('AuthContext: Actor record created successfully for phone auth');
+              }
+            }
+          }
+        } catch (profileError) {
+          console.error('AuthContext: Error checking/creating profile for phone auth:', profileError);
+        }
       }
       
       // Set last activity timestamp upon successful verification
