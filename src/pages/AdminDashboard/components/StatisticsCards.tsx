@@ -14,7 +14,7 @@ const StatisticsCards: React.FC<StatisticsCardsProps> = ({ statistics }) => {
         <div className="bg-white rounded-xl shadow-md overflow-hidden border-l-4 border-indigo-500">
           <div className="p-4 flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-indigo-600">Usuarios</p>
+              <p className="text-sm font-medium text-indigo-600">Usuarios Activos</p>
               <h3 className="mt-1 text-2xl font-semibold text-gray-900">{statistics.users.total_actors_non_admin || 0}</h3>
             </div>
             <div className="p-2 bg-indigo-100 rounded-md">
@@ -25,7 +25,7 @@ const StatisticsCards: React.FC<StatisticsCardsProps> = ({ statistics }) => {
           </div>
           <div className="bg-indigo-50 px-4 py-2">
             <span className="text-sm text-indigo-700">
-              {statistics.users.total_operational_workers || 0} trabajadores
+              {statistics.users.total_operational_workers || 0} trabajadores operativos
             </span>
           </div>
         </div>
@@ -108,18 +108,20 @@ const StatisticsCards: React.FC<StatisticsCardsProps> = ({ statistics }) => {
                     <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800">Usuarios</h3>
+                <h3 className="text-lg font-semibold text-gray-800">Usuarios Activos</h3>
               </div>
               <div className="mt-2">
                 <div className="flex justify-between items-center mb-1">
-                  <span className="text-sm text-gray-600">Actores (No Admins)</span>
+                  <span className="text-sm text-gray-600">Usuarios Regulares</span>
                   <span className="text-sm font-medium">{statistics.users.total_actors_non_admin || 0}</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2.5">
-                  <div 
-                    className="bg-indigo-600 h-2.5 rounded-full" 
-                    style={{ width: `${(statistics.users.total_actors_non_admin && statistics.users.total_operational_workers) ? Math.min(100, (statistics.users.total_operational_workers / statistics.users.total_actors_non_admin) * 100) : 0}%` }}
-                  ></div>
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-sm text-gray-600">Trabajadores Operativos</span>
+                  <span className="text-sm font-medium">{statistics.users.total_operational_workers || 0}</span>
+                </div>
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-sm text-gray-600">Administradores</span>
+                  <span className="text-sm font-medium">{statistics.users.total_admin_workers || 0}</span>
                 </div>
               </div>
             </div>

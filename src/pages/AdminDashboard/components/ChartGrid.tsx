@@ -58,11 +58,13 @@ const ChartGrid: React.FC<ChartGridProps> = ({ statistics }) => {
     const total_actors_non_admin = statistics.users.total_actors_non_admin || 0;
     const total_operational_workers = statistics.users.total_operational_workers || 0;
     const total_admin_workers = statistics.users.total_admin_workers || 0;
-    const regular_users = Math.max(0, total_actors_non_admin - total_operational_workers);
+    
+    // total_actors_non_admin ya representa solo usuarios regulares (actores que no son trabajadores)
+    const regular_users = total_actors_non_admin;
 
     return [
       { name: 'Usuarios Regulares', value: regular_users, fill: COLORS.blue },
-      { name: 'Trabajadores', value: total_operational_workers, fill: COLORS.green },
+      { name: 'Trabajadores Operativos', value: total_operational_workers, fill: COLORS.green },
       { name: 'Administradores', value: total_admin_workers, fill: COLORS.purple }
     ].filter(item => item.value > 0);
   }, [statistics?.users]);

@@ -652,17 +652,184 @@ export const recallTicket = async (ticketId) => {
   return updatedTicket;
 };
 
-// Obtener estadísticas del sistema
-export const getSystemStatistics = async () => {
-  const { data, error } = await supabase.rpc('get_detailed_system_stats');
+// Calcular estadísticas de usuarios activos
+const calculateUserStatistics = async () => {
+  try {
+    console.log('[DEBUG] Starting user statistics calculation...');
+    
+    // Obtener usuarios activos (que existen en la tabla users)
+    const { data: activeUsers, error: usersError } = await supabase
+      .from('users')
+      .select('id, is_staff, is_superuser');
 
-  if (error) {
-    console.error('Error calling get_detailed_system_stats RPC:', error);
+    if (usersError) throw usersError;
+    
+    console.log('[DEBUG] Total users in users table:', activeUsers.length);
+
+    // Obtener trabajadores activos
+    const { data: activeWorkers, error: workersError } = await supabase
+      .from('workers')
+      .select('user_id, is_admin')
+      .in('user_id', activeUsers.map(u => u.id));
+
+    if (workersError) throw workersError;
+    
+    console.log('[DEBUG] Total workers:', activeWorkers.length);
+
+    // Crear sets para trabajar de forma más eficiente
+    const workerUserIds = new Set(activeWorkers.map(w => w.user_id));
+    
+    // Separar trabajadores admin y operacionales
+    const adminWorkers = activeWorkers.filter(w => w.is_admin);
+    const operationalWorkers = activeWorkers.filter(w => !w.is_admin);
+
+    // Contar usuarios regulares: usuarios que NO son trabajadores
+    // En lugar de usar la tabla actors (que tiene datos inconsistentes), 
+    // contamos directamente desde users
+    const regularUsers = activeUsers.filter(user => !workerUserIds.has(user.id));
+
+    console.log('[DEBUG] Total active users:', activeUsers.length);
+    console.log('[DEBUG] Worker user IDs:', Array.from(workerUserIds));
+    console.log('[DEBUG] Regular users count:', regularUsers.length);
+    console.log('[DEBUG] Operational workers count:', operationalWorkers.length);
+    console.log('[DEBUG] Admin workers count:', adminWorkers.length);
+
+    const result = {
+      total_actors_non_admin: regularUsers.length, // Usuarios regulares (no trabajadores)
+      total_operational_workers: operationalWorkers.length, // Trabajadores no admin
+      total_admin_workers: adminWorkers.length // Trabajadores admin
+    };
+    
+    console.log('[DEBUG] Final user statistics result:', result);
+    return result;
+  } catch (error) {
+    console.error('Error calculating user statistics:', error);
     throw error;
   }
-  // The RPC function is designed to return data in the same structure 
-  // as the previous JS implementation, so no further mapping should be needed here.
-  return data;
+};
+
+// Calcular estadísticas de tickets
+const calculateTicketStatistics = async () => {
+  try {
+    const { data: tickets, error } = await supabase
+      .from('tickets')
+      .select('status, is_priority, created_at, updated_at');
+
+    if (error) throw error;
+
+    const totalTickets = tickets.length;
+    const pendingTickets = tickets.filter(t => t.status === 'PENDIENTE').length;
+    const attendedTickets = tickets.filter(t => t.status === 'ATENDIDO').length;
+    const priorityTickets = tickets.filter(t => t.is_priority).length;
+    const normalTickets = tickets.filter(t => !t.is_priority).length;
+
+    // Calcular tiempo promedio de espera para tickets atendidos hoy
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const attendedToday = tickets.filter(t => 
+      t.status === 'ATENDIDO' && 
+      new Date(t.updated_at) >= today
+    );
+
+    let avgWaitTimePriorityMinutes = 0;
+    let avgWaitTimeNormalMinutes = 0;
+
+    if (attendedToday.length > 0) {
+      const priorityAttendedToday = attendedToday.filter(t => t.is_priority);
+      const normalAttendedToday = attendedToday.filter(t => !t.is_priority);
+
+      if (priorityAttendedToday.length > 0) {
+        const totalWaitTimePriority = priorityAttendedToday.reduce((sum, ticket) => {
+          const waitTime = new Date(ticket.updated_at).getTime() - new Date(ticket.created_at).getTime();
+          return sum + waitTime;
+        }, 0);
+        avgWaitTimePriorityMinutes = Math.round(totalWaitTimePriority / priorityAttendedToday.length / 1000 / 60);
+      }
+
+      if (normalAttendedToday.length > 0) {
+        const totalWaitTimeNormal = normalAttendedToday.reduce((sum, ticket) => {
+          const waitTime = new Date(ticket.updated_at).getTime() - new Date(ticket.created_at).getTime();
+          return sum + waitTime;
+        }, 0);
+        avgWaitTimeNormalMinutes = Math.round(totalWaitTimeNormal / normalAttendedToday.length / 1000 / 60);
+      }
+    }
+
+    return {
+      total: totalTickets,
+      pending: pendingTickets,
+      attended: attendedTickets,
+      total_priority: priorityTickets,
+      total_normal: normalTickets,
+      avg_wait_time_priority_minutes: avgWaitTimePriorityMinutes,
+      avg_wait_time_normal_minutes: avgWaitTimeNormalMinutes
+    };
+  } catch (error) {
+    console.error('Error calculating ticket statistics:', error);
+    throw error;
+  }
+};
+
+// Calcular estadísticas de puntos de acceso
+const calculateAccessPointStatistics = async () => {
+  try {
+    const { data: accessPoints, error } = await supabase
+      .from('access_points')
+      .select('*');
+
+    if (error) throw error;
+
+    const totalPoints = accessPoints.length;
+    const activePoints = accessPoints.filter(ap => ap.estado === 'ACTIVO').length;
+    const pausedPoints = accessPoints.filter(ap => ap.estado === 'PAUSADO').length;
+    const priorityPoints = accessPoints.filter(ap => ap.is_priority).length;
+
+    const pointsDetail = accessPoints.map(ap => ({
+      id: ap.id,
+      is_priority: ap.is_priority,
+      estado: ap.estado,
+      tickets_atendidos: ap.tickets_atendidos || 0,
+      users_count: 0 // Este campo puede necesitar ajuste según la lógica específica
+    }));
+
+    return {
+      total: totalPoints,
+      active: activePoints,
+      paused: pausedPoints,
+      priority: priorityPoints,
+      points_detail: pointsDetail
+    };
+  } catch (error) {
+    console.error('Error calculating access point statistics:', error);
+    throw error;
+  }
+};
+
+// Obtener estadísticas del sistema
+export const getSystemStatistics = async () => {
+  try {
+    console.log('Calculating system statistics with active users only...');
+    
+    // Calcular todas las estadísticas en paralelo
+    const [userStats, ticketStats, accessPointStats] = await Promise.all([
+      calculateUserStatistics(),
+      calculateTicketStatistics(),
+      calculateAccessPointStatistics()
+    ]);
+
+    const systemStatistics = {
+      users: userStats,
+      tickets: ticketStats,
+      access_points: accessPointStats
+    };
+
+    console.log('System statistics calculated:', systemStatistics);
+    return systemStatistics;
+  } catch (error) {
+    console.error('Error getting system statistics:', error);
+    throw error;
+  }
 };
 
 // FUNCIONES PARA REALTIME
