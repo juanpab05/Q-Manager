@@ -38,6 +38,7 @@ const AnnouncementsCarousel: React.FC = () => {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
+  const isAdvancingRef = useRef(false);
 
   const fetchAnnouncements = useCallback(async () => {
     try {
@@ -49,7 +50,6 @@ const AnnouncementsCarousel: React.FC = () => {
       setAnnouncements(validAnnouncements);
       setCurrentIndex(0);
     } catch (error) {
-      console.error("Error fetching announcements:", error);
       setAnnouncements([]);
     } finally {
       setIsLoading(false);
@@ -75,11 +75,9 @@ const AnnouncementsCarousel: React.FC = () => {
   }, [fetchAnnouncements]);
 
   const advanceSlide = useCallback(() => {
-    setCurrentIndex((prevIndex) => {
-      const nextIndex = announcements.length > 0 ? (prevIndex + 1) % announcements.length : 0;
-      console.log(`Advancing from slide ${prevIndex} to ${nextIndex} (total: ${announcements.length})`);
-      return nextIndex;
-    });
+    setCurrentIndex((prevIndex) =>
+      announcements.length > 0 ? (prevIndex + 1) % announcements.length : 0
+    );
   }, [announcements.length]);
   
   const toggleMute = (e: React.MouseEvent) => {
@@ -91,24 +89,44 @@ const AnnouncementsCarousel: React.FC = () => {
   };
 
   useEffect(() => {
-    if (timerRef.current) clearTimeout(timerRef.current);
+    // Reset advancing flag when we start processing a new announcement
+    isAdvancingRef.current = false;
+    
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
 
-    if (announcements.length === 0 || !announcements[currentIndex]) return;
+    if (announcements.length === 0 || !announcements[currentIndex]) {
+      return;
+    }
 
     const currentAnnouncement = announcements[currentIndex];
     const mediaType = currentAnnouncement.media_type || "";
 
     const handleVideoEndOrTimeout = () => {
-      console.log(`Avanzando desde anuncio ${currentIndex} al siguiente`);
+      // Prevent multiple calls
+      if (isAdvancingRef.current) {
+        return;
+      }
+      
+      isAdvancingRef.current = true;
+      
+      // Cleanup to prevent multiple calls
       if (videoRef.current) {
         videoRef.current.onended = null;
         videoRef.current.onloadedmetadata = null;
+        videoRef.current.onerror = null;
       }
       if (timerRef.current) {
         clearTimeout(timerRef.current);
         timerRef.current = null; 
       }
-      advanceSlide();
+      
+      // Add a small delay to ensure state updates properly
+      setTimeout(() => {
+        advanceSlide();
+        isAdvancingRef.current = false;
+      }, 100);
     };
 
     if (mediaType.startsWith("image/")) {
@@ -116,27 +134,30 @@ const AnnouncementsCarousel: React.FC = () => {
     } else if (mediaType.startsWith("video/")) {
       const videoElement = videoRef.current;
       if (videoElement) {
-        videoElement.onended = handleVideoEndOrTimeout;
-        videoElement.onerror = (e) => {
-          console.error(`Error loading video for announcement ${currentIndex}:`, e);
+        videoElement.onended = () => {
+          handleVideoEndOrTimeout();
+        };
+        videoElement.onerror = () => {
           handleVideoEndOrTimeout(); // Skip to next announcement on error
         };
         
         const handleMetadataLoaded = () => {
-          console.log(`Video metadata loaded for announcement ${currentIndex}`);
           videoElement.muted = isMuted; // Apply mute state on load
           const duration = videoElement.duration;
-          console.log(`Video duration: ${duration} seconds`);
           
           if (duration && duration > 0 && isFinite(duration)) {
             if (duration > 60) { // Max 60 seconds for videos
-              console.log(`Video duration > 60s, setting 60s timeout`);
               if (timerRef.current) clearTimeout(timerRef.current);
               timerRef.current = setTimeout(handleVideoEndOrTimeout, 60000);
+            } else {
+              // For videos <= 60s, set a safety timeout slightly longer than duration
+              const safetyTimeout = (duration + 2) * 1000; // Add 2 seconds buffer
+              if (timerRef.current) clearTimeout(timerRef.current);
+              timerRef.current = setTimeout(() => {
+                handleVideoEndOrTimeout();
+              }, safetyTimeout);
             }
-            // If duration <= 60s, onended will handle it.
           } else { // Fallback for videos with no or invalid duration
-            console.log(`Invalid video duration, setting 10s fallback timeout`);
             if (timerRef.current) clearTimeout(timerRef.current);
             timerRef.current = setTimeout(handleVideoEndOrTimeout, 10000);
           }
@@ -146,7 +167,6 @@ const AnnouncementsCarousel: React.FC = () => {
         
         // If metadata already loaded (e.g. cached video)
         if (videoElement.readyState >= videoElement.HAVE_METADATA) {
-          console.log(`Video metadata already loaded for announcement ${currentIndex}`);
           handleMetadataLoaded();
         }
 
@@ -160,7 +180,6 @@ const AnnouncementsCarousel: React.FC = () => {
     }
 
     return () => { // Cleanup
-      console.log(`Cleaning up announcement ${currentIndex}`);
       if (timerRef.current) {
         clearTimeout(timerRef.current);
         timerRef.current = null;
