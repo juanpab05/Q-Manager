@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import Navbar from "../navbar/navbar"; // Navbar is already global in AppRoutes
 import useMediaQuery from "@/hooks/useMediaQuery";
-import { User, getAllWorkers, updateUser, deleteUsers, cleanupWorkersFromActors } from "@/api/userService";
+import { User, getAllWorkers, updateUser, updateUserAsAdmin, deleteUsers, cleanupWorkersFromActors } from "@/api/userService";
 // import { useNavigate } from "react-router-dom"; // Only if used for OTHER purposes now
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -170,8 +170,8 @@ const ManageWorkers: React.FC = () => {
     
     try {
       if (editingWorker) {
-        // Update basic profile data
-        await updateUser(editingWorker.id, editedWorkerData);
+        // Update basic profile data using admin function to bypass RLS
+        await updateUserAsAdmin(editingWorker.id, editedWorkerData);
 
         // Update local state
         setWorkers(prevWorkers =>
@@ -183,13 +183,27 @@ const ManageWorkers: React.FC = () => {
         );
         setEditingWorker(null);
         setEditedWorkerData({});
+        setFormErrors({});
         
         toast.success("Datos del trabajador actualizados correctamente.");
       }
     } catch (error) {
       console.error("Error updating worker profile data:", error);
-      setError("Error al actualizar datos del trabajador");
-      toast.error("Error al actualizar datos del trabajador: " + (error as Error).message);
+      
+      // Provide more specific error messages
+      let errorMessage = "Error al actualizar datos del trabajador";
+      if (error instanceof Error) {
+        if (error.message.includes("no encontrado")) {
+          errorMessage = "El trabajador no fue encontrado en la base de datos. Por favor, recarga la página.";
+        } else if (error.message.includes("duplicate key")) {
+          errorMessage = "Ya existe un usuario con esa cédula o email.";
+        } else {
+          errorMessage = error.message;
+        }
+      }
+      
+      setError(errorMessage);
+      toast.error(errorMessage);
     }
   };
 
@@ -264,12 +278,24 @@ const ManageWorkers: React.FC = () => {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
         <p className="text-red-600 text-lg mb-4">{error}</p>
-        <button
-          onClick={() => setError(null)}
-          className={secondaryButtonClasses}
-        >
-          Reintentar
-        </button>
+        <div className="flex gap-4">
+          <button
+            onClick={() => {
+              setError(null);
+              setLoading(true);
+              fetchWorkers();
+            }}
+            className={primaryButtonClasses}
+          >
+            Reintentar
+          </button>
+          <button
+            onClick={() => setError(null)}
+            className={secondaryButtonClasses}
+          >
+            Volver
+          </button>
+        </div>
       </div>
     );
   }
@@ -411,13 +437,24 @@ const ManageWorkers: React.FC = () => {
                 />
               </div>
               
-              {/* Delete button */}
-              <button
-                onClick={confirmDeleteWorkers}
-                className={`${dangerButtonClasses} w-full md:w-auto`}
-              >
-                Eliminar Seleccionados
-              </button>
+              {/* Action buttons */}
+              <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+                <button
+                  onClick={() => {
+                    setLoading(true);
+                    fetchWorkers();
+                  }}
+                  className={`${secondaryButtonClasses} w-full sm:w-auto`}
+                >
+                  Actualizar Lista
+                </button>
+                <button
+                  onClick={confirmDeleteWorkers}
+                  className={`${dangerButtonClasses} w-full sm:w-auto`}
+                >
+                  Eliminar Seleccionados
+                </button>
+              </div>
             </div>
           </div>
 

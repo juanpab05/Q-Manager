@@ -7,11 +7,15 @@ export const getUserById = async (userId) => {
       .from('users')
       .select('*')
       .eq('id', userId)
-      .single();
+      .maybeSingle();
 
     if (error) {
       console.error(`Error al obtener usuario con ID ${userId}:`, error);
       throw error;
+    }
+
+    if (!data) {
+      throw new Error(`Usuario con ID ${userId} no encontrado`);
     }
 
     return data;
@@ -29,9 +33,13 @@ export const getUserProfile = async (userId) => {
       .from('users')
       .select('*')
       .eq('id', userId)
-      .single();
+      .maybeSingle();
 
     if (userError) throw userError;
+
+    if (!userData) {
+      throw new Error(`Usuario con ID ${userId} no encontrado`);
+    }
 
     // Verificamos si es un actor
     const { data: actorData, error: actorError } = await supabase
@@ -70,53 +78,119 @@ export const getUserProfile = async (userId) => {
 
 // Actualizar datos del usuario
 export const updateUser = async (userId, userData) => {
-  const { data, error } = await supabase
-    .from('users')
-    .update(userData)
-    .eq('id', userId)
-    .select()
-    .single();
+  try {
+    // First check if the user exists
+    const { data: existingUser, error: checkError } = await supabase
+      .from('users')
+      .select('id')
+      .eq('id', userId)
+      .maybeSingle();
 
-  if (error) {
+    if (checkError) {
+      console.error(`Error al verificar si el usuario con ID ${userId} existe:`, checkError);
+      throw checkError;
+    }
+
+    if (!existingUser) {
+      throw new Error(`Usuario con ID ${userId} no encontrado`);
+    }
+
+    // Now update the user
+    const { data, error } = await supabase
+      .from('users')
+      .update(userData)
+      .eq('id', userId)
+      .select()
+      .single();
+
+    if (error) {
+      console.error(`Error al actualizar usuario con ID ${userId}:`, error);
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
     console.error(`Error al actualizar usuario con ID ${userId}:`, error);
     throw error;
   }
-
-  return data;
 };
 
 // Actualizar datos del actor
 export const updateActor = async (userId, actorData) => {
-  const { data, error } = await supabase
-    .from('actors')
-    .update(actorData)
-    .eq('user_id', userId)
-    .select()
-    .single();
+  try {
+    // First check if the actor exists
+    const { data: existingActor, error: checkError } = await supabase
+      .from('actors')
+      .select('id')
+      .eq('user_id', userId)
+      .maybeSingle();
 
-  if (error) {
-    console.error(`Error al actualizar actor con ID ${userId}:`, error);
+    if (checkError) {
+      console.error(`Error al verificar si el actor con user_id ${userId} existe:`, checkError);
+      throw checkError;
+    }
+
+    if (!existingActor) {
+      throw new Error(`Actor con user_id ${userId} no encontrado`);
+    }
+
+    // Now update the actor
+    const { data, error } = await supabase
+      .from('actors')
+      .update(actorData)
+      .eq('user_id', userId)
+      .select()
+      .single();
+
+    if (error) {
+      console.error(`Error al actualizar actor con user_id ${userId}:`, error);
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error(`Error al actualizar actor con user_id ${userId}:`, error);
     throw error;
   }
-
-  return data;
 };
 
 // Actualizar datos del trabajador
 export const updateWorker = async (userId, workerData) => {
-  const { data, error } = await supabase
-    .from('workers')
-    .update(workerData)
-    .eq('user_id', userId)
-    .select()
-    .single();
+  try {
+    // First check if the worker exists
+    const { data: existingWorker, error: checkError } = await supabase
+      .from('workers')
+      .select('id')
+      .eq('user_id', userId)
+      .maybeSingle();
 
-  if (error) {
-    console.error(`Error al actualizar trabajador con ID ${userId}:`, error);
+    if (checkError) {
+      console.error(`Error al verificar si el trabajador con user_id ${userId} existe:`, checkError);
+      throw checkError;
+    }
+
+    if (!existingWorker) {
+      throw new Error(`Trabajador con user_id ${userId} no encontrado`);
+    }
+
+    // Now update the worker
+    const { data, error } = await supabase
+      .from('workers')
+      .update(workerData)
+      .eq('user_id', userId)
+      .select()
+      .single();
+
+    if (error) {
+      console.error(`Error al actualizar trabajador con user_id ${userId}:`, error);
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error(`Error al actualizar trabajador con user_id ${userId}:`, error);
     throw error;
   }
-
-  return data;
 };
 
 // Ensure a user exists in the actors table
@@ -1048,6 +1122,31 @@ export const cleanupWorkersFromActors = async () => {
   }
 };
 
+// Función para que administradores actualicen usuarios (bypass RLS)
+export const updateUserAsAdmin = async (userId, userData) => {
+  try {
+    // Call RPC function that bypasses RLS for admin operations
+    const { data, error } = await supabase.rpc('update_user_as_admin', {
+      p_user_id: userId,
+      p_user_data: userData
+    });
+
+    if (error) {
+      console.error(`Error al actualizar usuario con ID ${userId} como admin:`, error);
+      throw error;
+    }
+
+    if (!data || !data.success) {
+      throw new Error(data?.message || 'Error al actualizar usuario');
+    }
+
+    return data.user;
+  } catch (error) {
+    console.error(`Error al actualizar usuario con ID ${userId} como admin:`, error);
+    throw error;
+  }
+};
+
 // Create the userService object for default export
 const userService = {
   getUserById,
@@ -1066,7 +1165,8 @@ const userService = {
   syncMissingUsersToActors,
   updateActorProfileRpc,
   cleanupWorkersFromActors,
-  manualDeleteUserReferences
+  manualDeleteUserReferences,
+  updateUserAsAdmin
 };
 
 export default userService;
