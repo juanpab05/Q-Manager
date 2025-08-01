@@ -520,7 +520,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Format phone number to include country code if not present
       const formattedPhone = phone.startsWith('+') ? phone : `+${phone}`;
       
-      const { data, error } = await supabase.auth.verifyOtp({
+      const { error } = await supabase.auth.verifyOtp({
         phone: formattedPhone,
         token,
         type: 'sms',

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import Navbar from "../navbar/navbar"; // Navbar is already global in AppRoutes
 import useMediaQuery from "@/hooks/useMediaQuery";
-import { User, getAllWorkers, updateUser, updateUserAsAdmin, deleteUsers, cleanupWorkersFromActors } from "@/api/userService";
+import { User, getAllWorkers, updateUserAsAdmin, deleteUsers, cleanupWorkersFromActors } from "@/api/userService";
 // import { useNavigate } from "react-router-dom"; // Only if used for OTHER purposes now
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';

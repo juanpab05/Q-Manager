@@ -107,4 +107,7 @@ export function deleteAuthUsers(userIds: string[]): Promise<{
   success: boolean;
   message?: string;
   deletedCount?: number;
-}>; 
+}>;
+
+// Declaration for the admin function to update users (bypass RLS)
+export function updateUserAsAdmin(userId: string, userData: Partial<User>): Promise<User>; 
