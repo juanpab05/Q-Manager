@@ -13,7 +13,7 @@ import React, {
 // auth is deprecated, use supabase.auth directly for all auth operations
 // import { auth } from "../../services/supabase"; 
 import supabase from "@/services/supabase";
-import userService from "@/services/userService";
+import userService from "@/api/userService";
 import { User } from "@supabase/supabase-js";
 
 // Define the inactivity timeout (24 hours in milliseconds)
@@ -132,16 +132,92 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
       
       // Get fresh profile data
+      console.log(`AuthContext: Intentando obtener perfil para usuario ${userId}`);
       const profile = await userService.getUserById(userId);
       
       if (!isMounted.current) return null;
       
       if (!profile) {
-        console.error(`AuthContext: No se pudo obtener el perfil para el usuario ${userId}`);
+        console.log(`AuthContext: Usuario ${userId} no tiene perfil en la base de datos, procediendo a crear automáticamente`);
         
         // If cached profile exists and matches user, keep using it rather than returning null
         if (cachedProfile && cachedProfile.id === userId) {
           return cachedProfile;
+        }
+        
+        // Si no hay perfil, intentar crearlo automáticamente para usuarios autenticados
+        try {
+          console.log(`AuthContext: Intentando crear perfil faltante para usuario autenticado ${userId}`);
+          const { data: authUser } = await supabase.auth.getUser();
+          
+          if (authUser.user && authUser.user.id === userId) {
+            console.log(`AuthContext: Creando perfil automáticamente para usuario ${userId}`);
+            
+            // Crear datos básicos del usuario desde auth
+            const userData = {
+              id: authUser.user.id,
+              nombre: authUser.user.user_metadata?.nombre || authUser.user.email?.split('@')[0] || 'Usuario',
+              cedula: authUser.user.user_metadata?.cedula || null,
+              email: authUser.user.email,
+              phone_number: authUser.user.user_metadata?.phone_number || authUser.user.phone || '',
+              is_staff: false,
+              is_superuser: false
+            };
+
+            // 1. Crear el registro en la tabla users
+            console.log(`AuthContext: Insertando usuario en tabla users:`, userData);
+            const { error: userError } = await supabase
+              .from('users')
+              .insert([userData]);
+
+            if (userError) {
+              if (userError.code === '23505') { // Error de duplicado
+                console.log(`AuthContext: Usuario ya existe en tabla users`);
+              } else {
+                console.error(`AuthContext: Error insertando usuario:`, userError);
+                throw userError;
+              }
+            } else {
+              console.log(`AuthContext: Usuario insertado exitosamente en tabla users`);
+            }
+
+            // 2. Crear el registro en la tabla actors (usuarios regulares por defecto)
+            console.log(`AuthContext: Insertando usuario en tabla actors`);
+            const { error: actorError } = await supabase
+              .from('actors')
+              .insert([{
+                user_id: authUser.user.id,
+                has_priority: false,
+                motive: null
+              }]);
+
+            if (actorError) {
+              if (actorError.code === '23505') { // Error de duplicado
+                console.log(`AuthContext: Usuario ya existe en tabla actors`);
+              } else {
+                console.error(`AuthContext: Error insertando actor:`, actorError);
+                // No lanzar error aquí, continuar
+              }
+            } else {
+              console.log(`AuthContext: Usuario insertado exitosamente en tabla actors`);
+            }
+
+            // 3. Intentar obtener el perfil nuevamente
+            console.log(`AuthContext: Intentando obtener el perfil recién creado`);
+            const newProfile = await userService.getUserById(userId);
+            
+            if (newProfile) {
+              console.log(`AuthContext: ✅ Perfil creado y obtenido exitosamente:`, newProfile);
+              setUserProfile(newProfile);
+              loadedProfileId.current = userId;
+              cacheUserProfile(newProfile);
+              return newProfile;
+            } else {
+              console.error(`AuthContext: ❌ No se pudo obtener el perfil después de crearlo`);
+            }
+          }
+        } catch (createError) {
+          console.error(`AuthContext: Error creando perfil automáticamente:`, createError);
         }
         
         return cachedProfile || null;
@@ -195,15 +271,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         
         return profile;
       }
-    } catch (error) {
-      console.error(`AuthContext: Error al cargar el perfil del usuario ${userId}:`, error);
+    } catch (error: any) {
+      console.error(`AuthContext: Error inesperado al cargar el perfil del usuario ${userId}:`, error);
+      console.log(`AuthContext: Tipo de error:`, typeof error, error?.constructor?.name);
+      
+      // Si el error es específicamente de acceso/RLS/PGRST116, intentar crear perfil
+      if (error?.code === '42501' || error?.status === 406 || error?.code === 'PGRST116') {
+        console.log(`AuthContext: Error de acceso detectado (${error?.code}), intentando crear perfil automáticamente`);
+        // TODO: Agregar lógica de creación aquí si es necesario
+      }
       
       // Return any cached profile if we have it
       const cachedProfile = getCachedProfile();
       if (cachedProfile && cachedProfile.id === userId) {
+        console.log(`AuthContext: Usando perfil en cache para ${userId}`);
         return cachedProfile;
       }
       
+      console.log(`AuthContext: No hay perfil en cache, retornando null`);
       return null;
     } finally {
       if (isMounted.current) {

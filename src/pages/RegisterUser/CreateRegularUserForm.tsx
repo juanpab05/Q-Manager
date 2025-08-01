@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link, useNavigate } from 'react-router-dom'; // Import Link
 import { useAuth } from '@/contexts/auth/AuthContext';
-import supabase from '@/services/supabase'; // Correct import for supabase
+import { registerUser } from '@/api/userService'; // Import the registerUser function
 
 // SVG Icons (reused)
 const EyeIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
@@ -92,43 +92,39 @@ const CreateRegularUserForm = () => {
         setLoading(true);
 
         try {
-            // Register the user using Supabase Auth with email confirmation
-            const { data: authData, error: authError } = await supabase.auth.signUp({
+            // Prepare user data for registration
+            const userData = {
+                nombre: nombre,
+                cedula: cedula,
                 email: email,
                 password: password,
-                options: {
-                    emailRedirectTo: `${window.location.origin}/login?confirmation=success`,
-                    data: {
-                        full_name: nombre,
-                        cedula: cedula,
-                        phone: telefono,
-                    }
-                }
-            });
+                phone_number: telefono,
+                has_priority: isPriority,
+                motive: isPriority ? prioridadTipo : ''
+            };
 
-            if (authError) {
-                throw authError;
+            // Register the user using the userService function
+            const result = await registerUser(userData, 'actor');
+
+            if (result.success) {
+                // Show success message
+                toast.success("¡Registro exitoso! Por favor, revisa tu correo para confirmar tu cuenta.");
+                
+                // Reset form
+                setNombre(""); setCedula(""); setTelefono(""); setEmail(""); setPassword(""); setConfirmPassword("");
+                setIsPriority(false); setPrioridadTipo(""); setShowPassword(false); setShowConfirmPassword(false);
+                
+                // Log for debugging
+                console.log('Usuario creado exitosamente. ID:', result.userId);
+                console.log('Perfil completo creado en la base de datos.');
+                
+                // Redirect to login page after a delay
+                setTimeout(() => {
+                    navigate('/login');
+                }, 2500);
+            } else {
+                throw new Error("No se pudo completar el registro");
             }
-
-            if (!authData.user) {
-                throw new Error("No se pudo crear el usuario");
-            }
-
-            // Show success message
-            toast.success("¡Registro exitoso! Por favor, revisa tu correo para confirmar tu cuenta.");
-            
-            // Reset form
-            setNombre(""); setCedula(""); setTelefono(""); setEmail(""); setPassword(""); setConfirmPassword("");
-            setIsPriority(false); setPrioridadTipo(""); setShowPassword(false); setShowConfirmPassword(false);
-            
-            // Log for debugging
-            console.log('Usuario creado exitosamente en Auth. ID:', authData.user.id);
-            console.log('Se creará el perfil completo después de la confirmación del correo.');
-            
-            // Redirect to login page after a delay
-            setTimeout(() => {
-                navigate('/login');
-            }, 2500);
         } catch (error: any) {
             console.error("Error durante el registro:", error);
             const errorMessage = error.message || "Ocurrió un error durante el registro.";

@@ -87,7 +87,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role, require
     
     // Done checking
     setIsCheckingAuth(false);
-  }, [user, userProfile, loading, isAuthenticated, role, requireAdmin, navigate, authTimeout]);
+  }, [user, userProfile, loading, isAuthenticated, role, requireAdmin, navigate]);
 
   // Cleanup timeout on unmount
   useEffect(() => {

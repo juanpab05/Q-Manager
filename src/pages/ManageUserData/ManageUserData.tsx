@@ -7,7 +7,6 @@ import {
   getActors, 
   updateUser, 
   deleteUsers, 
-  syncMissingUsersToActors,
   updateActorProfileRpc,
   cleanupWorkersFromActors
 } from "@/api/userService";
@@ -247,32 +246,7 @@ const ManageUserData: React.FC = () => {
     }
   };
 
-  const handleSyncAllUsers = async () => {
-    try {
-      setLoading(true);
-      
-      // Use our improved RPC function from userService
-      const result = await syncMissingUsersToActors();
-      
-      if (result.success) {
-        if (result.usersAdded > 0) {
-          toast.success(`Se han sincronizado ${result.usersAdded} usuarios`);
-        } else {
-          toast.info("Todos los usuarios ya están sincronizados");
-        }
-        
-        // Refresh the user list
-        await fetchUsers();
-      } else {
-        toast.error("Error al sincronizar usuarios");
-      }
-    } catch (error) {
-      console.error("Error syncing all users:", error);
-      toast.error("Error al sincronizar usuarios");
-    } finally {
-      setLoading(false);
-    }
-  };
+
 
   const handleCancelEdit = () => {
     setEditingUser(null);
@@ -645,14 +619,6 @@ const ManageUserData: React.FC = () => {
                 </div>
                 
                 <div className="flex flex-col md:flex-row gap-2">
-                  {/* Sync Users Button */}
-                  <button
-                    onClick={handleSyncAllUsers}
-                    className="py-2 px-4 rounded-lg font-semibold text-sm shadow-md hover:shadow-lg active:scale-95 transition-all duration-300 ease-in-out flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 bg-blue-600 text-white hover:bg-blue-700 w-full md:w-auto"
-                  >
-                    Sincronizar Usuarios
-                  </button>
-                  
                   {/* Delete button */}
                   <button
                     onClick={confirmDeleteUsers}

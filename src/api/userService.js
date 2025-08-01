@@ -11,11 +11,19 @@ export const getUserById = async (userId) => {
 
     if (error) {
       console.error(`Error al obtener usuario con ID ${userId}:`, error);
+      
+      // Si es un error de RLS, 406, o PGRST116 (no rows), tratar como usuario no encontrado
+      if (error.code === '42501' || error.status === 406 || error.code === 'PGRST116') {
+        console.log(`Usuario con ID ${userId} no encontrado (código: ${error.code}) - tratando como nuevo usuario`);
+        return null;
+      }
+      
       throw error;
     }
 
     if (!data) {
-      throw new Error(`Usuario con ID ${userId} no encontrado`);
+      console.log(`Usuario con ID ${userId} no encontrado en la base de datos`);
+      return null;
     }
 
     return data;
@@ -305,118 +313,108 @@ export const syncAllUsersToActors = async () => {
 
 // Registrar un nuevo usuario
 export const registerUser = async (userData, userType = 'actor') => {
-  // Log para verificar el usuario autenticado actual
-  let currentUserInfo = null;
-  try {
-    const { data: { user: userInfo }, error: authUserError } = await supabase.auth.getUser();
-    if (authUserError) {
-      console.error('[userService] Error getting current auth user for RLS check:', authUserError);
-    } else {
-      currentUserInfo = userInfo;
-      console.log('[userService] Current auth.uid() for RLS check during registration:', currentUserInfo?.id);
-    }
-  } catch (e) {
-    console.error('[userService] Exception while trying to get current auth user:', e);
-  }
+  console.log(`[userService] Iniciando registro de usuario tipo: ${userType}`);
+  
+  // Solo verificar permisos para creación de trabajadores
+  if (userType === 'worker') {
+    try {
+      const { data: { user: currentUserInfo }, error: authUserError } = await supabase.auth.getUser();
+      
+      if (authUserError || !currentUserInfo) {
+        throw new Error('Debes estar autenticado como administrador para crear trabajadores.');
+      }
 
-  // Verificar permisos para creación de trabajadores
-  if (userType === 'worker' && currentUserInfo) {
-    const { data: currentUserData, error: currentUserError } = await supabase
-      .from('users')
-      .select('is_superuser')
-      .eq('id', currentUserInfo.id)
-      .single();
-    
-    if (currentUserError) {
-      console.error('[userService] Error verificando si el usuario actual es superusuario:', currentUserError);
-      throw new Error('Error al verificar permisos de administrador.');
+      const { data: currentUserData, error: currentUserError } = await supabase
+        .from('users')
+        .select('is_superuser')
+        .eq('id', currentUserInfo.id)
+        .single();
+      
+      if (currentUserError) {
+        console.error('[userService] Error verificando permisos de administrador:', currentUserError);
+        throw new Error('Error al verificar permisos de administrador.');
+      }
+      
+      if (!currentUserData || !currentUserData.is_superuser) {
+        throw new Error('No tienes permisos para registrar trabajadores. Se requiere ser administrador.');
+      }
+      
+      console.log('[userService] Verificación de superusuario exitosa');
+    } catch (error) {
+      console.error('[userService] Error en verificación de permisos:', error);
+      throw error;
     }
-    
-    if (!currentUserData || !currentUserData.is_superuser) {
-      console.error('[userService] El usuario actual no tiene permisos de superusuario para crear trabajadores.');
-      throw new Error('No tienes permisos para registrar trabajadores. Se requiere ser administrador.');
-    }
-    
-    console.log('[userService] Verificación de superusuario exitosa:', currentUserData);
   }
 
   // 1. Registrar el usuario en Supabase Auth
+  console.log('[userService] Registrando usuario en Supabase Auth...');
   const { data: authData, error: authError } = await supabase.auth.signUp({
     email: userData.email,
     password: userData.password,
+    options: {
+      data: {
+        nombre: userData.nombre,
+        cedula: userData.cedula,
+        phone_number: userData.phone_number || ''
+      }
+    }
   });
 
   if (authError) {
-    console.error('Error al registrar usuario en Auth:', authError);
+    console.error('[userService] Error al registrar usuario en Auth:', authError);
     throw authError;
   }
 
   const userId = authData.user.id;
+  console.log(`[userService] Usuario creado en Auth con ID: ${userId}`);
 
   try {
-    // 2. Insertar en la tabla users
-    const { error: userError } = await supabase
-      .from('users')
-      .insert([{
-        id: userId,
-        nombre: userData.nombre,
-        cedula: userData.cedula,
-        email: userData.email,
-        phone_number: userData.phone_number || '',
-        is_staff: userType === 'worker',
-        is_superuser: userType === 'worker' && userData.is_admin === true
-      }]);
-
-    if (userError) throw userError;
-
-    // 3. Insertar en la tabla correspondiente según el tipo de usuario
+    // 2. Para usuarios regulares, el perfil se creará automáticamente en AuthContext
+    // cuando el usuario inicie sesión por primera vez
     if (userType === 'actor') {
-      // Solo agregamos a la tabla actors si es un actor (no un worker)
-      const result = await ensureUserInActors(
-        userId, 
-        userData.has_priority || false, 
-        userData.motive || ''
-      );
+      console.log('[userService] Usuario regular registrado. El perfil se creará automáticamente al iniciar sesión.');
+      return {
+        userId,
+        success: true,
+        message: 'Usuario registrado exitosamente. Verifique su correo electrónico.'
+      };
+    }
+
+    // 3. Para workers, crear el perfil inmediatamente usando RPC
+    if (userType === 'worker') {
+      console.log('[userService] Creando perfil de trabajador...');
       
-      if (!result.success) {
-        throw new Error(`Error al asegurarse que el usuario esté en la tabla actors: ${result.message}`);
+      // Insertar en la tabla users usando RPC que bypass RLS
+      const { error: userError } = await supabase
+        .from('users')
+        .insert([{
+          id: userId,
+          nombre: userData.nombre,
+          cedula: userData.cedula,
+          email: userData.email,
+          phone_number: userData.phone_number || '',
+          is_staff: true,
+          is_superuser: userData.is_admin === true
+        }]);
+
+      if (userError) {
+        console.error('[userService] Error insertando trabajador en users:', userError);
+        throw userError;
       }
       
-      console.log(`[userService] Usuario ${userId} ${result.was_created ? 'añadido a' : 'actualizado en'} la tabla actors`);
-    } else if (userType === 'worker') {
-      // Código para creación de workers
-      console.log('[userService] Intentando insertar en workers con payload:', { 
-        user_id: userId,
-        is_admin: userData.is_admin 
-      });
-      
-      // Llamamos a una función de Postgres para hacer la inserción de manera privilegiada
+      // Crear registro en workers
+      console.log('[userService] Intentando insertar en workers...');
       const { data: rpcResponse, error: rpcError } = await supabase.rpc('insert_worker', {
         p_user_id: userId,
         p_is_admin: userData.is_admin || false
       });
 
       if (rpcError) {
-        console.error('[userService] Error al llamar función RPC para insertar trabajador:', JSON.stringify(rpcError, null, 2));
-        
-        // Intento alternativo: inserción directa 
-        console.log('[userService] Intentando inserción directa en workers como alternativa...');
-        const { data: workerDataResponse, error: workerError } = await supabase
-          .from('workers')
-          .insert([{
-            user_id: userId,
-            is_admin: userData.is_admin || false
-          }])
-          .select();
-
-        if (workerError) {
-          console.error('[userService] Error al insertar en la tabla workers:', JSON.stringify(workerError, null, 2));
-          throw workerError;
-        }
-        console.log('[userService] Inserción directa exitosa:', workerDataResponse);
-      } else {
-        console.log('[userService] Inserción mediante RPC exitosa:', rpcResponse);
+        console.error('[userService] Error al llamar función RPC para insertar trabajador:', rpcError);
+        throw rpcError;
       }
+      
+      console.log('[userService] Trabajador creado exitosamente:', rpcResponse);
     }
 
     return {
@@ -768,112 +766,7 @@ export const getActors = async () => {
   }
 };
 
-// Sync all missing users to actors table
-export const syncMissingUsersToActors = async () => {
-  try {
-    console.log('[userService] Calling sync_missing_users_to_actors RPC function');
-    
-    try {
-      // First attempt: Try to use the RPC function
-      // Note: This RPC may fail with "column reference 'user_id' is ambiguous" error
-      // The RPC function needs to be fixed in the database to specify table aliases
-      const { data, error } = await supabase.rpc('sync_missing_users_to_actors');
-      
-      if (error) {
-        console.error('[userService] Error calling sync_missing_users_to_actors RPC:', error);
-        throw error;
-      }
-      
-      console.log('[userService] Sync results:', data);
-      const countAdded = data ? data.filter(item => item.was_added).length : 0;
-      
-      return {
-        success: true,
-        usersAdded: countAdded,
-        details: data
-      };
-    } catch (rpcError) {
-      // Fallback: If RPC fails, use direct SQL queries
-      console.log('[userService] RPC failed, falling back to direct database operations for syncing');
-      
-      // 1. First get existing actors to know which users are already in the actors table
-      const { data: existingActors, error: actorsError } = await supabase
-        .from('actors')
-        .select('user_id');
-        
-      if (actorsError) {
-        console.error('[userService] Error getting existing actors:', actorsError);
-        throw actorsError;
-      }
-      
-      const existingActorIds = (existingActors || []).map(a => a.user_id);
-      
-      // 2. Get all users
-      const { data: allUsers, error: usersError } = await supabase
-        .from('users')
-        .select('id');
-        
-      if (usersError) {
-        console.error('[userService] Error getting all users:', usersError);
-        throw usersError;
-      }
-      
-      // 3. Also exclude workers from being added
-      const { data: workers, error: workersError } = await supabase
-        .from('workers')
-        .select('user_id');
-        
-      if (workersError) {
-        console.error('[userService] Error getting workers:', workersError);
-        throw workersError;
-      }
-      
-      const workerIds = (workers || []).map(w => w.user_id);
-      
-      // 4. Find users that need to be added (not in actors and not workers)
-      const usersToAdd = (allUsers || [])
-        .filter(u => !existingActorIds.includes(u.id) && !workerIds.includes(u.id));
-      
-      console.log(`[userService] Found ${usersToAdd.length} users to add to actors table`);
-      
-      if (usersToAdd.length === 0) {
-        return {
-          success: true,
-          usersAdded: 0,
-          details: []
-        };
-      }
-      
-      // 5. Add users to actors table
-      const { data: insertedData, error: insertError } = await supabase
-        .from('actors')
-        .insert(usersToAdd.map(u => ({
-          user_id: u.id,
-          has_priority: false,
-          motive: null
-        })))
-        .select();
-        
-      if (insertError) {
-        console.error('[userService] Error inserting users into actors table:', insertError);
-        throw insertError;
-      }
-      
-      return {
-        success: true,
-        usersAdded: usersToAdd.length,
-        details: insertedData
-      };
-    }
-  } catch (error) {
-    console.error('[userService] Exception in syncMissingUsersToActors:', error);
-    return {
-      success: false,
-      usersAdded: 0,
-      error: error.message || 'Unknown error'
-    };
-  }
-};
+
 
 // Function to call the RPC for updating actor profile
 export const updateActorProfileRpc = async (userId, actorData) => {
@@ -1147,6 +1040,55 @@ export const updateUserAsAdmin = async (userId, userData) => {
   }
 };
 
+// Crear perfil completo para usuarios autenticados sin perfil en DB
+export const createMissingUserProfile = async (authUser) => {
+  try {
+    console.log(`[userService] Creando perfil faltante para usuario autenticado: ${authUser.id}`);
+    
+    // Datos básicos del usuario desde auth
+    const userData = {
+      id: authUser.id,
+      nombre: authUser.user_metadata?.nombre || authUser.email?.split('@')[0] || 'Usuario',
+      cedula: authUser.user_metadata?.cedula || null,
+      email: authUser.email,
+      phone_number: authUser.user_metadata?.phone_number || authUser.phone || '',
+      is_staff: false,
+      is_superuser: false
+    };
+
+    // 1. Crear el registro en la tabla users
+    console.log(`[userService] Insertando usuario en tabla users:`, userData);
+    const { error: userError } = await supabase
+      .from('users')
+      .insert([userData]);
+
+    if (userError) {
+      // Si ya existe, puede que sea un error de inserción duplicada
+      if (userError.code === '23505') { // Duplicate key error
+        console.log(`[userService] Usuario ya existe en tabla users, continuando...`);
+      } else {
+        throw userError;
+      }
+    }
+
+    // 2. Crear el registro en la tabla actors (usuarios regulares por defecto)
+    console.log(`[userService] Asegurando que el usuario esté en la tabla actors`);
+    const actorResult = await ensureUserInActors(authUser.id, false, '');
+    
+    if (!actorResult.success) {
+      throw new Error(`Error al crear actor: ${actorResult.message}`);
+    }
+
+    console.log(`[userService] Perfil creado exitosamente para ${authUser.id}`);
+    
+    // 3. Retornar el perfil completo
+    return await getUserProfile(authUser.id);
+  } catch (error) {
+    console.error(`[userService] Error creando perfil faltante:`, error);
+    throw error;
+  }
+};
+
 // Create the userService object for default export
 const userService = {
   getUserById,
@@ -1162,11 +1104,11 @@ const userService = {
   deleteUsers,
   deleteAuthUsers,
   getActors,
-  syncMissingUsersToActors,
   updateActorProfileRpc,
   cleanupWorkersFromActors,
   manualDeleteUserReferences,
-  updateUserAsAdmin
+  updateUserAsAdmin,
+  createMissingUserProfile
 };
 
 export default userService;
