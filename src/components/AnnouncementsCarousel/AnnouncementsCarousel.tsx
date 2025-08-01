@@ -75,9 +75,11 @@ const AnnouncementsCarousel: React.FC = () => {
   }, [fetchAnnouncements]);
 
   const advanceSlide = useCallback(() => {
-    setCurrentIndex((prevIndex) =>
-      announcements.length > 0 ? (prevIndex + 1) % announcements.length : 0
-    );
+    setCurrentIndex((prevIndex) => {
+      const nextIndex = announcements.length > 0 ? (prevIndex + 1) % announcements.length : 0;
+      console.log(`Advancing from slide ${prevIndex} to ${nextIndex} (total: ${announcements.length})`);
+      return nextIndex;
+    });
   }, [announcements.length]);
   
   const toggleMute = (e: React.MouseEvent) => {
@@ -97,8 +99,10 @@ const AnnouncementsCarousel: React.FC = () => {
     const mediaType = currentAnnouncement.media_type || "";
 
     const handleVideoEndOrTimeout = () => {
-      if (videoRef.current && videoRef.current.onended === handleVideoEndOrTimeout) {
+      console.log(`Avanzando desde anuncio ${currentIndex} al siguiente`);
+      if (videoRef.current) {
         videoRef.current.onended = null;
+        videoRef.current.onloadedmetadata = null;
       }
       if (timerRef.current) {
         clearTimeout(timerRef.current);
@@ -113,23 +117,37 @@ const AnnouncementsCarousel: React.FC = () => {
       const videoElement = videoRef.current;
       if (videoElement) {
         videoElement.onended = handleVideoEndOrTimeout;
-        videoElement.onloadedmetadata = () => {
+        videoElement.onerror = (e) => {
+          console.error(`Error loading video for announcement ${currentIndex}:`, e);
+          handleVideoEndOrTimeout(); // Skip to next announcement on error
+        };
+        
+        const handleMetadataLoaded = () => {
+          console.log(`Video metadata loaded for announcement ${currentIndex}`);
           videoElement.muted = isMuted; // Apply mute state on load
           const duration = videoElement.duration;
+          console.log(`Video duration: ${duration} seconds`);
+          
           if (duration && duration > 0 && isFinite(duration)) {
             if (duration > 60) { // Max 60 seconds for videos
+              console.log(`Video duration > 60s, setting 60s timeout`);
               if (timerRef.current) clearTimeout(timerRef.current);
               timerRef.current = setTimeout(handleVideoEndOrTimeout, 60000);
             }
             // If duration <= 60s, onended will handle it.
           } else { // Fallback for videos with no or invalid duration
+            console.log(`Invalid video duration, setting 10s fallback timeout`);
             if (timerRef.current) clearTimeout(timerRef.current);
             timerRef.current = setTimeout(handleVideoEndOrTimeout, 10000);
           }
         };
-         // If metadata already loaded (e.g. cached video)
+        
+        videoElement.onloadedmetadata = handleMetadataLoaded;
+        
+        // If metadata already loaded (e.g. cached video)
         if (videoElement.readyState >= videoElement.HAVE_METADATA) {
-            videoElement.onloadedmetadata(new Event('loadedmetadata'));
+          console.log(`Video metadata already loaded for announcement ${currentIndex}`);
+          handleMetadataLoaded();
         }
 
       } else { // Fallback if videoRef is not available
@@ -142,11 +160,16 @@ const AnnouncementsCarousel: React.FC = () => {
     }
 
     return () => { // Cleanup
-      if (timerRef.current) clearTimeout(timerRef.current);
+      console.log(`Cleaning up announcement ${currentIndex}`);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
       const videoElement = videoRef.current;
       if (videoElement) {
         videoElement.onloadedmetadata = null;
         videoElement.onended = null;
+        videoElement.onerror = null;
       }
     };
   }, [currentIndex, announcements, advanceSlide, isMuted]);

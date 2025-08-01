@@ -208,10 +208,44 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             
             if (newProfile) {
               console.log(`AuthContext: ✅ Perfil creado y obtenido exitosamente:`, newProfile);
-              setUserProfile(newProfile);
-              loadedProfileId.current = userId;
-              cacheUserProfile(newProfile);
-              return newProfile;
+              
+              // Enriquecer el perfil recién creado con información de actor/worker
+              try {
+                const { data: actorData } = await supabase
+                  .from('actors')
+                  .select('*')
+                  .eq('user_id', userId)
+                  .maybeSingle();
+
+                const { data: workerData } = await supabase
+                  .from('workers')
+                  .select('*')
+                  .eq('user_id', userId)
+                  .maybeSingle();
+                  
+                const enrichedProfile = {
+                  ...newProfile,
+                  actor: actorData || null,
+                  worker: workerData || null,
+                  isActor: !!actorData,
+                  isWorker: !!workerData,
+                  isAdmin: workerData?.is_admin || false,
+                  userType: workerData ? (workerData.is_admin ? 'admin' : 'worker') : (actorData ? 'actor' : 'user')
+                };
+                
+                console.log(`AuthContext: Perfil enriquecido automáticamente:`, enrichedProfile);
+                setUserProfile(enrichedProfile);
+                loadedProfileId.current = userId;
+                cacheUserProfile(enrichedProfile);
+                return enrichedProfile;
+              } catch (enrichError) {
+                console.error(`AuthContext: Error enriqueciendo perfil creado automáticamente:`, enrichError);
+                // En caso de error, usar el perfil básico
+                setUserProfile(newProfile);
+                loadedProfileId.current = userId;
+                cacheUserProfile(newProfile);
+                return newProfile;
+              }
             } else {
               console.error(`AuthContext: ❌ No se pudo obtener el perfil después de crearlo`);
             }
