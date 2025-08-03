@@ -17,7 +17,7 @@ interface TeamMember {
 
 // Datos de los miembros del equipo (reemplaza con tus datos reales)
 const teamMembers: TeamMember[] = [
-  { id: 1, name: "Cristian Daniel Guaza Mejia", role: "Desarrollador Fullstack & DB"},
+  { id: 1, name: "Cristian Guaza", role: "Desarrollador Fullstack & DB"},
 ];
 
 // Componente para las secciones con íconos
