@@ -2,9 +2,9 @@ name: Build
 
 on:
   push:
-    branches: [develop]
+    branches: [main]
   pull_request:
-    branches: [develop]
+    branches: [main]
 
 jobs:
   # 🧪 Runs only during Pull Requests
@@ -30,13 +30,16 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --force
 
       - name: Run tests
         run: npm run test
 
       - name: Test coverage on tests
         run: npm run coverage
+
+      - name: Test for code duplication
+        run: npm run duplication
 
   # 🚀 Runs only after merge (push to main)
   ready-for-production:
