@@ -38,6 +38,9 @@ jobs:
       - name: Test coverage on tests
         run: npm run coverage
 
+      - name: Test for code duplication
+        run: npm run duplication
+
   # 🚀 Runs only after merge (push to main)
   ready-for-production:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
