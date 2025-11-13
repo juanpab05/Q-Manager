@@ -1,73 +1,72 @@
-# React + TypeScript + Vite
+# Q-Manager Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Q-Manager is a user attention management system designed to coordinate and manage customer service queues across multiple access points. It prioritizes requests and optimizes workflow efficiently, aiming to transform the waiting experience.
 
-Currently, two official plugins are available:
+## Deployed Version
+The application is deployed and accessible at: [https://qmanager-eta.vercel.app/](https://qmanager-eta.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+-   User authentication (Email/Password, Phone OTP)
+-   Email confirmation and Password recovery
+-   Turn and queue management system
+-   Real-time queue status visualization
+-   Admin dashboard for system management:
+    -   User data management
+    -   Access point configuration
+    -   Worker management
+    -   System announcements
+-   Service catalog management (Implicit from database tables)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+-   **Frontend:**
+    -   React
+    -   Vite
+    -   TypeScript
+    -   Tailwind CSS
+-   **Backend (Serverless):**
+    -   Supabase (Authentication, Database, Realtime)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Local Development
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Prerequisites
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+-   Node.js (v18.x or later recommended)
+-   npm (v9.x or later) or yarn
+
+### Installation
+
+1.  **Clone the repository:**
+    ```sh
+    git clone <your-repository-url>
+    cd <repository-folder-name> 
+    ```
+
+2.  **Install dependencies:**
+    ```sh
+    npm install
+    ```
+    or if you prefer yarn:
+    ```sh
+    yarn install
+    ```
+
+### Environment Variables
+
+You'll need to configure environment variables for the project to work correctly.
+
+1.  Create a `.env` file in the root of your project.
+2.  Add the necessary environment variables (contact the project maintainer for details).
+
+### Running the Development Server
+
+Once the dependencies are installed and environment variables are set up, you can start the development server:
+
+```sh
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+This will start the application on `http://localhost:5173` (or another port if 5173 is in use).

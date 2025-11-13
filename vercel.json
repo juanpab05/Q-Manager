@@ -1,0 +1,15 @@
+{
+    "rewrites": [
+      { "source": "/(.*)", "destination": "/" }
+    ],
+    "env": {
+      "VITE_SUPABASE_URL": "https://cbgmdrdbvbuphjootqee.supabase.co",
+      "VITE_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNiZ21kcmRidmJ1cGhqb290cWVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY3NTAyOTAsImV4cCI6MjA2MjMyNjI5MH0.8p2h3L3vj3NPVVV2koS73agNpqStX0iByxRNqTA53Us"
+    },
+    "build": {
+      "env": {
+        "VITE_SUPABASE_URL": "https://cbgmdrdbvbuphjootqee.supabase.co",
+        "VITE_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNiZ21kcmRidmJ1cGhqb290cWVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY3NTAyOTAsImV4cCI6MjA2MjMyNjI5MH0.8p2h3L3vj3NPVVV2koS73agNpqStX0iByxRNqTA53Us"
+      }
+    }
+  }

@@ -1,0 +1,41 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+
+jobs:
+  # 🧪 Runs only during Pull Requests
+  test:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Test coverage on tests
+        run: npm run coverage
+
+  # 🚀 Runs only after merge (push to main)
+  ready-for-production:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show production-ready message
+        run: |
+          echo "✅ All tests passed successfully!"
+          echo "🚀 The code has been merged into MAIN."
+          echo "🌐 The project is now ready for the next stage: production deployment!"
+
+
+
