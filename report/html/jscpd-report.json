@@ -1,0 +1,3194 @@
+{
+  "statistics": {
+    "detectionDate": "2025-11-13T19:00:25.903Z",
+    "formats": {
+      "typescript": {
+        "sources": {
+          "src/pages/AdminDashboard/hooks/useStatistics.ts": {
+            "lines": 62,
+            "tokens": 623,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/contexts/auth/authService.ts": {
+            "lines": 9,
+            "tokens": 65,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/utils/tokenUtils.ts": {
+            "lines": 28,
+            "tokens": 281,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/utils/mediaUtils.ts": {
+            "lines": 30,
+            "tokens": 216,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/types/environment.d.ts": {
+            "lines": 11,
+            "tokens": 64,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/services/userService.ts": {
+            "lines": 233,
+            "tokens": 1777,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 22,
+            "duplicatedTokens": 216,
+            "percentage": 9.44,
+            "percentageTokens": 12.16,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/services/supabase.ts": {
+            "lines": 97,
+            "tokens": 746,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/api/userService.d.ts": {
+            "lines": 112,
+            "tokens": 996,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/api/types.d.ts": {
+            "lines": 117,
+            "tokens": 920,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/api/ticketService.d.ts": {
+            "lines": 17,
+            "tokens": 392,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/api/notificationService.d.ts": {
+            "lines": 24,
+            "tokens": 225,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/api/announcementService.d.ts": {
+            "lines": 56,
+            "tokens": 307,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/api/accessPointService.d.ts": {
+            "lines": 102,
+            "tokens": 915,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 898,
+          "tokens": 7527,
+          "sources": 13,
+          "clones": 1,
+          "duplicatedLines": 11,
+          "duplicatedTokens": 108,
+          "percentage": 1.22,
+          "percentageTokens": 1.43,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "javascript": {
+        "sources": {
+          "src/pages/AdminDashboard/components/StatisticsCards.tsx": {
+            "lines": 213,
+            "tokens": 2739,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/AdminDashboard/components/ErrorModal.tsx": {
+            "lines": 32,
+            "tokens": 207,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/AdminDashboard/components/ChartGrid.tsx": {
+            "lines": 178,
+            "tokens": 2120,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/AdminDashboard/components/AccessPointTable.tsx": {
+            "lines": 16,
+            "tokens": 157,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/WorkerDashboard/ManageQueue.tsx": {
+            "lines": 171,
+            "tokens": 1666,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/TicketHistory/TicketHistory.tsx": {
+            "lines": 55,
+            "tokens": 728,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/Signup/SignupPage.tsx": {
+            "lines": 354,
+            "tokens": 3641,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/ResetPassword/ResetPasswordPage.tsx": {
+            "lines": 195,
+            "tokens": 2007,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RequestTicket/RequestTicket.tsx": {
+            "lines": 181,
+            "tokens": 1605,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RegisterWorker/CreateWorkerForm.tsx": {
+            "lines": 245,
+            "tokens": 2649,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 189,
+            "duplicatedTokens": 2296,
+            "percentage": 77.14,
+            "percentageTokens": 86.67,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RegisterUser/CreateRegularUserForm.tsx": {
+            "lines": 250,
+            "tokens": 2731,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 151,
+            "duplicatedTokens": 1779,
+            "percentage": 60.4,
+            "percentageTokens": 65.14,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RegisterActor/CreateUserForm.tsx": {
+            "lines": 245,
+            "tokens": 2764,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 38,
+            "duplicatedTokens": 517,
+            "percentage": 15.51,
+            "percentageTokens": 18.7,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RecoverPassword/RecoverPasswordPage.tsx": {
+            "lines": 64,
+            "tokens": 739,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/QueueView/QueueStatus.tsx": {
+            "lines": 223,
+            "tokens": 2082,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/PersonalData/PersonalData.tsx": {
+            "lines": 221,
+            "tokens": 1720,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/navbar/navbar.tsx": {
+            "lines": 232,
+            "tokens": 2397,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/ManageUserData/ManageUserData.tsx": {
+            "lines": 331,
+            "tokens": 2770,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/Login/LoginForm.tsx": {
+            "lines": 358,
+            "tokens": 3308,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/HomeUser/HomeUser.tsx": {
+            "lines": 224,
+            "tokens": 2327,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 134,
+            "duplicatedTokens": 1710,
+            "percentage": 59.82,
+            "percentageTokens": 73.49,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/GlobalHome/GlobalHome.tsx": {
+            "lines": 185,
+            "tokens": 1631,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/AdminDashboard/Statistics.tsx": {
+            "lines": 60,
+            "tokens": 516,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/AdminDashboard/ManageWorkers.tsx": {
+            "lines": 288,
+            "tokens": 2235,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/AdminDashboard/ManageAccessPoints.tsx": {
+            "lines": 314,
+            "tokens": 2838,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/AdminDashboard/Announcements.tsx": {
+            "lines": 221,
+            "tokens": 1903,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/About/About.tsx": {
+            "lines": 107,
+            "tokens": 1401,
+            "sources": 1,
+            "clones": 4,
+            "duplicatedLines": 60,
+            "duplicatedTokens": 1002,
+            "percentage": 56.07,
+            "percentageTokens": 71.52,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/contexts/auth/AuthContext.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/AnnouncementsCarousel/AnnouncementsCarousel.tsx": {
+            "lines": 45,
+            "tokens": 465,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/utils/supabaseClient.js": {
+            "lines": 30,
+            "tokens": 201,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/utils/supabase.js": {
+            "lines": 6,
+            "tokens": 68,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/services/userService.js": {
+            "lines": 187,
+            "tokens": 1340,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/services/ticketService.js": {
+            "lines": 179,
+            "tokens": 1235,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 8,
+            "duplicatedTokens": 93,
+            "percentage": 4.47,
+            "percentageTokens": 7.53,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/services/supabase.js": {
+            "lines": 71,
+            "tokens": 449,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/services/authService.js": {
+            "lines": 83,
+            "tokens": 728,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/services/announcementService.js": {
+            "lines": 168,
+            "tokens": 1501,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 44,
+            "duplicatedTokens": 432,
+            "percentage": 26.19,
+            "percentageTokens": 28.78,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/services/accessPointService.js": {
+            "lines": 355,
+            "tokens": 2052,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/routes/AppRoutes.tsx": {
+            "lines": 105,
+            "tokens": 710,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/contexts/NotificationContext.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/TestAuth.tsx": {
+            "lines": 73,
+            "tokens": 552,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/QueueStatusWidget.tsx": {
+            "lines": 243,
+            "tokens": 2368,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/QueueStatusBadge.tsx": {
+            "lines": 160,
+            "tokens": 1445,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/NotificationPermission.tsx": {
+            "lines": 21,
+            "tokens": 206,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/LoadingSpinner.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/api/types.js": {
+            "lines": 65,
+            "tokens": 25,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/api/ticketService.js": {
+            "lines": 365,
+            "tokens": 3390,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 8,
+            "duplicatedTokens": 93,
+            "percentage": 2.19,
+            "percentageTokens": 2.74,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/api/notificationService.js": {
+            "lines": 112,
+            "tokens": 944,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/api/dashboardService.js": {
+            "lines": 181,
+            "tokens": 1473,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/api/announcementService.js": {
+            "lines": 227,
+            "tokens": 1736,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 7639,
+          "tokens": 69778,
+          "sources": 47,
+          "clones": 7,
+          "duplicatedLines": 316,
+          "duplicatedTokens": 3961,
+          "percentage": 4.14,
+          "percentageTokens": 5.68,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "tsx": {
+        "sources": {
+          "src/pages/AdminDashboard/components/StatisticsCards.tsx": {
+            "lines": 261,
+            "tokens": 3266,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 16,
+            "duplicatedTokens": 154,
+            "percentage": 6.13,
+            "percentageTokens": 4.72,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/AdminDashboard/components/ErrorModal.tsx": {
+            "lines": 59,
+            "tokens": 399,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/AdminDashboard/components/ChartGrid.tsx": {
+            "lines": 233,
+            "tokens": 2620,
+            "sources": 1,
+            "clones": 4,
+            "duplicatedLines": 60,
+            "duplicatedTokens": 614,
+            "percentage": 25.75,
+            "percentageTokens": 23.44,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/AdminDashboard/components/AccessPointTable.tsx": {
+            "lines": 101,
+            "tokens": 1044,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/WorkerDashboard/ManageQueue.tsx": {
+            "lines": 440,
+            "tokens": 4006,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/TicketHistory/TicketHistory.tsx": {
+            "lines": 124,
+            "tokens": 1486,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/Signup/SignupPage.tsx": {
+            "lines": 376,
+            "tokens": 3852,
+            "sources": 1,
+            "clones": 9,
+            "duplicatedLines": 108,
+            "duplicatedTokens": 1805,
+            "percentage": 28.72,
+            "percentageTokens": 46.86,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/ResetPassword/ResetPasswordPage.tsx": {
+            "lines": 223,
+            "tokens": 2321,
+            "sources": 1,
+            "clones": 5,
+            "duplicatedLines": 57,
+            "duplicatedTokens": 825,
+            "percentage": 25.56,
+            "percentageTokens": 35.55,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RequestTicket/RequestTicket.tsx": {
+            "lines": 457,
+            "tokens": 4258,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RegisterWorker/CreateWorkerForm.tsx": {
+            "lines": 269,
+            "tokens": 2892,
+            "sources": 1,
+            "clones": 5,
+            "duplicatedLines": 74,
+            "duplicatedTokens": 1220,
+            "percentage": 27.51,
+            "percentageTokens": 42.19,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RegisterUser/CreateRegularUserForm.tsx": {
+            "lines": 280,
+            "tokens": 3035,
+            "sources": 1,
+            "clones": 9,
+            "duplicatedLines": 99,
+            "duplicatedTokens": 1454,
+            "percentage": 35.36,
+            "percentageTokens": 47.91,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RegisterActor/CreateUserForm.tsx": {
+            "lines": 273,
+            "tokens": 3131,
+            "sources": 1,
+            "clones": 5,
+            "duplicatedLines": 79,
+            "duplicatedTokens": 1166,
+            "percentage": 28.94,
+            "percentageTokens": 37.24,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RecoverPassword/RecoverPasswordPage.tsx": {
+            "lines": 125,
+            "tokens": 1301,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 36,
+            "duplicatedTokens": 448,
+            "percentage": 28.8,
+            "percentageTokens": 34.44,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/QueueView/QueueStatus.tsx": {
+            "lines": 520,
+            "tokens": 4784,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 42,
+            "duplicatedTokens": 344,
+            "percentage": 8.08,
+            "percentageTokens": 7.19,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/PersonalData/PersonalData.tsx": {
+            "lines": 438,
+            "tokens": 3637,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 36,
+            "duplicatedTokens": 394,
+            "percentage": 8.22,
+            "percentageTokens": 10.83,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/navbar/navbar.tsx": {
+            "lines": 268,
+            "tokens": 2807,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/navbar/navbar.test.tsx": {
+            "lines": 44,
+            "tokens": 408,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/ManageUserData/ManageUserData.tsx": {
+            "lines": 769,
+            "tokens": 7081,
+            "sources": 1,
+            "clones": 11,
+            "duplicatedLines": 177,
+            "duplicatedTokens": 1566,
+            "percentage": 23.02,
+            "percentageTokens": 22.12,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/Login/LoginForm.tsx": {
+            "lines": 381,
+            "tokens": 3528,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 23,
+            "duplicatedTokens": 380,
+            "percentage": 6.04,
+            "percentageTokens": 10.77,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/HomeUser/HomeUser.tsx": {
+            "lines": 257,
+            "tokens": 2577,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/GlobalHome/GlobalHome.tsx": {
+            "lines": 203,
+            "tokens": 1814,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/AdminDashboard/Statistics.tsx": {
+            "lines": 106,
+            "tokens": 909,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/AdminDashboard/ManageWorkers.tsx": {
+            "lines": 584,
+            "tokens": 5016,
+            "sources": 1,
+            "clones": 9,
+            "duplicatedLines": 138,
+            "duplicatedTokens": 1114,
+            "percentage": 23.63,
+            "percentageTokens": 22.21,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/AdminDashboard/ManageAccessPoints.tsx": {
+            "lines": 609,
+            "tokens": 5408,
+            "sources": 1,
+            "clones": 4,
+            "duplicatedLines": 70,
+            "duplicatedTokens": 532,
+            "percentage": 11.49,
+            "percentageTokens": 9.84,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/AdminDashboard/Announcements.tsx": {
+            "lines": 459,
+            "tokens": 4086,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 41,
+            "duplicatedTokens": 366,
+            "percentage": 8.93,
+            "percentageTokens": 8.96,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/About/About.tsx": {
+            "lines": 173,
+            "tokens": 1971,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/contexts/auth/AuthContext.tsx": {
+            "lines": 759,
+            "tokens": 6825,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 18,
+            "duplicatedTokens": 222,
+            "percentage": 2.37,
+            "percentageTokens": 3.25,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/AnnouncementsCarousel/AnnouncementsCarousel.tsx": {
+            "lines": 272,
+            "tokens": 2795,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/routes/ProtectedRoutes.tsx": {
+            "lines": 126,
+            "tokens": 1116,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/routes/AppRoutes.tsx": {
+            "lines": 150,
+            "tokens": 1091,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/hooks/useQueueStatus.tsx": {
+            "lines": 151,
+            "tokens": 1393,
+            "sources": 1,
+            "clones": 5,
+            "duplicatedLines": 83,
+            "duplicatedTokens": 713,
+            "percentage": 54.97,
+            "percentageTokens": 51.18,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/hooks/useMediaQuery.tsx": {
+            "lines": 18,
+            "tokens": 203,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/hooks/hookEjemplo.tsx": {
+            "lines": 6,
+            "tokens": 43,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/contexts/NotificationContext.tsx": {
+            "lines": 140,
+            "tokens": 1227,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/TestAuth.tsx": {
+            "lines": 199,
+            "tokens": 1590,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/QueueStatusWidget.tsx": {
+            "lines": 374,
+            "tokens": 3547,
+            "sources": 1,
+            "clones": 4,
+            "duplicatedLines": 63,
+            "duplicatedTokens": 575,
+            "percentage": 16.84,
+            "percentageTokens": 16.21,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/QueueStatusBadge.tsx": {
+            "lines": 219,
+            "tokens": 1879,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/NotificationPermission.tsx": {
+            "lines": 78,
+            "tokens": 724,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/LoadingSpinner.tsx": {
+            "lines": 50,
+            "tokens": 406,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/main.tsx": {
+            "lines": 9,
+            "tokens": 71,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/App.tsx": {
+            "lines": 36,
+            "tokens": 281,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 10619,
+          "tokens": 100828,
+          "sources": 41,
+          "clones": 43,
+          "duplicatedLines": 610,
+          "duplicatedTokens": 6946,
+          "percentage": 5.74,
+          "percentageTokens": 6.89,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "css": {
+        "sources": {
+          "src/pages/PersonalData/style.css": {
+            "lines": 57,
+            "tokens": 375,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/Login/style.css": {
+            "lines": 6,
+            "tokens": 38,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/HomeUser/style.css": {
+            "lines": 67,
+            "tokens": 458,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/styles/index.css": {
+            "lines": 74,
+            "tokens": 17,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/styles/App.css": {
+            "lines": 41,
+            "tokens": 223,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 245,
+          "tokens": 1111,
+          "sources": 5,
+          "clones": 0,
+          "duplicatedLines": 0,
+          "duplicatedTokens": 0,
+          "percentage": 0,
+          "percentageTokens": 0,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      }
+    },
+    "total": {
+      "lines": 19401,
+      "tokens": 179244,
+      "sources": 106,
+      "clones": 51,
+      "duplicatedLines": 937,
+      "duplicatedTokens": 11015,
+      "percentage": 4.83,
+      "percentageTokens": 6.15,
+      "newDuplicatedLines": 0,
+      "newClones": 0
+    }
+  },
+  "duplicates": [
+    {
+      "format": "tsx",
+      "lines": 9,
+      "fragment": ".total) * 100) : 0}%` }}\r\n                  ></div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n\r\n            <div className=\"flex flex-col\">\r\n              <div className=\"flex items-center mb-2\">\r\n                <div className=\"p-2 rounded-md bg-red-100 mr-3",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\components\\StatisticsCards.tsx",
+        "start": 170,
+        "end": 178,
+        "startLoc": {
+          "line": 170,
+          "column": 14,
+          "position": 2146
+        },
+        "endLoc": {
+          "line": 178,
+          "column": 31,
+          "position": 2223
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\AdminDashboard\\components\\StatisticsCards.tsx",
+        "start": 147,
+        "end": 155,
+        "startLoc": {
+          "line": 147,
+          "column": 8,
+          "position": 1844
+        },
+        "endLoc": {
+          "line": 155,
+          "column": 34,
+          "position": 1921
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 17,
+      "fragment": "</p>\r\n          </div>\r\n          <div className=\"p-4 h-80\">\r\n            <ResponsiveContainer width=\"100%\" height=\"100%\">\r\n              <PieChart>\r\n                <Pie\r\n                  data={ticketsBreakdownChartData}\r\n                  cx=\"50%\"\r\n                  cy=\"50%\"\r\n                  labelLine={false}\r\n                  outerRadius={80}\r\n                  fill=\"#8884d8\"\r\n                  dataKey=\"value\"\r\n                  nameKey=\"name\"\r\n                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}\r\n                >\r\n                  {ticketsBreakdownChartData",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\components\\ChartGrid.tsx",
+        "start": 176,
+        "end": 192,
+        "startLoc": {
+          "line": 176,
+          "column": 9,
+          "position": 2033
+        },
+        "endLoc": {
+          "line": 192,
+          "column": 26,
+          "position": 2171
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\AdminDashboard\\components\\ChartGrid.tsx",
+        "start": 115,
+        "end": 131,
+        "startLoc": {
+          "line": 115,
+          "column": 8,
+          "position": 1385
+        },
+        "endLoc": {
+          "line": 131,
+          "column": 15,
+          "position": 1523
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 15,
+      "fragment": "</p>\r\n          </div>\r\n          <div className=\"p-4 h-80\">\r\n            <ResponsiveContainer width=\"100%\" height=\"100%\">\r\n              <BarChart\r\n                data={accessPointsChartData}\r\n                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}\r\n              >\r\n                <CartesianGrid strokeDasharray=\"3 3\" stroke=\"#f0f0f0\" />\r\n                <XAxis dataKey=\"name\" />\r\n                <YAxis allowDecimals={false} />\r\n                <Tooltip content={<CustomTooltip />} />\r\n                <Legend />\r\n                <Bar dataKey=\"value\" name=\"Cantidad\">\r\n                  {accessPointsChartData",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\components\\ChartGrid.tsx",
+        "start": 207,
+        "end": 221,
+        "startLoc": {
+          "line": 207,
+          "column": 9,
+          "position": 2346
+        },
+        "endLoc": {
+          "line": 221,
+          "column": 22,
+          "position": 2515
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\AdminDashboard\\components\\ChartGrid.tsx",
+        "start": 146,
+        "end": 160,
+        "startLoc": {
+          "line": 146,
+          "column": 10,
+          "position": 1691
+        },
+        "endLoc": {
+          "line": 160,
+          "column": 17,
+          "position": 1860
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 14,
+      "fragment": "const EyeIcon = ({ className = \"w-5 h-5\" }: { className?: string }) => (\r\n  <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" strokeWidth={1.5} stroke=\"currentColor\" className={className}>\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z\" />\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M15 12a3 3 0 11-6 0 3 3 0 016 0z\" />\r\n  </svg>\r\n);\r\n\r\nconst EyeSlashIcon = ({ className = \"w-5 h-5\" }: { className?: string }) => (\r\n  <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" strokeWidth={1.5} stroke=\"currentColor\" className={className}>\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 11-4.243-4.243m4.242 4.242L9.88 9.88\" />\r\n  </svg>\r\n);\r\n\r\nconst ResetPasswordPage",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\ResetPassword\\ResetPasswordPage.tsx",
+        "start": 10,
+        "end": 23,
+        "startLoc": {
+          "line": 10,
+          "column": 1,
+          "position": 96
+        },
+        "endLoc": {
+          "line": 23,
+          "column": 18,
+          "position": 349
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\Signup\\SignupPage.tsx",
+        "start": 9,
+        "end": 22,
+        "startLoc": {
+          "line": 9,
+          "column": 1,
+          "position": 82
+        },
+        "endLoc": {
+          "line": 22,
+          "column": 11,
+          "position": 335
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 9,
+      "fragment": ">\r\n            </form>\r\n          ) : (\r\n            <div className=\"text-center space-y-6\">\r\n              <div className=\"text-green-600 flex flex-col items-center\">\r\n                <svg xmlns=\"http://www.w3.org/2000/svg\" className=\"h-12 w-12\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\">\r\n                  <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth={2} d=\"M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z\" />\r\n                </svg>\r\n                <p className=\"mt-2 text-lg font-medium\">¡Contraseña",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\ResetPassword\\ResetPasswordPage.tsx",
+        "start": 200,
+        "end": 208,
+        "startLoc": {
+          "line": 200,
+          "column": 7,
+          "position": 2063
+        },
+        "endLoc": {
+          "line": 208,
+          "column": 12,
+          "position": 2187
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\Signup\\SignupPage.tsx",
+        "start": 330,
+        "end": 338,
+        "startLoc": {
+          "line": 330,
+          "column": 4,
+          "position": 3262
+        },
+        "endLoc": {
+          "line": 338,
+          "column": 10,
+          "position": 3386
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 13,
+      "fragment": "const EyeIcon = ({ className = \"w-5 h-5\" }: { className?: string }) => (\r\n  <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" strokeWidth={1.5} stroke=\"currentColor\" className={className}>\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z\" />\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M15 12a3 3 0 11-6 0 3 3 0 016 0z\" />\r\n  </svg>\r\n);\r\n\r\nconst EyeSlashIcon = ({ className = \"w-5 h-5\" }: { className?: string }) => (\r\n  <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" strokeWidth={1.5} stroke=\"currentColor\" className={className}>\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 11-4.243-4.243m4.242 4.242L9.88 9.88\" />\r\n  </svg>\r\n);\r\n// --- ---",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RegisterWorker\\CreateWorkerForm.tsx",
+        "start": 11,
+        "end": 23,
+        "startLoc": {
+          "line": 11,
+          "column": 1,
+          "position": 109
+        },
+        "endLoc": {
+          "line": 23,
+          "column": 11,
+          "position": 358
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\Signup\\SignupPage.tsx",
+        "start": 9,
+        "end": 22,
+        "startLoc": {
+          "line": 9,
+          "column": 1,
+          "position": 82
+        },
+        "endLoc": {
+          "line": 22,
+          "column": 6,
+          "position": 333
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 152,
+      "fragment": "}>\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 11-4.243-4.243m4.242 4.242L9.88 9.88\" />\r\n  </svg>\r\n);\r\n\r\nconst CreateRegularUserForm = () => {\r\n    const [showPassword, setShowPassword] = useState(false);\r\n    const [showConfirmPassword, setShowConfirmPassword] = useState(false);\r\n    const [isPriority, setIsPriority] = useState(false);\r\n    const [password, setPassword] = useState(\"\");\r\n    const [confirmPassword, setConfirmPassword] = useState(\"\");\r\n    const [loading, setLoading] = useState(false);\r\n\r\n    const [nombre, setNombre] = useState(\"\");\r\n    const [cedula, setCedula] = useState(\"\");\r\n    const [telefono, setTelefono] = useState(\"\");\r\n    const [email, setEmail] = useState(\"\");\r\n    const [prioridadTipo, setPrioridadTipo] = useState<\"A\" | \"B\" | \"C\" | \"D\" | \"\">(\"\");\r\n\r\n    const isMobile = useMediaQuery(\"(max-width: 768px)\");\r\n    const navigate = useNavigate();\r\n    const auth = useAuth(); // For redirecting if user is already logged in\r\n\r\n    useEffect(() => {\r\n        // Redirect if user is already logged in\r\n        if (auth && auth.isAuthenticated) {\r\n            toast.info(\"Ya has iniciado sesión. Redirigiendo...\");\r\n            navigate('/home-user'); \r\n        }\r\n    }, [auth, navigate]);\r\n\r\n    const togglePasswordVisibility = () => setShowPassword(!showPassword);\r\n    const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);\r\n\r\n    const handlePriorityChange = (e: React.ChangeEvent<HTMLInputElement>) => {\r\n        setIsPriority(e.target.checked);\r\n        if (!e.target.checked) {\r\n            setPrioridadTipo(\"\");\r\n        }\r\n    };\r\n\r\n    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {\r\n        e.preventDefault();\r\n        if (!nombre || !cedula || !telefono || !email || !password || !confirmPassword) {\r\n            toast.warn(\"Por favor complete todos los campos.\");\r\n            return;\r\n        }\r\n        if (nombre.trim().length < 3) {\r\n            toast.warn(\"El nombre debe tener al menos 3 caracteres.\");\r\n            return;\r\n        }\r\n        if (cedula.length > 10 || !/^\\d+$/.test(cedula)) {\r\n            toast.warn(\"La cédula debe tener máximo 10 dígitos numéricos.\");\r\n            return;\r\n        }\r\n        if (!/^\\d+$/.test(telefono) || telefono.length < 7 || telefono.length > 15) {\r\n            toast.warn(\"Ingrese un número de teléfono válido (entre 7 y 15 dígitos).\");\r\n            return;\r\n        }\r\n        if (password.length < 8) {\r\n            toast.warn(\"La contraseña debe tener al menos 8 caracteres.\");\r\n            return;\r\n        }\r\n        if (password !== confirmPassword) {\r\n            toast.warn(\"Las contraseñas no coinciden.\");\r\n            return;\r\n        }\r\n        if (isPriority && !prioridadTipo) {\r\n            toast.warn(\"Debe seleccionar un motivo de prioridad si marcó la casilla.\");\r\n            return;\r\n        }\r\n\r\n        setLoading(true);\r\n\r\n        try {\r\n            // Prepare user data for registration\r\n            const userData = {\r\n                nombre: nombre,\r\n                cedula: cedula,\r\n                email: email,\r\n                password: password,\r\n                phone_number: telefono,\r\n                has_priority: isPriority,\r\n                motive: isPriority ? prioridadTipo : ''\r\n            };\r\n\r\n            // Register the user using the userService function\r\n            const result = await registerUser(userData, 'actor');\r\n\r\n            if (result.success) {\r\n                // Show success message\r\n                toast.success(\"¡Registro exitoso! Por favor, revisa tu correo para confirmar tu cuenta.\");\r\n                \r\n                // Reset form\r\n                setNombre(\"\"); setCedula(\"\"); setTelefono(\"\"); setEmail(\"\"); setPassword(\"\"); setConfirmPassword(\"\");\r\n                setIsPriority(false); setPrioridadTipo(\"\"); setShowPassword(false); setShowConfirmPassword(false);\r\n                \r\n                // Log for debugging\r\n                console.log('Usuario creado exitosamente. ID:', result.userId);\r\n                console.log('Perfil completo creado en la base de datos.');\r\n                \r\n                // Redirect to login page after a delay\r\n                setTimeout(() => {\r\n                    navigate('/login');\r\n                }, 2500);\r\n            } else {\r\n                throw new Error(\"No se pudo completar el registro\");\r\n            }\r\n        } catch (error: any) {\r\n            console.error(\"Error durante el registro:\", error);\r\n            const errorMessage = error.message || \"Ocurrió un error durante el registro.\";\r\n            toast.error(errorMessage);\r\n        } finally {\r\n            setLoading(false);\r\n        }\r\n    };\r\n\r\n    const primaryButtonClasses = \"w-full py-3 px-4 rounded-lg text-white font-semibold text-base shadow-md hover:shadow-lg active:scale-95 transition-all duration-300 ease-in-out flex items-center justify-center\";\r\n    const inputBaseClasses = \"w-full py-3 px-4 rounded-lg bg-slate-50 border border-gray-300 text-neutral-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors\";\r\n\r\n    return (\r\n        <div className=\"min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50\">\r\n            <main className='flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28'>\r\n                <ToastContainer position={isMobile ? \"bottom-center\" : \"top-right\"} autoClose={3500} theme=\"light\" />\r\n                <div className={`bg-white rounded-2xl sm:rounded-3xl shadow-xl w-full max-w-xl lg:max-w-2xl overflow-hidden`}>\r\n                    <div className={`flex flex-col justify-center p-6 sm:p-8 md:p-10 w-full`}>\r\n                        <form onSubmit={handleSubmit} className='flex flex-col w-full space-y-5'>\r\n                            <div className=\"text-center sm:text-left mb-4\">\r\n                                <h2 className=\"font-bold text-2xl sm:text-3xl text-neutral-800\">Crea tu Cuenta</h2>\r\n                                <p className=\"text-sm mt-2 text-neutral-600\">\r\n                                    Ingresa tus datos para registrarte en Q-Manager.\r\n                                </p>\r\n                            </div>\r\n\r\n                            {[\r\n                                { name: \"nombre\", type: \"text\", placeholder: \"Nombre Completo\", value: nombre, setter: setNombre, required: true },\r\n                                { name: \"cedula\", type: \"number\", placeholder: \"Cédula (solo números)\", value: cedula, setter: setCedula, required: true, inputMode: \"numeric\", pattern: \"[0-9]*\" },\r\n                                { name: \"telefono\", type: \"tel\", placeholder: \"Teléfono\", value: telefono, setter: setTelefono, required: true, inputMode: \"tel\" },\r\n                                { name: \"email\", type: \"email\", placeholder: \"Correo Electrónico\", value: email, setter: setEmail, required: true, inputMode: \"email\" },\r\n                            ].map(field => (\r\n                                <div key={field.name}>\r\n                                    <label htmlFor={field.name} className=\"sr-only\">{field.placeholder}</label>\r\n                                    <input\r\n                                        id={field.name}\r\n                                        type={field.type}\r\n                                        name={field.name}\r\n                                        placeholder={field.placeholder}\r\n                                        value={field.value}\r\n                                        onChange={(e) => field.setter(e.target.value)}\r\n                                        inputMode={field.inputMode as any}\r\n                                        pattern={field.pattern}\r\n                                        className={inputBaseClasses",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RegisterUser\\CreateRegularUserForm.tsx",
+        "start": 19,
+        "end": 170,
+        "startLoc": {
+          "line": 19,
+          "column": 10,
+          "position": 320
+        },
+        "endLoc": {
+          "line": 170,
+          "column": 17,
+          "position": 2099
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RegisterWorker\\CreateWorkerForm.tsx",
+        "start": 171,
+        "end": 211,
+        "startLoc": {
+          "line": 171,
+          "column": 41,
+          "position": 1881
+        },
+        "endLoc": {
+          "line": 211,
+          "column": 6,
+          "position": 2449
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 14,
+      "fragment": "const EyeIcon = ({ className = \"w-5 h-5\" }: { className?: string }) => (\r\n  <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" strokeWidth={1.5} stroke=\"currentColor\" className={className}>\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z\" />\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M15 12a3 3 0 11-6 0 3 3 0 016 0z\" />\r\n  </svg>\r\n);\r\n\r\nconst EyeSlashIcon = ({ className = \"w-5 h-5\" }: { className?: string }) => (\r\n  <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" strokeWidth={1.5} stroke=\"currentColor\" className={className}>\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 11-4.243-4.243m4.242 4.242L9.88 9.88\" />\r\n  </svg>\r\n);\r\n\r\nconst CreateRegularUserForm",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RegisterUser\\CreateRegularUserForm.tsx",
+        "start": 11,
+        "end": 24,
+        "startLoc": {
+          "line": 11,
+          "column": 1,
+          "position": 110
+        },
+        "endLoc": {
+          "line": 24,
+          "column": 22,
+          "position": 363
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\Signup\\SignupPage.tsx",
+        "start": 9,
+        "end": 22,
+        "startLoc": {
+          "line": 9,
+          "column": 1,
+          "position": 82
+        },
+        "endLoc": {
+          "line": 22,
+          "column": 11,
+          "position": 335
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 10,
+      "fragment": "if (nombre.trim().length < 3) {\r\n            toast.warn(\"El nombre debe tener al menos 3 caracteres.\");\r\n            return;\r\n        }\r\n        if (cedula.length > 10 || !/^\\d+$/.test(cedula)) {\r\n            toast.warn(\"La cédula debe tener máximo 10 dígitos numéricos.\");\r\n            return;\r\n        }\r\n        if (!/^\\d+$/.test(telefono) || telefono.length < 7 || telefono.length > 15) {\r\n            toast.warn(\"Ingrese un número de teléfono válido (entre 7 y 15 dígitos).\"",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RegisterUser\\CreateRegularUserForm.tsx",
+        "start": 66,
+        "end": 75,
+        "startLoc": {
+          "line": 66,
+          "column": 9,
+          "position": 923
+        },
+        "endLoc": {
+          "line": 75,
+          "column": 63,
+          "position": 1047
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RegisterWorker\\CreateWorkerForm.tsx",
+        "start": 89,
+        "end": 98,
+        "startLoc": {
+          "line": 89,
+          "column": 9,
+          "position": 1073
+        },
+        "endLoc": {
+          "line": 98,
+          "column": 40,
+          "position": 1197
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 9,
+      "fragment": "return (\r\n        <div className=\"min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50\">\r\n            <main className='flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28'>\r\n                <ToastContainer position={isMobile ? \"bottom-center\" : \"top-right\"} autoClose={3500} theme=\"light\" />\r\n                <div className={`bg-white rounded-2xl sm:rounded-3xl shadow-xl w-full max-w-xl lg:max-w-2xl overflow-hidden`}>\r\n                    <div className={`flex flex-col justify-center p-6 sm:p-8 md:p-10 w-full`}>\r\n                        <form onSubmit={handleSubmit} className='flex flex-col w-full space-y-5'>\r\n                            <div className=\"text-center sm:text-left mb-4\">\r\n                                <h2 className=\"font-bold text-2xl sm:text-3xl text-neutral-800\">Crea",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RegisterUser\\CreateRegularUserForm.tsx",
+        "start": 139,
+        "end": 147,
+        "startLoc": {
+          "line": 139,
+          "column": 5,
+          "position": 1582
+        },
+        "endLoc": {
+          "line": 147,
+          "column": 5,
+          "position": 1707
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RegisterWorker\\CreateWorkerForm.tsx",
+        "start": 180,
+        "end": 188,
+        "startLoc": {
+          "line": 180,
+          "column": 5,
+          "position": 1924
+        },
+        "endLoc": {
+          "line": 188,
+          "column": 10,
+          "position": 2049
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 9,
+      "fragment": "<form onSubmit={handleSubmit} className='flex flex-col w-full space-y-5'>\r\n                            <div className=\"text-center sm:text-left mb-4\">\r\n                                <h2 className=\"font-bold text-2xl sm:text-3xl text-neutral-800\">Crea tu Cuenta</h2>\r\n                                <p className=\"text-sm mt-2 text-neutral-600\">\r\n                                    Ingresa tus datos para registrarte en Q-Manager.\r\n                                </p>\r\n                            </div>\r\n\r\n                            {[",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RegisterUser\\CreateRegularUserForm.tsx",
+        "start": 145,
+        "end": 153,
+        "startLoc": {
+          "line": 145,
+          "column": 25,
+          "position": 1668
+        },
+        "endLoc": {
+          "line": 153,
+          "column": 2,
+          "position": 1764
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\Signup\\SignupPage.tsx",
+        "start": 151,
+        "end": 159,
+        "startLoc": {
+          "line": 151,
+          "column": 15,
+          "position": 1727
+        },
+        "endLoc": {
+          "line": 159,
+          "column": 13,
+          "position": 1823
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 23,
+      "fragment": ".\r\n                                </p>\r\n                            </div>\r\n\r\n                            {[\r\n                                { name: \"nombre\", type: \"text\", placeholder: \"Nombre Completo\", value: nombre, setter: setNombre, required: true },\r\n                                { name: \"cedula\", type: \"number\", placeholder: \"Cédula (solo números)\", value: cedula, setter: setCedula, required: true, inputMode: \"numeric\", pattern: \"[0-9]*\" },\r\n                                { name: \"telefono\", type: \"tel\", placeholder: \"Teléfono\", value: telefono, setter: setTelefono, required: true, inputMode: \"tel\" },\r\n                                { name: \"email\", type: \"email\", placeholder: \"Correo Electrónico\", value: email, setter: setEmail, required: true, inputMode: \"email\" },\r\n                            ].map(field => (\r\n                                <div key={field.name}>\r\n                                    <label htmlFor={field.name} className=\"sr-only\">{field.placeholder}</label>\r\n                                    <input\r\n                                        id={field.name}\r\n                                        type={field.type}\r\n                                        name={field.name}\r\n                                        placeholder={field.placeholder}\r\n                                        value={field.value}\r\n                                        onChange={(e) => field.setter(e.target.value)}\r\n                                        inputMode={field.inputMode as any}\r\n                                        pattern={field.pattern}\r\n                                        className={inputBaseClasses}\r\n                                        ",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RegisterUser\\CreateRegularUserForm.tsx",
+        "start": 149,
+        "end": 171,
+        "startLoc": {
+          "line": 149,
+          "column": 8,
+          "position": 1745
+        },
+        "endLoc": {
+          "line": 171,
+          "column": 41,
+          "position": 2101
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RegisterWorker\\CreateWorkerForm.tsx",
+        "start": 190,
+        "end": 210,
+        "startLoc": {
+          "line": 190,
+          "column": 7,
+          "position": 2091
+        },
+        "endLoc": {
+          "line": 210,
+          "column": 2,
+          "position": 2441
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 7,
+      "fragment": ">Seleccione un motivo</option>\r\n                                            <option value=\"A\">Mujer embarazada</option>\r\n                                            <option value=\"B\">Persona con movilidad reducida</option>\r\n                                            <option value=\"C\">Adulto mayor (tercera edad)</option>\r\n                                            <option value=\"D\">Otro caso que requiera prioridad</option>\r\n                                        </select>\r\n                                    </",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RegisterUser\\CreateRegularUserForm.tsx",
+        "start": 249,
+        "end": 255,
+        "startLoc": {
+          "line": 249,
+          "column": 9,
+          "position": 2739
+        },
+        "endLoc": {
+          "line": 255,
+          "column": 3,
+          "position": 2845
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\Signup\\SignupPage.tsx",
+        "start": 306,
+        "end": 312,
+        "startLoc": {
+          "line": 306,
+          "column": 2,
+          "position": 2987
+        },
+        "endLoc": {
+          "line": 312,
+          "column": 2,
+          "position": 3093
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 12,
+      "fragment": ">\r\n                                {loading ? 'Registrando...' : 'Crear Cuenta'}\r\n                            </button>\r\n\r\n                            <div className=\"text-center text-sm text-neutral-600 pt-2\">\r\n                                ¿Ya tienes una cuenta?{' '}\r\n                                <Link to=\"/login\" className=\"font-semibold text-indigo-600 hover:text-indigo-500 hover:underline\">\r\n                                    Inicia Sesión aquí\r\n                                </Link>\r\n                            </div>\r\n                        </form>\r\n                    </",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RegisterUser\\CreateRegularUserForm.tsx",
+        "start": 263,
+        "end": 274,
+        "startLoc": {
+          "line": 263,
+          "column": 29,
+          "position": 2900
+        },
+        "endLoc": {
+          "line": 274,
+          "column": 3,
+          "position": 2996
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\Signup\\SignupPage.tsx",
+        "start": 321,
+        "end": 332,
+        "startLoc": {
+          "line": 321,
+          "column": 17,
+          "position": 3176
+        },
+        "endLoc": {
+          "line": 332,
+          "column": 2,
+          "position": 3272
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 39,
+      "fragment": "}>\r\n                        <form onSubmit={handleSubmit} className='flex flex-col w-full space-y-5'>\r\n                            <div className=\"text-center sm:text-left mb-4\">\r\n                                <h2 className=\"font-bold text-2xl sm:text-3xl text-neutral-800\">Registrar Nuevo Usuario</h2>\r\n                                <p className=\"text-sm mt-2 text-neutral-600\">\r\n                                    Ingresa los datos para crear una nueva cuenta de usuario.\r\n                                </p>\r\n                            </div>\r\n\r\n                            {/* Campos del formulario */}\r\n                            {[\r\n                                { name: \"nombre\", type: \"text\", placeholder: \"Nombre Completo\", value: nombre, setter: setNombre, required: true },\r\n                                { name: \"cedula\", type: \"number\", placeholder: \"Cédula (solo números)\", value: cedula, setter: setCedula, required: true, inputMode: \"numeric\", pattern: \"[0-9]*\" },\r\n                                { name: \"telefono\", type: \"tel\", placeholder: \"Teléfono\", value: telefono, setter: setTelefono, required: true, inputMode: \"tel\" },\r\n                                { name: \"email\", type: \"email\", placeholder: \"Correo Electrónico\", value: email, setter: setEmail, required: true, inputMode: \"email\" },\r\n                            ].map(field => (\r\n                                <div key={field.name}>\r\n                                    <label htmlFor={field.name} className=\"sr-only\">{field.placeholder}</label>\r\n                                    <input\r\n                                        id={field.name}\r\n                                        type={field.type}\r\n                                        name={field.name}\r\n                                        placeholder={field.placeholder}\r\n                                        value={field.value}\r\n                                        onChange={(e) => field.setter(e.target.value)}\r\n                                        inputMode={field.inputMode as any}\r\n                                        pattern={field.pattern}\r\n                                        className={inputBaseClasses}\r\n                                        required={field.required}\r\n                                    />\r\n                                </div>\r\n                            ))}\r\n\r\n                            {/* Prioridad */}\r\n                            <div className=\"pt-2\">\r\n                                <label className=\"flex items-center text-sm text-neutral-700 cursor-pointer\">\r\n                                    <input\r\n                                        type=\"checkbox\"\r\n                                        checked={isPriority",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RegisterActor\\CreateUserForm.tsx",
+        "start": 150,
+        "end": 188,
+        "startLoc": {
+          "line": 150,
+          "column": 2,
+          "position": 1774
+        },
+        "endLoc": {
+          "line": 188,
+          "column": 11,
+          "position": 2291
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RegisterWorker\\CreateWorkerForm.tsx",
+        "start": 185,
+        "end": 182,
+        "startLoc": {
+          "line": 185,
+          "column": 57,
+          "position": 2005
+        },
+        "endLoc": {
+          "line": 182,
+          "column": 2,
+          "position": 2186
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 25,
+      "fragment": "const EyeIcon = ({ className = \"w-5 h-5\" }: { className?: string }) => (\r\n  <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" strokeWidth={1.5} stroke=\"currentColor\" className={className}>\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z\" />\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M15 12a3 3 0 11-6 0 3 3 0 016 0z\" />\r\n  </svg>\r\n);\r\n\r\nconst EyeSlashIcon = ({ className = \"w-5 h-5\" }: { className?: string }) => (\r\n  <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" strokeWidth={1.5} stroke=\"currentColor\" className={className}>\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 11-4.243-4.243m4.242 4.242L9.88 9.88\" />\r\n  </svg>\r\n);\r\n// --- ---\r\n\r\nfunction generarContraseña(longitud: number): string {\r\n  const caracteres = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?\";\r\n  let contraseña = \"\";\r\n  for (let i = 0; i < longitud; i++) {\r\n    const indice = Math.floor(Math.random() * caracteres.length);\r\n    contraseña += caracteres[indice];\r\n  }\r\n  return contraseña;\r\n}\r\n\r\nconst CreateUserForm",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RegisterActor\\CreateUserForm.tsx",
+        "start": 11,
+        "end": 35,
+        "startLoc": {
+          "line": 11,
+          "column": 1,
+          "position": 121
+        },
+        "endLoc": {
+          "line": 35,
+          "column": 15,
+          "position": 496
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\Signup\\SignupPage.tsx",
+        "start": 9,
+        "end": 35,
+        "startLoc": {
+          "line": 9,
+          "column": 1,
+          "position": 82
+        },
+        "endLoc": {
+          "line": 35,
+          "column": 17,
+          "position": 484
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 8,
+      "fragment": "] = useState(\"\");\r\n    const [loading, setLoading] = useState(false);\r\n\r\n    const [nombre, setNombre] = useState(\"\");\r\n    const [cedula, setCedula] = useState(\"\");\r\n    const [telefono, setTelefono] = useState(\"\");\r\n    const [email, setEmail] = useState(\"\");\r\n    const [prioridadTipo, setPrioridadTipo] = useState<\"A\" | \"B\" | \"C\" | \"D\" | \"\">(\"\"); // Tipado más estricto",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RegisterActor\\CreateUserForm.tsx",
+        "start": 38,
+        "end": 45,
+        "startLoc": {
+          "line": 38,
+          "column": 14,
+          "position": 554
+        },
+        "endLoc": {
+          "line": 45,
+          "column": 23,
+          "position": 699
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RegisterUser\\CreateRegularUserForm.tsx",
+        "start": 29,
+        "end": 38,
+        "startLoc": {
+          "line": 29,
+          "column": 19,
+          "position": 459
+        },
+        "endLoc": {
+          "line": 38,
+          "column": 6,
+          "position": 608
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 16,
+      "fragment": ");\r\n            return;\r\n        }\r\n        if (nombre.trim().length < 3) {\r\n            toast.warn(\"El nombre debe tener al menos 3 caracteres.\");\r\n            return;\r\n        }\r\n        if (cedula.length > 10 || !/^\\d+$/.test(cedula)) {\r\n            toast.warn(\"La cédula debe tener máximo 10 dígitos numéricos.\");\r\n            return;\r\n        }\r\n        if (!/^\\d+$/.test(telefono) || telefono.length < 7 || telefono.length > 15) {\r\n            toast.warn(\"Ingrese un número de teléfono válido.\");\r\n            return;\r\n        }\r\n        if",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RegisterActor\\CreateUserForm.tsx",
+        "start": 85,
+        "end": 100,
+        "startLoc": {
+          "line": 85,
+          "column": 63,
+          "position": 1081
+        },
+        "endLoc": {
+          "line": 100,
+          "column": 3,
+          "position": 1234
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RegisterUser\\CreateRegularUserForm.tsx",
+        "start": 63,
+        "end": 101,
+        "startLoc": {
+          "line": 63,
+          "column": 39,
+          "position": 909
+        },
+        "endLoc": {
+          "line": 101,
+          "column": 82,
+          "position": 1212
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 24,
+      "fragment": "{[\r\n                                { name: \"nombre\", type: \"text\", placeholder: \"Nombre Completo\", value: nombre, setter: setNombre, required: true },\r\n                                { name: \"cedula\", type: \"number\", placeholder: \"Cédula (solo números)\", value: cedula, setter: setCedula, required: true, inputMode: \"numeric\", pattern: \"[0-9]*\" },\r\n                                { name: \"telefono\", type: \"tel\", placeholder: \"Teléfono\", value: telefono, setter: setTelefono, required: true, inputMode: \"tel\" },\r\n                                { name: \"email\", type: \"email\", placeholder: \"Correo Electrónico\", value: email, setter: setEmail, required: true, inputMode: \"email\" },\r\n                            ].map(field => (\r\n                                <div key={field.name}>\r\n                                    <label htmlFor={field.name} className=\"sr-only\">{field.placeholder}</label>\r\n                                    <input\r\n                                        id={field.name}\r\n                                        type={field.type}\r\n                                        name={field.name}\r\n                                        placeholder={field.placeholder}\r\n                                        value={field.value}\r\n                                        onChange={(e) => field.setter(e.target.value)}\r\n                                        inputMode={field.inputMode as any}\r\n                                        pattern={field.pattern}\r\n                                        className={inputBaseClasses}\r\n                                        required={field.required}\r\n                                    />\r\n                                </div>\r\n                            ))}\r\n\r\n                            {/* Prioridad */",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RegisterActor\\CreateUserForm.tsx",
+        "start": 160,
+        "end": 183,
+        "startLoc": {
+          "line": 160,
+          "column": 29,
+          "position": 1884
+        },
+        "endLoc": {
+          "line": 183,
+          "column": 16,
+          "position": 2250
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RegisterWorker\\CreateWorkerForm.tsx",
+        "start": 193,
+        "end": 176,
+        "startLoc": {
+          "line": 193,
+          "column": 29,
+          "position": 2107
+        },
+        "endLoc": {
+          "line": 176,
+          "column": 21,
+          "position": 2129
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 15,
+      "fragment": "} finally {\r\n      setLoading(false);\r\n    }\r\n  };\r\n\r\n  // Clases reutilizables\r\n  const inputBaseClasses = \"w-full py-3 px-4 rounded-lg bg-slate-50 border border-gray-300 text-neutral-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors\";\r\n  const buttonClasses = \"w-full py-3 px-4 rounded-lg text-white font-semibold text-base shadow-md hover:shadow-lg active:scale-95 transition-all duration-300 ease-in-out\";\r\n\r\n  return (\r\n    <div className=\"min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50\">\r\n      <main className='flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28'>\r\n        <ToastContainer position={isMobile ? \"bottom-center\" : \"top-right\"} autoClose={3500} theme=\"light\" />\r\n        <div className=\"w-full max-w-md p-8 bg-white rounded-2xl shadow-xl\">\r\n          <h2 className=\"text-center text-2xl font-bold mb-6 text-gray-800\">Recuperar",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RecoverPassword\\RecoverPasswordPage.tsx",
+        "start": 38,
+        "end": 52,
+        "startLoc": {
+          "line": 38,
+          "column": 5,
+          "position": 406
+        },
+        "endLoc": {
+          "line": 52,
+          "column": 10,
+          "position": 544
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\ResetPassword\\ResetPasswordPage.tsx",
+        "start": 104,
+        "end": 118,
+        "startLoc": {
+          "line": 104,
+          "column": 5,
+          "position": 1110
+        },
+        "endLoc": {
+          "line": 118,
+          "column": 12,
+          "position": 1248
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 14,
+      "fragment": "</div>\r\n              <button\r\n                type=\"submit\"\r\n                disabled={loading}\r\n                className={`${buttonClasses} ${loading ? 'bg-neutral-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'}`}\r\n              >\r\n                {loading ? (\r\n                  <>\r\n                    <span className=\"flex items-center justify-center\">\r\n                      <svg className=\"animate-spin -ml-1 mr-3 h-5 w-5 text-white\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\">\r\n                        <circle className=\"opacity-25\" cx=\"12\" cy=\"12\" r=\"10\" stroke=\"currentColor\" strokeWidth=\"4\"></circle>\r\n                        <path className=\"opacity-75\" fill=\"currentColor\" d=\"M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z\"></path>\r\n                      </svg>\r\n                      Enviando",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RecoverPassword\\RecoverPasswordPage.tsx",
+        "start": 70,
+        "end": 83,
+        "startLoc": {
+          "line": 70,
+          "column": 15,
+          "position": 683
+        },
+        "endLoc": {
+          "line": 83,
+          "column": 9,
+          "position": 863
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\ResetPassword\\ResetPasswordPage.tsx",
+        "start": 182,
+        "end": 196,
+        "startLoc": {
+          "line": 182,
+          "column": 15,
+          "position": 1853
+        },
+        "endLoc": {
+          "line": 196,
+          "column": 11,
+          "position": 2035
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 10,
+      "fragment": "}\r\n              </button>\r\n            </form>\r\n          ) : (\r\n            <div className=\"text-center space-y-6\">\r\n              <div className=\"text-green-600 flex flex-col items-center\">\r\n                <svg xmlns=\"http://www.w3.org/2000/svg\" className=\"h-12 w-12\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\">\r\n                  <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth={2} d=\"M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z\" />\r\n                </svg>\r\n                <p className=\"mt-2 text-lg font-medium\">Correo",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RecoverPassword\\RecoverPasswordPage.tsx",
+        "start": 86,
+        "end": 95,
+        "startLoc": {
+          "line": 86,
+          "column": 32,
+          "position": 885
+        },
+        "endLoc": {
+          "line": 95,
+          "column": 7,
+          "position": 1015
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\ResetPassword\\ResetPasswordPage.tsx",
+        "start": 199,
+        "end": 338,
+        "startLoc": {
+          "line": 199,
+          "column": 25,
+          "position": 2057
+        },
+        "endLoc": {
+          "line": 338,
+          "column": 10,
+          "position": 3386
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 19,
+      "fragment": "let roleText = \"\";\r\n      if (userProfile.userType === 'worker') {\r\n        roleText = \"Trabajador\";\r\n      } else if (userProfile.userType === 'admin') {\r\n        roleText = \"Administrador\";\r\n      } else if (userProfile.userType === 'actor') {\r\n        roleText = \"Usuario con Prioridad\";\r\n      } else {\r\n        roleText = \"Usuario Regular\";\r\n      }\r\n      \r\n      setFormData({\r\n        nombre: userProfile.nombre || \"\",\r\n        cedula: userProfile.cedula?.toString() || \"\",\r\n        email: userProfile.email || \"\",\r\n        phone_number: userProfile.phone_number || \"\",\r\n        role: roleText\r\n      });\r\n    }",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\PersonalData\\PersonalData.tsx",
+        "start": 113,
+        "end": 131,
+        "startLoc": {
+          "line": 113,
+          "column": 7,
+          "position": 1042
+        },
+        "endLoc": {
+          "line": 131,
+          "column": 2,
+          "position": 1239
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\PersonalData\\PersonalData.tsx",
+        "start": 39,
+        "end": 58,
+        "startLoc": {
+          "line": 39,
+          "column": 7,
+          "position": 372
+        },
+        "endLoc": {
+          "line": 58,
+          "column": 8,
+          "position": 571
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 14,
+      "fragment": "const EyeIcon = ({ className = \"w-5 h-5\" }: { className?: string }) => (\r\n  <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" strokeWidth={1.5} stroke=\"currentColor\" className={className}>\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z\" />\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M15 12a3 3 0 11-6 0 3 3 0 016 0z\" />\r\n  </svg>\r\n);\r\n\r\nconst EyeSlashIcon = ({ className = \"w-5 h-5\" }: { className?: string }) => (\r\n  <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" strokeWidth={1.5} stroke=\"currentColor\" className={className}>\r\n    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 11-4.243-4.243m4.242 4.242L9.88 9.88\" />\r\n  </svg>\r\n);\r\n\r\nconst LoginForm",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\Login\\LoginForm.tsx",
+        "start": 10,
+        "end": 23,
+        "startLoc": {
+          "line": 10,
+          "column": 1,
+          "position": 96
+        },
+        "endLoc": {
+          "line": 23,
+          "column": 10,
+          "position": 349
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\Signup\\SignupPage.tsx",
+        "start": 9,
+        "end": 22,
+        "startLoc": {
+          "line": 9,
+          "column": 1,
+          "position": 82
+        },
+        "endLoc": {
+          "line": 22,
+          "column": 11,
+          "position": 335
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 11,
+      "fragment": ";\r\n\r\n  return (\r\n    <div className=\"min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50\">\r\n      <main className='flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28'>\r\n        <ToastContainer position={isMobile ? \"bottom-center\" : \"top-right\"} autoClose={3500} theme=\"light\" />\r\n        <div className={`flex bg-white rounded-2xl sm:rounded-3xl shadow-xl w-full max-w-4xl lg:max-w-5xl overflow-hidden ${isMobile ? \"flex-col\" : \"flex-row\"}`}>\r\n          \r\n          {!isMobile && (\r\n            <div className=\"w-1/2 md:w-5/12 flex items-center justify-center bg-gradient-to-br from-indigo-100 to-purple-100 p-8 lg:p-12 rounded-l-2xl sm:rounded-l-3xl\">\r\n              <img src={imagenLogin} alt=\"Login",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\Login\\LoginForm.tsx",
+        "start": 162,
+        "end": 172,
+        "startLoc": {
+          "line": 162,
+          "column": 62,
+          "position": 1687
+        },
+        "endLoc": {
+          "line": 172,
+          "column": 6,
+          "position": 1814
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RegisterActor\\CreateUserForm.tsx",
+        "start": 137,
+        "end": 147,
+        "startLoc": {
+          "line": 137,
+          "column": 179,
+          "position": 1606
+        },
+        "endLoc": {
+          "line": 147,
+          "column": 18,
+          "position": 1733
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 68,
+      "fragment": "={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}>\r\n    <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" className=\"w-8 h-8 text-white\">\r\n      <path fillRule=\"evenodd\" d=\"M1.5 6.375c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v3.026a.75.75 0 01-.375.65 2.249 2.249 0 000 3.898.75.75 0 01.375.65v3.026c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 011.5 17.625v-3.026a.75.75 0 01.374-.65 2.249 2.249 0 000-3.898.75.75 0 01-.374-.65V6.375zm15-1.125a.75.75 0 01.75.75v.75a.75.75 0 01-1.5 0V6a.75.75 0 01.75-.75zm.75 4.5a.75.75 0 00-1.5 0v.75a.75.75 0 001.5 0v-.75zm-.75 3a.75.75 0 01.75.75v.75a.75.75 0 01-1.5 0v-.75a.75.75 0 01.75-.75zm.75 4.5a.75.75 0 00-1.5 0V18a.75.75 0 001.5 0v-.75zM6 12a.75.75 0 01.75-.75H12a.75.75 0 010 1.5H6.75A.75.75 0 016 12zm.75 2.25a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z\" clipRule=\"evenodd\" />\r\n    </svg>\r\n  </div>\r\n);\r\n\r\nconst HistoryIcon = ({ color = \"from-amber-400 to-orange-600\" }) => (\r\n  <div className={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}>\r\n    <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" className=\"w-8 h-8 text-white\">\r\n      <path fillRule=\"evenodd\" d=\"M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z\" clipRule=\"evenodd\" />\r\n    </svg>\r\n  </div>\r\n);\r\n\r\nconst EditIcon = ({ color = \"from-pink-400 to-rose-600\" }) => (\r\n  <div className={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}>\r\n    <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" className=\"w-8 h-8 text-white\">\r\n      <path d=\"M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z\" />\r\n    </svg>\r\n  </div>\r\n);\r\n\r\nconst ChartIcon = ({ color = \"from-violet-400 to-purple-600\" }) => (\r\n  <div className={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}>\r\n    <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" className=\"w-8 h-8 text-white\">\r\n      <path d=\"M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z\" />\r\n    </svg>\r\n  </div>\r\n);\r\n\r\nconst AnnouncementIcon = ({ color = \"from-cyan-400 to-blue-600\" }) => (\r\n  <div className={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}>\r\n    <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" className=\"w-8 h-8 text-white\">\r\n      <path d=\"M16.881 4.346A23.112 23.112 0 018.25 6H7.5a5.25 5.25 0 00-.88 10.427 21.593 21.593 0 001.378 3.94c.464 1.004 1.674 1.32 2.582.796l.657-.379c.88-.508 1.165-1.592.772-2.468a17.116 17.116 0 01-.628-1.607c1.918.258 3.76.75 5.5 1.446A21.727 21.727 0 0018 11.25c0-2.413-.393-4.735-1.119-6.904zM18.26 3.74a23.22 23.22 0 011.24 7.51 23.22 23.22 0 01-1.24 7.51c-.055.161-.111.322-.17.482a.75.75 0 101.409.516 24.555 24.555 0 001.415-6.43 2.992 2.992 0 00.836-2.078c0-.806-.319-1.54-.836-2.078a24.65 24.65 0 00-1.415-6.43.75.75 0 10-1.409.516c.059.16.116.321.17.483z\" />\r\n    </svg>\r\n  </div>\r\n);\r\n\r\nconst QueueIcon = ({ color = \"from-indigo-400 to-blue-600\" }) => (\r\n  <div className={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}>\r\n    <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" className=\"w-8 h-8 text-white\">\r\n      <path d=\"M5.625 3.75a2.625 2.625 0 100 5.25h12.75a2.625 2.625 0 000-5.25H5.625zM3.75 11.25a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75zM3 15.75a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75zM3.75 18.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75z\" />\r\n    </svg>\r\n  </div>\r\n);\r\n\r\nconst RegisterIcon = ({ color = \"from-green-400 to-emerald-600\" }) => (\r\n  <div className={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}>\r\n    <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" className=\"w-8 h-8 text-white\">\r\n      <path d=\"M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z\" />\r\n    </svg>\r\n  </div>\r\n);\r\n\r\nconst SettingsIcon = ({ color = \"from-slate-400 to-gray-600\" }) => (\r\n  <div className={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}>\r\n    <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" className=\"w-8 h-8 text-white\">\r\n      <path fillRule=\"evenodd\" d=\"M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 00-.986.57c-.166.115-.334.126-.45.083L6.3 5.508a1.875 1.875 0 00-2.282.819l-.922 1.597a1.875 1.875 0 00.432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 000 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 00-.432 2.385l.922 1.597a1.875 1.875 0 002.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 002.28-.819l.923-1.597a1.875 1.875 0 00-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 000-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 00-2.282-.818l-1.02.382c-.114.043-.282.031-.449-.083a7.49 7.49 0 00-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 00-1.85-1.567h-1.843zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z\" clipRule=\"evenodd\" />\r\n    </svg>\r\n  </div>\r\n);\r\n\r\n\r\n\r\nconst ActionCard: React.FC<Action> = ({ title, description, to, icon }) => (\r\n  <Link\r\n    to={to",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\HomeUser\\HomeUser.tsx",
+        "start": 28,
+        "end": 95,
+        "startLoc": {
+          "line": 28,
+          "column": 10,
+          "position": 284
+        },
+        "endLoc": {
+          "line": 95,
+          "column": 3,
+          "position": 1139
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\HomeUser\\HomeUser.tsx",
+        "start": 20,
+        "end": 68,
+        "startLoc": {
+          "line": 20,
+          "column": 10,
+          "position": 172
+        },
+        "endLoc": {
+          "line": 68,
+          "column": 35,
+          "position": 810
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 14,
+      "fragment": "([]);\r\n  };\r\n\r\n  // Button styles\r\n  const baseButtonStyles =\r\n    \"py-2 px-4 rounded-lg font-semibold text-sm shadow-md hover:shadow-lg active:scale-95 transition-all duration-300 ease-in-out flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2\";\r\n  \r\n  const primaryButtonClasses = `${baseButtonStyles} bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500`;\r\n  const secondaryButtonClasses = `${baseButtonStyles} bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-100 focus:ring-indigo-500`;\r\n  const dangerButtonClasses = `${baseButtonStyles} bg-red-600 text-white hover:bg-red-700 focus:ring-red-500`;\r\n  const editButtonClasses = `px-3 py-1 bg-indigo-600 text-white text-xs font-medium rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors`;\r\n\r\n  if (loading) {\r\n    return <LoadingSpinner message=\"Cargando trabajadores...",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\ManageWorkers.tsx",
+        "start": 261,
+        "end": 274,
+        "startLoc": {
+          "line": 261,
+          "column": 27,
+          "position": 2514
+        },
+        "endLoc": {
+          "line": 274,
+          "column": 25,
+          "position": 2624
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\ManageUserData\\ManageUserData.tsx",
+        "start": 402,
+        "end": 415,
+        "startLoc": {
+          "line": 402,
+          "column": 25,
+          "position": 4045
+        },
+        "endLoc": {
+          "line": 415,
+          "column": 21,
+          "position": 4155
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 16,
+      "fragment": "</h2>\r\n\r\n            {error && (\r\n              <div className=\"mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded\">\r\n                {error}\r\n              </div>\r\n            )}\r\n\r\n            <div className=\"space-y-5 sm:space-y-6 mb-8 sm:mb-10\">\r\n              {/* Nombre */}\r\n              <div>\r\n                <label className=\"block text-sm font-semibold text-neutral-600 mb-1\">\r\n                  Nombre:\r\n                </label>\r\n                <input\r\n                  ",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\ManageWorkers.tsx",
+        "start": 315,
+        "end": 330,
+        "startLoc": {
+          "line": 315,
+          "column": 13,
+          "position": 2901
+        },
+        "endLoc": {
+          "line": 330,
+          "column": 19,
+          "position": 2998
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\ManageUserData\\ManageUserData.tsx",
+        "start": 448,
+        "end": 463,
+        "startLoc": {
+          "line": 448,
+          "column": 15,
+          "position": 4396
+        },
+        "endLoc": {
+          "line": 463,
+          "column": 21,
+          "position": 4493
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 13,
+      "fragment": "/>\r\n                {formErrors.nombre && (\r\n                  <p className=\"mt-1 text-sm text-red-600\">{formErrors.nombre}</p>\r\n                )}\r\n              </div>\r\n\r\n              {/* Cédula */}\r\n              <div>\r\n                <label className=\"block text-sm font-semibold text-neutral-600 mb-1\">\r\n                  Cédula:\r\n                </label>\r\n                <input\r\n                  ",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\ManageWorkers.tsx",
+        "start": 335,
+        "end": 347,
+        "startLoc": {
+          "line": 335,
+          "column": 17,
+          "position": 3034
+        },
+        "endLoc": {
+          "line": 347,
+          "column": 19,
+          "position": 3120
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\ManageUserData\\ManageUserData.tsx",
+        "start": 468,
+        "end": 480,
+        "startLoc": {
+          "line": 468,
+          "column": 19,
+          "position": 4529
+        },
+        "endLoc": {
+          "line": 480,
+          "column": 21,
+          "position": 4615
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 13,
+      "fragment": "/>\r\n                {formErrors.cedula && (\r\n                  <p className=\"mt-1 text-sm text-red-600\">{formErrors.cedula}</p>\r\n                )}\r\n              </div>\r\n\r\n              {/* Correo */}\r\n              <div>\r\n                <label className=\"block text-sm font-semibold text-neutral-600 mb-1\">\r\n                  Correo Electrónico:\r\n                </label>\r\n                <input\r\n                  ",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\ManageWorkers.tsx",
+        "start": 352,
+        "end": 364,
+        "startLoc": {
+          "line": 352,
+          "column": 17,
+          "position": 3156
+        },
+        "endLoc": {
+          "line": 364,
+          "column": 19,
+          "position": 3243
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\ManageUserData\\ManageUserData.tsx",
+        "start": 485,
+        "end": 497,
+        "startLoc": {
+          "line": 485,
+          "column": 19,
+          "position": 4651
+        },
+        "endLoc": {
+          "line": 497,
+          "column": 21,
+          "position": 4738
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 13,
+      "fragment": "/>\r\n                {formErrors.email && (\r\n                  <p className=\"mt-1 text-sm text-red-600\">{formErrors.email}</p>\r\n                )}\r\n              </div>\r\n\r\n              {/* Teléfono */}\r\n              <div>\r\n                <label className=\"block text-sm font-semibold text-neutral-600 mb-1\">\r\n                  Teléfono:\r\n                </label>\r\n                <input\r\n                  ",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\ManageWorkers.tsx",
+        "start": 369,
+        "end": 381,
+        "startLoc": {
+          "line": 369,
+          "column": 17,
+          "position": 3279
+        },
+        "endLoc": {
+          "line": 381,
+          "column": 19,
+          "position": 3364
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\ManageUserData\\ManageUserData.tsx",
+        "start": 502,
+        "end": 514,
+        "startLoc": {
+          "line": 502,
+          "column": 19,
+          "position": 4774
+        },
+        "endLoc": {
+          "line": 514,
+          "column": 21,
+          "position": 4859
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 10,
+      "fragment": "}\r\n          <div className=\"bg-white overflow-hidden shadow-md rounded-xl\">\r\n            <div className=\"overflow-x-auto\">\r\n              <table className=\"min-w-full divide-y divide-gray-200\">\r\n                <thead className=\"bg-gray-50\">\r\n                  <tr>\r\n                    <th scope=\"col\" className=\"px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider\">\r\n                      <div className=\"flex items-center\">\r\n                        <input\r\n                          ",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\ManageWorkers.tsx",
+        "start": 461,
+        "end": 470,
+        "startLoc": {
+          "line": 461,
+          "column": 24,
+          "position": 3902
+        },
+        "endLoc": {
+          "line": 470,
+          "column": 27,
+          "position": 3992
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\ManageUserData\\ManageUserData.tsx",
+        "start": 633,
+        "end": 642,
+        "startLoc": {
+          "line": 633,
+          "column": 22,
+          "position": 5807
+        },
+        "endLoc": {
+          "line": 642,
+          "column": 29,
+          "position": 5897
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 17,
+      "fragment": "/>\r\n                      </div>\r\n                    </th>\r\n                    <th scope=\"col\" className=\"px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider\">\r\n                      Nombre\r\n                    </th>\r\n                    <th scope=\"col\" className=\"px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider\">\r\n                      Cédula\r\n                    </th>\r\n                    <th scope=\"col\" className=\"px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider\">\r\n                      Email\r\n                    </th>\r\n                    <th scope=\"col\" className=\"px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider\">\r\n                      Teléfono\r\n                    </th>\r\n                    <th scope=\"col\" className=\"px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider\">\r\n                      Acciones",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\ManageWorkers.tsx",
+        "start": 474,
+        "end": 490,
+        "startLoc": {
+          "line": 474,
+          "column": 25,
+          "position": 4017
+        },
+        "endLoc": {
+          "line": 490,
+          "column": 9,
+          "position": 4164
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\ManageUserData\\ManageUserData.tsx",
+        "start": 646,
+        "end": 662,
+        "startLoc": {
+          "line": 646,
+          "column": 27,
+          "position": 5922
+        },
+        "endLoc": {
+          "line": 662,
+          "column": 10,
+          "position": 6069
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 27,
+      "fragment": "</td>\r\n                    </tr>\r\n                  )}\r\n                </tbody>\r\n              </table>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </main>\r\n\r\n      {/* Delete Confirmation Modal */}\r\n      {showDeleteModal && (\r\n        <div className=\"fixed inset-0 overflow-y-auto z-50 flex items-center justify-center\">\r\n          <div className=\"fixed inset-0 bg-black bg-opacity-10 transition-opacity\" onClick={closeDeleteModal}></div>\r\n          \r\n          <div className=\"relative bg-white rounded-lg max-w-md w-full mx-4 p-6 shadow-xl transform transition-all\">\r\n            <div className=\"text-center\">\r\n              <div className=\"mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4\">\r\n                <svg className=\"h-6 w-6 text-red-600\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" aria-hidden=\"true\">\r\n                  <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth=\"2\" d=\"M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z\" />\r\n                </svg>\r\n              </div>\r\n              \r\n              <h3 className=\"text-lg font-medium text-gray-900 mb-2\">Confirmar eliminación</h3>\r\n              \r\n              <p className=\"text-sm text-gray-500 mb-6\">\r\n                ¿Está seguro de eliminar {selectedWorkersToDelete",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\ManageWorkers.tsx",
+        "start": 532,
+        "end": 558,
+        "startLoc": {
+          "line": 532,
+          "column": 23,
+          "position": 4574
+        },
+        "endLoc": {
+          "line": 558,
+          "column": 24,
+          "position": 4843
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\ManageUserData\\ManageUserData.tsx",
+        "start": 716,
+        "end": 742,
+        "startLoc": {
+          "line": 716,
+          "column": 25,
+          "position": 6633
+        },
+        "endLoc": {
+          "line": 742,
+          "column": 22,
+          "position": 6902
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 14,
+      "fragment": "</div>\r\n                    <div className=\"flex justify-end space-x-3\">\r\n                      <button\r\n                        type=\"button\"\r\n                        onClick={() => setShowAssignForm(false)}\r\n                        className=\"py-2 px-4 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50\"\r\n                      >\r\n                        Cancelar\r\n                      </button>\r\n                      <button\r\n                        type=\"submit\"\r\n                        className=\"py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700\"\r\n                      >\r\n                        Asignar",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\ManageAccessPoints.tsx",
+        "start": 490,
+        "end": 503,
+        "startLoc": {
+          "line": 490,
+          "column": 21,
+          "position": 4289
+        },
+        "endLoc": {
+          "line": 503,
+          "column": 8,
+          "position": 4369
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\AdminDashboard\\ManageAccessPoints.tsx",
+        "start": 428,
+        "end": 441,
+        "startLoc": {
+          "line": 428,
+          "column": 21,
+          "position": 3750
+        },
+        "endLoc": {
+          "line": 441,
+          "column": 6,
+          "position": 3830
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 17,
+      "fragment": "{/* Delete Confirmation Modal */}\r\n        {showDeleteModal && (\r\n          <div className=\"fixed inset-0 overflow-y-auto z-50 flex items-center justify-center\">\r\n            <div className=\"fixed inset-0 bg-black bg-opacity-10 transition-opacity\" onClick={closeDeleteModal}></div>\r\n            \r\n            <div className=\"relative bg-white rounded-lg max-w-md w-full mx-4 p-6 shadow-xl transform transition-all\">\r\n              <div className=\"text-center\">\r\n                <div className=\"mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4\">\r\n                  <svg className=\"h-6 w-6 text-red-600\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" aria-hidden=\"true\">\r\n                    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth=\"2\" d=\"M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z\" />\r\n                  </svg>\r\n                </div>\r\n                \r\n                <h3 className=\"text-lg font-medium text-gray-900 mb-2\">Confirmar eliminación</h3>\r\n                \r\n                <p className=\"text-sm text-gray-500 mb-6\">\r\n                  ¿Está seguro que",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\ManageAccessPoints.tsx",
+        "start": 566,
+        "end": 582,
+        "startLoc": {
+          "line": 566,
+          "column": 9,
+          "position": 5004
+        },
+        "endLoc": {
+          "line": 582,
+          "column": 4,
+          "position": 5213
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\ManageUserData\\ManageUserData.tsx",
+        "start": 726,
+        "end": 742,
+        "startLoc": {
+          "line": 726,
+          "column": 9,
+          "position": 6688
+        },
+        "endLoc": {
+          "line": 742,
+          "column": 3,
+          "position": 6897
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 29,
+      "fragment": "no se puede deshacer.\r\n                </p>\r\n                \r\n                <div className=\"flex justify-center space-x-4\">\r\n                  <button\r\n                    type=\"button\"\r\n                    onClick={closeDeleteModal}\r\n                    className=\"px-4 py-2 bg-white border border-gray-300 rounded-md font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500\"\r\n                  >\r\n                    No, cancelar\r\n                  </button>\r\n                  <button\r\n                    type=\"button\"\r\n                    onClick={confirmDelete}\r\n                    className=\"px-4 py-2 bg-red-600 border border-transparent rounded-md font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500\"\r\n                  >\r\n                    Sí, eliminar\r\n                  </button>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        )}\r\n      </div>\r\n    </>\r\n  );\r\n};\r\n\r\nexport default ManageAccessPoints",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\ManageAccessPoints.tsx",
+        "start": 582,
+        "end": 610,
+        "startLoc": {
+          "line": 582,
+          "column": 2,
+          "position": 5244
+        },
+        "endLoc": {
+          "line": 610,
+          "column": 19,
+          "position": 5407
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\ManageUserData\\ManageUserData.tsx",
+        "start": 742,
+        "end": 770,
+        "startLoc": {
+          "line": 742,
+          "column": 2,
+          "position": 6917
+        },
+        "endLoc": {
+          "line": 770,
+          "column": 15,
+          "position": 7080
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 19,
+      "fragment": ">\r\n      \r\n      {/* Delete Confirmation Modal */}\r\n      {showDeleteModal && (\r\n        <div className=\"fixed inset-0 overflow-y-auto z-50 flex items-center justify-center\">\r\n          <div className=\"fixed inset-0 bg-black bg-opacity-10 transition-opacity\" onClick={closeDeleteModal}></div>\r\n          \r\n          <div className=\"relative bg-white rounded-lg max-w-md w-full mx-4 p-6 shadow-xl transform transition-all\">\r\n            <div className=\"text-center\">\r\n              <div className=\"mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4\">\r\n                <svg className=\"h-6 w-6 text-red-600\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" aria-hidden=\"true\">\r\n                  <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth=\"2\" d=\"M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z\" />\r\n                </svg>\r\n              </div>\r\n              \r\n              <h3 className=\"text-lg font-medium text-gray-900 mb-2\">Confirmar eliminación</h3>\r\n              \r\n              <p className=\"text-sm text-gray-500 mb-6\">\r\n                ¿Está seguro que desea eliminar este anuncio",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\Announcements.tsx",
+        "start": 415,
+        "end": 433,
+        "startLoc": {
+          "line": 415,
+          "column": 4,
+          "position": 3698
+        },
+        "endLoc": {
+          "line": 433,
+          "column": 8,
+          "position": 3921
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\ManageUserData\\ManageUserData.tsx",
+        "start": 724,
+        "end": 582,
+        "startLoc": {
+          "line": 724,
+          "column": 5,
+          "position": 6682
+        },
+        "endLoc": {
+          "line": 582,
+          "column": 6,
+          "position": 5221
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 24,
+      "fragment": "? Esta acción no se puede deshacer.\r\n              </p>\r\n              \r\n              <div className=\"flex justify-center space-x-4\">\r\n                <button\r\n                  type=\"button\"\r\n                  onClick={closeDeleteModal}\r\n                  className=\"px-4 py-2 bg-white border border-gray-300 rounded-md font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500\"\r\n                >\r\n                  No, cancelar\r\n                </button>\r\n                <button\r\n                  type=\"button\"\r\n                  onClick={confirmDelete}\r\n                  className=\"px-4 py-2 bg-red-600 border border-transparent rounded-md font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500\"\r\n                >\r\n                  Sí, eliminar\r\n                </button>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      )}\r\n    <",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\AdminDashboard\\Announcements.tsx",
+        "start": 433,
+        "end": 456,
+        "startLoc": {
+          "line": 433,
+          "column": 8,
+          "position": 3922
+        },
+        "endLoc": {
+          "line": 456,
+          "column": 2,
+          "position": 4065
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\AdminDashboard\\ManageWorkers.tsx",
+        "start": 558,
+        "end": 581,
+        "startLoc": {
+          "line": 558,
+          "column": 2,
+          "position": 4852
+        },
+        "endLoc": {
+          "line": 581,
+          "column": 3,
+          "position": 4995
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 15,
+      "fragment": "} \r\n                title=\"Nuestra Misión\"\r\n              >\r\n                <p className=\"mb-3\">\r\n                  Mejorar la experiencia de gestión de filas y atención al cliente mediante una plataforma intuitiva y eficiente que organice los tiempos de espera y proporcione datos valiosos para la toma de decisiones.\r\n                </p>\r\n                <p>\r\n                  Nos comprometemos a mejorar la satisfacción tanto de los usuarios como de la organización, implementando tecnología de vanguardia que optimice los flujos de atención y maximice la eficiencia de recursos.\r\n                </p>\r\n              </IconSection>\r\n\r\n              <IconSection \r\n                icon={\r\n                  <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" strokeWidth={1.5} stroke=\"currentColor\" className=\"w-10 h-10\">\r\n                    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\About\\About.tsx",
+        "start": 78,
+        "end": 92,
+        "startLoc": {
+          "line": 78,
+          "column": 17,
+          "position": 819
+        },
+        "endLoc": {
+          "line": 92,
+          "column": 183,
+          "position": 1065
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\About\\About.tsx",
+        "start": 51,
+        "end": 76,
+        "startLoc": {
+          "line": 51,
+          "column": 2,
+          "position": 472
+        },
+        "endLoc": {
+          "line": 76,
+          "column": 60,
+          "position": 810
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 17,
+      "fragment": "\" />\r\n                  </svg>\r\n                } \r\n                title=\"Nuestra Visión\"\r\n              >\r\n                <p className=\"mb-3\">\r\n                  Ser reconocidos como el estándar de excelencia en sistemas de gestión de filas y atención al usuario, optimizando la experiencia del cliente en cada interacción.\r\n                </p>\r\n                <p>\r\n                  Aspiramos a crear un sistema donde los tiempos de espera sean predecibles, la atención sea personalizada, y los recursos sean utilizados de manera óptima, generando una experiencia positiva tanto para los clientes como para el personal.\r\n                </p>\r\n              </IconSection>\r\n\r\n              <IconSection \r\n                icon={\r\n                  <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" strokeWidth={1.5} stroke=\"currentColor\" className=\"w-10 h-10\">\r\n                    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" d=\"M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\About\\About.tsx",
+        "start": 93,
+        "end": 109,
+        "startLoc": {
+          "line": 93,
+          "column": 33,
+          "position": 1089
+        },
+        "endLoc": {
+          "line": 109,
+          "column": 594,
+          "position": 1344
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\About\\About.tsx",
+        "start": 76,
+        "end": 76,
+        "startLoc": {
+          "line": 76,
+          "column": 60,
+          "position": 811
+        },
+        "endLoc": {
+          "line": 76,
+          "column": 60,
+          "position": 810
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 10,
+      "fragment": ",\r\n          actor: actorData || null,\r\n          worker: workerData || null,\r\n          isActor: !!actorData,\r\n          isWorker: !!workerData,\r\n          isAdmin: workerData?.is_admin || false,\r\n          userType: workerData ? (workerData.is_admin ? 'admin' : 'worker') : (actorData ? 'actor' : 'user')\r\n        };\r\n        \r\n        console.log(`AuthContext: Perfil enriquecido:`",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\contexts\\auth\\AuthContext.tsx",
+        "start": 280,
+        "end": 289,
+        "startLoc": {
+          "line": 280,
+          "column": 8,
+          "position": 2616
+        },
+        "endLoc": {
+          "line": 289,
+          "column": 35,
+          "position": 2727
+        }
+      },
+      "secondFile": {
+        "name": "src\\contexts\\auth\\AuthContext.tsx",
+        "start": 227,
+        "end": 236,
+        "startLoc": {
+          "line": 227,
+          "column": 11,
+          "position": 2160
+        },
+        "endLoc": {
+          "line": 236,
+          "column": 51,
+          "position": 2271
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": "let userType: UserProfile['userType'] = 'user';\r\n      if (data.users_worker) {\r\n        userType = data.users_worker.is_admin ? 'admin' : 'worker';\r\n      } else if (data.users_actor) {\r\n        userType = 'actor';\r\n      }\r\n      \r\n      return {\r\n        ...data,\r\n        userType\r\n      } as UserProfile;\r\n    } catch",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\services\\userService.ts",
+        "start": 131,
+        "end": 142,
+        "startLoc": {
+          "line": 131,
+          "column": 7,
+          "position": 974
+        },
+        "endLoc": {
+          "line": 142,
+          "column": 6,
+          "position": 1082
+        }
+      },
+      "secondFile": {
+        "name": "src\\services\\userService.ts",
+        "start": 89,
+        "end": 100,
+        "startLoc": {
+          "line": 89,
+          "column": 5,
+          "position": 639
+        },
+        "endLoc": {
+          "line": 100,
+          "column": 2,
+          "position": 746
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 23,
+      "fragment": ";\r\n    \r\n    if (announcementData.media_file instanceof File) {\r\n      const file = announcementData.media_file;\r\n      const fileExt = file.name.split('.').pop();\r\n      const fileName = `${Math.random()}.${fileExt}`;\r\n      const filePath = `announcements/${fileName}`;\r\n      \r\n      const { error: uploadError } = await supabase.storage\r\n        .from('media')\r\n        .upload(filePath, file);\r\n      \r\n      if (uploadError) throw uploadError;\r\n      \r\n      // Obtener URL pública del archivo\r\n      const { data: { publicUrl } } = supabase.storage\r\n        .from('media')\r\n        .getPublicUrl(filePath);\r\n      \r\n      mediaPath = publicUrl;\r\n    }\r\n    \r\n    // Actualizar el anuncio en la base de datos",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\services\\announcementService.js",
+        "start": 82,
+        "end": 104,
+        "startLoc": {
+          "line": 82,
+          "column": 11,
+          "position": 740
+        },
+        "endLoc": {
+          "line": 104,
+          "column": 45,
+          "position": 956
+        }
+      },
+      "secondFile": {
+        "name": "src\\services\\announcementService.js",
+        "start": 42,
+        "end": 64,
+        "startLoc": {
+          "line": 42,
+          "column": 5,
+          "position": 373
+        },
+        "endLoc": {
+          "line": 64,
+          "column": 40,
+          "position": 589
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 22,
+      "fragment": ";\r\n}\r\n\r\ninterface QueueSection {\r\n  current: Ticket | null;\r\n  last_attended: Ticket | null;\r\n  next_tickets: Ticket[];\r\n}\r\n\r\ninterface QueueStatus {\r\n  user_ticket: Ticket | null;\r\n  priority: QueueSection;\r\n  normal: QueueSection;\r\n  next_tickets: Ticket[];\r\n  statistics?: {\r\n    waiting_count: number;\r\n    avg_wait_time: number;\r\n    attended_today: number;\r\n  };\r\n}\r\n\r\ninterface",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\hooks\\useQueueStatus.tsx",
+        "start": 12,
+        "end": 33,
+        "startLoc": {
+          "line": 12,
+          "column": 7,
+          "position": 105
+        },
+        "endLoc": {
+          "line": 33,
+          "column": 10,
+          "position": 246
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\QueueView\\QueueStatus.tsx",
+        "start": 32,
+        "end": 53,
+        "startLoc": {
+          "line": 32,
+          "column": 4,
+          "position": 232
+        },
+        "endLoc": {
+          "line": 53,
+          "column": 6,
+          "position": 373
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 11,
+      "fragment": "// Remove update animations after they've played\r\n  useEffect(() => {\r\n    if (updates.length > 0) {\r\n      const timerId = setTimeout(() => {\r\n        setUpdates([]);\r\n      }, 2000);\r\n      return () => clearTimeout(timerId);\r\n    }\r\n  }, [updates]);\r\n\r\n  const shouldAnimate",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\hooks\\useQueueStatus.tsx",
+        "start": 101,
+        "end": 111,
+        "startLoc": {
+          "line": 101,
+          "column": 3,
+          "position": 939
+        },
+        "endLoc": {
+          "line": 111,
+          "column": 14,
+          "position": 1039
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\QueueView\\QueueStatus.tsx",
+        "start": 166,
+        "end": 176,
+        "startLoc": {
+          "line": 166,
+          "column": 3,
+          "position": 1476
+        },
+        "endLoc": {
+          "line": 176,
+          "column": 10,
+          "position": 1576
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 32,
+      "fragment": ";\r\n\r\ninterface Ticket {\r\n  id: number;\r\n  ticket_number: string;\r\n  status: string;\r\n  status_display?: string;\r\n  service: string;\r\n  is_priority: boolean;\r\n  created_at: string;\r\n  updated_at: string;\r\n}\r\n\r\ninterface QueueSection {\r\n  current: Ticket | null;\r\n  last_attended: Ticket | null;\r\n  next_tickets: Ticket[];\r\n}\r\n\r\ninterface QueueStatus {\r\n  user_ticket: Ticket | null;\r\n  priority: QueueSection;\r\n  normal: QueueSection;\r\n  next_tickets: Ticket[];\r\n  statistics?: {\r\n    waiting_count: number;\r\n    avg_wait_time: number;\r\n    attended_today: number;\r\n  };\r\n}\r\n\r\ninterface QueueStatusWidgetProps",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\components\\QueueStatusWidget.tsx",
+        "start": 4,
+        "end": 35,
+        "startLoc": {
+          "line": 4,
+          "column": 19,
+          "position": 65
+        },
+        "endLoc": {
+          "line": 35,
+          "column": 23,
+          "position": 282
+        }
+      },
+      "secondFile": {
+        "name": "src\\hooks\\useQueueStatus.tsx",
+        "start": 2,
+        "end": 33,
+        "startLoc": {
+          "line": 2,
+          "column": 22,
+          "position": 31
+        },
+        "endLoc": {
+          "line": 33,
+          "column": 22,
+          "position": 248
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 7,
+      "fragment": "}) => {\r\n  const [queueStatus, setQueueStatus] = useState<QueueStatus | null>(null);\r\n  const [loading, setLoading] = useState(true);\r\n  const [error, setError] = useState<string | null>(null);\r\n  const [updates, setUpdates] = useState<{id: string, type: string}[]>([]);\r\n\r\n  useEffect",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\components\\QueueStatusWidget.tsx",
+        "start": 45,
+        "end": 51,
+        "startLoc": {
+          "line": 45,
+          "column": 1,
+          "position": 371
+        },
+        "endLoc": {
+          "line": 51,
+          "column": 10,
+          "position": 489
+        }
+      },
+      "secondFile": {
+        "name": "src\\hooks\\useQueueStatus.tsx",
+        "start": 43,
+        "end": 48,
+        "startLoc": {
+          "line": 43,
+          "column": 2,
+          "position": 333
+        },
+        "endLoc": {
+          "line": 48,
+          "column": 6,
+          "position": 449
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 16,
+      "fragment": "]);\r\n\r\n  // Remove update animations after they've played\r\n  useEffect(() => {\r\n    if (updates.length > 0) {\r\n      const timerId = setTimeout(() => {\r\n        setUpdates([]);\r\n      }, 2000);\r\n      return () => clearTimeout(timerId);\r\n    }\r\n  }, [updates]);\r\n\r\n  const fetchData = async () => {\r\n    try {\r\n      setLoading(true);\r\n      const",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\components\\QueueStatusWidget.tsx",
+        "start": 67,
+        "end": 82,
+        "startLoc": {
+          "line": 67,
+          "column": 2,
+          "position": 640
+        },
+        "endLoc": {
+          "line": 82,
+          "column": 6,
+          "position": 777
+        }
+      },
+      "secondFile": {
+        "name": "src\\hooks\\useQueueStatus.tsx",
+        "start": 99,
+        "end": 180,
+        "startLoc": {
+          "line": 99,
+          "column": 10,
+          "position": 931
+        },
+        "endLoc": {
+          "line": 180,
+          "column": 38,
+          "position": 1607
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 12,
+      "fragment": ");\r\n    } finally {\r\n      setLoading(false);\r\n    }\r\n  };\r\n\r\n  const shouldAnimate = (ticket: Ticket | null) => {\r\n    if (!ticket) return false;\r\n    return updates.some(update => update.id === String(ticket.id));\r\n  };\r\n\r\n  if",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\components\\QueueStatusWidget.tsx",
+        "start": 87,
+        "end": 98,
+        "startLoc": {
+          "line": 87,
+          "column": 35,
+          "position": 836
+        },
+        "endLoc": {
+          "line": 98,
+          "column": 3,
+          "position": 939
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\QueueView\\QueueStatus.tsx",
+        "start": 205,
+        "end": 216,
+        "startLoc": {
+          "line": 205,
+          "column": 28,
+          "position": 1755
+        },
+        "endLoc": {
+          "line": 216,
+          "column": 91,
+          "position": 1858
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 9,
+      "fragment": "async (userId) => {\r\n  const { data, error } = await supabase\r\n    .from('tickets')\r\n    .select('*')\r\n    .eq('user_id', userId)\r\n    .order('created_at', { ascending: false });\r\n\r\n  if (error) {\r\n    console.error(`Error al obtener tickets para el usuario ",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\api\\ticketService.js",
+        "start": 19,
+        "end": 27,
+        "startLoc": {
+          "line": 19,
+          "column": 2,
+          "position": 149
+        },
+        "endLoc": {
+          "line": 27,
+          "column": 43,
+          "position": 242
+        }
+      },
+      "secondFile": {
+        "name": "src\\services\\ticketService.js",
+        "start": 33,
+        "end": 41,
+        "startLoc": {
+          "line": 33,
+          "column": 2,
+          "position": 156
+        },
+        "endLoc": {
+          "line": 41,
+          "column": 39,
+          "position": 249
+        }
+      }
+    }
+  ],
+  "filename": "C:\\Users\\User\\Documents\\GitHub\\Q-Manager\\node_modules\\@jscpd\\html-reporter\\dist\\templates\\main.pug"
+}

@@ -1,0 +1,946 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Copy/Paste Detector Report</title><link href="styles/tailwind.css" rel="stylesheet"><link href="styles/prism.css" rel="stylesheet"></head><body class="bg-gray-100"><header class="bg-white shadow py-4"><div class="container mx-auto px-4"><h1 class="text-3xl font-semibold text-gray-800">jscpd - copy/paste report</h1></div></header><main class="container mx-auto my-8 p-4 bg-white shadow rounded"><section class="mb-8" id="dashboard"><h2 class="text-2xl font-semibold text-gray-700 mb-4">Dashboard</h2><div class="grid grid-cols-4 gap-4"><div class="bg-blue-200 p-4 rounded text-center"><h3 class="text-lg font-semibold text-blue-800 mb-2">Total Files</h3><span class="text-4xl font-bold text-blue-800">106</span></div><div class="bg-green-200 p-4 rounded text-center"><h3 class="text-lg font-semibold text-green-800 mb-2">Total Lines of Code</h3><span class="text-4xl font-bold text-green-800">19401</span></div><div class="bg-yellow-200 p-4 rounded text-center"><h3 class="text-lg font-semibold text-yellow-800 mb-2">Number of Clones</h3><span class="text-4xl font-bold text-yellow-800">51</span></div><div class="bg-red-200 p-4 rounded text-center"><h3 class="text-lg font-semibold text-red-800 mb-2">Duplicated Lines</h3><span class="text-4xl font-bold text-red-800">937 (4.83%)</span></div></div></section><section class="mb-8" id="formats"><h2 class="text-2xl font-semibold text-gray-700 mb-4">Formats with Duplications</h2><table class="w-full table-auto"><thead><tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"><th class="py-3 px-6 text-left">Format</th><th class="py-3 px-6 text-left">Files</th><th class="py-3 px-6 text-left">Lines</th><th class="py-3 px-6 text-left">Clones</th><th class="py-3 px-6 text-left">Duplicated Lines</th><th class="py-3 px-6 text-left">Duplicated Tokens</th></tr></thead><tbody><tr class="bg-white border-b border-gray-200 text-gray-800 text-sm"><td class="py-3 px-6"><a class="text-blue-600 hover:underline" href="#typescript-clones">typescript</a></td><td class="py-3 px-6">13</td><td class="py-3 px-6">898</td><td class="py-3 px-6">1</td><td class="py-3 px-6">11</td><td class="py-3 px-6">108</td></tr><tr class="bg-white border-b border-gray-200 text-gray-800 text-sm"><td class="py-3 px-6"><a class="text-blue-600 hover:underline" href="#javascript-clones">javascript</a></td><td class="py-3 px-6">47</td><td class="py-3 px-6">7639</td><td class="py-3 px-6">7</td><td class="py-3 px-6">316</td><td class="py-3 px-6">3961</td></tr><tr class="bg-white border-b border-gray-200 text-gray-800 text-sm"><td class="py-3 px-6"><a class="text-blue-600 hover:underline" href="#tsx-clones">tsx</a></td><td class="py-3 px-6">41</td><td class="py-3 px-6">10619</td><td class="py-3 px-6">43</td><td class="py-3 px-6">610</td><td class="py-3 px-6">6946</td></tr><tr class="bg-white border-b border-gray-200 text-gray-800 text-sm"><td class="py-3 px-6"><a class="text-blue-600 hover:underline" href="#css-clones">css</a></td><td class="py-3 px-6">5</td><td class="py-3 px-6">245</td><td class="py-3 px-6">0</td><td class="py-3 px-6">0</td><td class="py-3 px-6">0</td></tr></tbody></table></section><section class="mb-8" id="txt-clones"><a name="typescript-clones"></a><h2 class="text-2xl font-semibold text-gray-700 mb-4">typescript</h2><div class="divide-y divide-gray-200 border-b-2"><div class="py-4"><p class="text-gray-600">src\services\userService.ts (Line 131:7 - Line 142:6), src\services\userService.ts (Line 89:5 - Line 100:2)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn42" onclick="toggleCodeBlock('cloneGroup42', 'expandBtn42', 'collapseBtn42')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn42" onclick="toggleCodeBlock('cloneGroup42', 'expandBtn42', 'collapseBtn42')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup42"><code class="language-typescript text-sm text-gray-800">let userType: UserProfile['userType'] = 'user';
+      if (data.users_worker) {
+        userType = data.users_worker.is_admin ? 'admin' : 'worker';
+      } else if (data.users_actor) {
+        userType = 'actor';
+      }
+      
+      return {
+        ...data,
+        userType
+      } as UserProfile;
+    } catch</code></pre></div><!-- Add more clone groups for .txt format as needed         // Add more clone groups for .txt format as needed--></div><a name="javascript-clones"></a><h2 class="text-2xl font-semibold text-gray-700 mb-4">javascript</h2><div class="divide-y divide-gray-200 border-b-2"><div class="py-4"><p class="text-gray-600">src\pages\RegisterUser\CreateRegularUserForm.tsx (Line 19:10 - Line 170:17), src\pages\RegisterWorker\CreateWorkerForm.tsx (Line 171:41 - Line 211:6)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn6" onclick="toggleCodeBlock('cloneGroup6', 'expandBtn6', 'collapseBtn6')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn6" onclick="toggleCodeBlock('cloneGroup6', 'expandBtn6', 'collapseBtn6')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup6"><code class="language-javascript text-sm text-gray-800">}&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 11-4.243-4.243m4.242 4.242L9.88 9.88&quot; /&gt;
+  &lt;/svg&gt;
+);
+
+const CreateRegularUserForm = () =&gt; {
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [isPriority, setIsPriority] = useState(false);
+    const [password, setPassword] = useState(&quot;&quot;);
+    const [confirmPassword, setConfirmPassword] = useState(&quot;&quot;);
+    const [loading, setLoading] = useState(false);
+
+    const [nombre, setNombre] = useState(&quot;&quot;);
+    const [cedula, setCedula] = useState(&quot;&quot;);
+    const [telefono, setTelefono] = useState(&quot;&quot;);
+    const [email, setEmail] = useState(&quot;&quot;);
+    const [prioridadTipo, setPrioridadTipo] = useState&lt;&quot;A&quot; | &quot;B&quot; | &quot;C&quot; | &quot;D&quot; | &quot;&quot;&gt;(&quot;&quot;);
+
+    const isMobile = useMediaQuery(&quot;(max-width: 768px)&quot;);
+    const navigate = useNavigate();
+    const auth = useAuth(); // For redirecting if user is already logged in
+
+    useEffect(() =&gt; {
+        // Redirect if user is already logged in
+        if (auth &amp;&amp; auth.isAuthenticated) {
+            toast.info(&quot;Ya has iniciado sesión. Redirigiendo...&quot;);
+            navigate('/home-user'); 
+        }
+    }, [auth, navigate]);
+
+    const togglePasswordVisibility = () =&gt; setShowPassword(!showPassword);
+    const toggleConfirmPasswordVisibility = () =&gt; setShowConfirmPassword(!showConfirmPassword);
+
+    const handlePriorityChange = (e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
+        setIsPriority(e.target.checked);
+        if (!e.target.checked) {
+            setPrioridadTipo(&quot;&quot;);
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent&lt;HTMLFormElement&gt;) =&gt; {
+        e.preventDefault();
+        if (!nombre || !cedula || !telefono || !email || !password || !confirmPassword) {
+            toast.warn(&quot;Por favor complete todos los campos.&quot;);
+            return;
+        }
+        if (nombre.trim().length &lt; 3) {
+            toast.warn(&quot;El nombre debe tener al menos 3 caracteres.&quot;);
+            return;
+        }
+        if (cedula.length &gt; 10 || !/^\d+$/.test(cedula)) {
+            toast.warn(&quot;La cédula debe tener máximo 10 dígitos numéricos.&quot;);
+            return;
+        }
+        if (!/^\d+$/.test(telefono) || telefono.length &lt; 7 || telefono.length &gt; 15) {
+            toast.warn(&quot;Ingrese un número de teléfono válido (entre 7 y 15 dígitos).&quot;);
+            return;
+        }
+        if (password.length &lt; 8) {
+            toast.warn(&quot;La contraseña debe tener al menos 8 caracteres.&quot;);
+            return;
+        }
+        if (password !== confirmPassword) {
+            toast.warn(&quot;Las contraseñas no coinciden.&quot;);
+            return;
+        }
+        if (isPriority &amp;&amp; !prioridadTipo) {
+            toast.warn(&quot;Debe seleccionar un motivo de prioridad si marcó la casilla.&quot;);
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            // Prepare user data for registration
+            const userData = {
+                nombre: nombre,
+                cedula: cedula,
+                email: email,
+                password: password,
+                phone_number: telefono,
+                has_priority: isPriority,
+                motive: isPriority ? prioridadTipo : ''
+            };
+
+            // Register the user using the userService function
+            const result = await registerUser(userData, 'actor');
+
+            if (result.success) {
+                // Show success message
+                toast.success(&quot;¡Registro exitoso! Por favor, revisa tu correo para confirmar tu cuenta.&quot;);
+                
+                // Reset form
+                setNombre(&quot;&quot;); setCedula(&quot;&quot;); setTelefono(&quot;&quot;); setEmail(&quot;&quot;); setPassword(&quot;&quot;); setConfirmPassword(&quot;&quot;);
+                setIsPriority(false); setPrioridadTipo(&quot;&quot;); setShowPassword(false); setShowConfirmPassword(false);
+                
+                // Log for debugging
+                console.log('Usuario creado exitosamente. ID:', result.userId);
+                console.log('Perfil completo creado en la base de datos.');
+                
+                // Redirect to login page after a delay
+                setTimeout(() =&gt; {
+                    navigate('/login');
+                }, 2500);
+            } else {
+                throw new Error(&quot;No se pudo completar el registro&quot;);
+            }
+        } catch (error: any) {
+            console.error(&quot;Error durante el registro:&quot;, error);
+            const errorMessage = error.message || &quot;Ocurrió un error durante el registro.&quot;;
+            toast.error(errorMessage);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const primaryButtonClasses = &quot;w-full py-3 px-4 rounded-lg text-white font-semibold text-base shadow-md hover:shadow-lg active:scale-95 transition-all duration-300 ease-in-out flex items-center justify-center&quot;;
+    const inputBaseClasses = &quot;w-full py-3 px-4 rounded-lg bg-slate-50 border border-gray-300 text-neutral-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors&quot;;
+
+    return (
+        &lt;div className=&quot;min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50&quot;&gt;
+            &lt;main className='flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28'&gt;
+                &lt;ToastContainer position={isMobile ? &quot;bottom-center&quot; : &quot;top-right&quot;} autoClose={3500} theme=&quot;light&quot; /&gt;
+                &lt;div className={`bg-white rounded-2xl sm:rounded-3xl shadow-xl w-full max-w-xl lg:max-w-2xl overflow-hidden`}&gt;
+                    &lt;div className={`flex flex-col justify-center p-6 sm:p-8 md:p-10 w-full`}&gt;
+                        &lt;form onSubmit={handleSubmit} className='flex flex-col w-full space-y-5'&gt;
+                            &lt;div className=&quot;text-center sm:text-left mb-4&quot;&gt;
+                                &lt;h2 className=&quot;font-bold text-2xl sm:text-3xl text-neutral-800&quot;&gt;Crea tu Cuenta&lt;/h2&gt;
+                                &lt;p className=&quot;text-sm mt-2 text-neutral-600&quot;&gt;
+                                    Ingresa tus datos para registrarte en Q-Manager.
+                                &lt;/p&gt;
+                            &lt;/div&gt;
+
+                            {[
+                                { name: &quot;nombre&quot;, type: &quot;text&quot;, placeholder: &quot;Nombre Completo&quot;, value: nombre, setter: setNombre, required: true },
+                                { name: &quot;cedula&quot;, type: &quot;number&quot;, placeholder: &quot;Cédula (solo números)&quot;, value: cedula, setter: setCedula, required: true, inputMode: &quot;numeric&quot;, pattern: &quot;[0-9]*&quot; },
+                                { name: &quot;telefono&quot;, type: &quot;tel&quot;, placeholder: &quot;Teléfono&quot;, value: telefono, setter: setTelefono, required: true, inputMode: &quot;tel&quot; },
+                                { name: &quot;email&quot;, type: &quot;email&quot;, placeholder: &quot;Correo Electrónico&quot;, value: email, setter: setEmail, required: true, inputMode: &quot;email&quot; },
+                            ].map(field =&gt; (
+                                &lt;div key={field.name}&gt;
+                                    &lt;label htmlFor={field.name} className=&quot;sr-only&quot;&gt;{field.placeholder}&lt;/label&gt;
+                                    &lt;input
+                                        id={field.name}
+                                        type={field.type}
+                                        name={field.name}
+                                        placeholder={field.placeholder}
+                                        value={field.value}
+                                        onChange={(e) =&gt; field.setter(e.target.value)}
+                                        inputMode={field.inputMode as any}
+                                        pattern={field.pattern}
+                                        className={inputBaseClasses</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RegisterActor\CreateUserForm.tsx (Line 150:2 - Line 188:11), src\pages\RegisterWorker\CreateWorkerForm.tsx (Line 185:57 - Line 182:2)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn14" onclick="toggleCodeBlock('cloneGroup14', 'expandBtn14', 'collapseBtn14')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn14" onclick="toggleCodeBlock('cloneGroup14', 'expandBtn14', 'collapseBtn14')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup14"><code class="language-javascript text-sm text-gray-800">}&gt;
+                        &lt;form onSubmit={handleSubmit} className='flex flex-col w-full space-y-5'&gt;
+                            &lt;div className=&quot;text-center sm:text-left mb-4&quot;&gt;
+                                &lt;h2 className=&quot;font-bold text-2xl sm:text-3xl text-neutral-800&quot;&gt;Registrar Nuevo Usuario&lt;/h2&gt;
+                                &lt;p className=&quot;text-sm mt-2 text-neutral-600&quot;&gt;
+                                    Ingresa los datos para crear una nueva cuenta de usuario.
+                                &lt;/p&gt;
+                            &lt;/div&gt;
+
+                            {/* Campos del formulario */}
+                            {[
+                                { name: &quot;nombre&quot;, type: &quot;text&quot;, placeholder: &quot;Nombre Completo&quot;, value: nombre, setter: setNombre, required: true },
+                                { name: &quot;cedula&quot;, type: &quot;number&quot;, placeholder: &quot;Cédula (solo números)&quot;, value: cedula, setter: setCedula, required: true, inputMode: &quot;numeric&quot;, pattern: &quot;[0-9]*&quot; },
+                                { name: &quot;telefono&quot;, type: &quot;tel&quot;, placeholder: &quot;Teléfono&quot;, value: telefono, setter: setTelefono, required: true, inputMode: &quot;tel&quot; },
+                                { name: &quot;email&quot;, type: &quot;email&quot;, placeholder: &quot;Correo Electrónico&quot;, value: email, setter: setEmail, required: true, inputMode: &quot;email&quot; },
+                            ].map(field =&gt; (
+                                &lt;div key={field.name}&gt;
+                                    &lt;label htmlFor={field.name} className=&quot;sr-only&quot;&gt;{field.placeholder}&lt;/label&gt;
+                                    &lt;input
+                                        id={field.name}
+                                        type={field.type}
+                                        name={field.name}
+                                        placeholder={field.placeholder}
+                                        value={field.value}
+                                        onChange={(e) =&gt; field.setter(e.target.value)}
+                                        inputMode={field.inputMode as any}
+                                        pattern={field.pattern}
+                                        className={inputBaseClasses}
+                                        required={field.required}
+                                    /&gt;
+                                &lt;/div&gt;
+                            ))}
+
+                            {/* Prioridad */}
+                            &lt;div className=&quot;pt-2&quot;&gt;
+                                &lt;label className=&quot;flex items-center text-sm text-neutral-700 cursor-pointer&quot;&gt;
+                                    &lt;input
+                                        type=&quot;checkbox&quot;
+                                        checked={isPriority</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\HomeUser\HomeUser.tsx (Line 28:10 - Line 95:3), src\pages\HomeUser\HomeUser.tsx (Line 20:10 - Line 68:35)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn25" onclick="toggleCodeBlock('cloneGroup25', 'expandBtn25', 'collapseBtn25')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn25" onclick="toggleCodeBlock('cloneGroup25', 'expandBtn25', 'collapseBtn25')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup25"><code class="language-javascript text-sm text-gray-800">={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; className=&quot;w-8 h-8 text-white&quot;&gt;
+      &lt;path fillRule=&quot;evenodd&quot; d=&quot;M1.5 6.375c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v3.026a.75.75 0 01-.375.65 2.249 2.249 0 000 3.898.75.75 0 01.375.65v3.026c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 011.5 17.625v-3.026a.75.75 0 01.374-.65 2.249 2.249 0 000-3.898.75.75 0 01-.374-.65V6.375zm15-1.125a.75.75 0 01.75.75v.75a.75.75 0 01-1.5 0V6a.75.75 0 01.75-.75zm.75 4.5a.75.75 0 00-1.5 0v.75a.75.75 0 001.5 0v-.75zm-.75 3a.75.75 0 01.75.75v.75a.75.75 0 01-1.5 0v-.75a.75.75 0 01.75-.75zm.75 4.5a.75.75 0 00-1.5 0V18a.75.75 0 001.5 0v-.75zM6 12a.75.75 0 01.75-.75H12a.75.75 0 010 1.5H6.75A.75.75 0 016 12zm.75 2.25a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z&quot; clipRule=&quot;evenodd&quot; /&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+);
+
+const HistoryIcon = ({ color = &quot;from-amber-400 to-orange-600&quot; }) =&gt; (
+  &lt;div className={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; className=&quot;w-8 h-8 text-white&quot;&gt;
+      &lt;path fillRule=&quot;evenodd&quot; d=&quot;M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z&quot; clipRule=&quot;evenodd&quot; /&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+);
+
+const EditIcon = ({ color = &quot;from-pink-400 to-rose-600&quot; }) =&gt; (
+  &lt;div className={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; className=&quot;w-8 h-8 text-white&quot;&gt;
+      &lt;path d=&quot;M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z&quot; /&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+);
+
+const ChartIcon = ({ color = &quot;from-violet-400 to-purple-600&quot; }) =&gt; (
+  &lt;div className={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; className=&quot;w-8 h-8 text-white&quot;&gt;
+      &lt;path d=&quot;M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z&quot; /&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+);
+
+const AnnouncementIcon = ({ color = &quot;from-cyan-400 to-blue-600&quot; }) =&gt; (
+  &lt;div className={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; className=&quot;w-8 h-8 text-white&quot;&gt;
+      &lt;path d=&quot;M16.881 4.346A23.112 23.112 0 018.25 6H7.5a5.25 5.25 0 00-.88 10.427 21.593 21.593 0 001.378 3.94c.464 1.004 1.674 1.32 2.582.796l.657-.379c.88-.508 1.165-1.592.772-2.468a17.116 17.116 0 01-.628-1.607c1.918.258 3.76.75 5.5 1.446A21.727 21.727 0 0018 11.25c0-2.413-.393-4.735-1.119-6.904zM18.26 3.74a23.22 23.22 0 011.24 7.51 23.22 23.22 0 01-1.24 7.51c-.055.161-.111.322-.17.482a.75.75 0 101.409.516 24.555 24.555 0 001.415-6.43 2.992 2.992 0 00.836-2.078c0-.806-.319-1.54-.836-2.078a24.65 24.65 0 00-1.415-6.43.75.75 0 10-1.409.516c.059.16.116.321.17.483z&quot; /&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+);
+
+const QueueIcon = ({ color = &quot;from-indigo-400 to-blue-600&quot; }) =&gt; (
+  &lt;div className={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; className=&quot;w-8 h-8 text-white&quot;&gt;
+      &lt;path d=&quot;M5.625 3.75a2.625 2.625 0 100 5.25h12.75a2.625 2.625 0 000-5.25H5.625zM3.75 11.25a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75zM3 15.75a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75zM3.75 18.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75z&quot; /&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+);
+
+const RegisterIcon = ({ color = &quot;from-green-400 to-emerald-600&quot; }) =&gt; (
+  &lt;div className={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; className=&quot;w-8 h-8 text-white&quot;&gt;
+      &lt;path d=&quot;M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z&quot; /&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+);
+
+const SettingsIcon = ({ color = &quot;from-slate-400 to-gray-600&quot; }) =&gt; (
+  &lt;div className={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-md`}&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; className=&quot;w-8 h-8 text-white&quot;&gt;
+      &lt;path fillRule=&quot;evenodd&quot; d=&quot;M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 00-.986.57c-.166.115-.334.126-.45.083L6.3 5.508a1.875 1.875 0 00-2.282.819l-.922 1.597a1.875 1.875 0 00.432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 000 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 00-.432 2.385l.922 1.597a1.875 1.875 0 002.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 002.28-.819l.923-1.597a1.875 1.875 0 00-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 000-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 00-2.282-.818l-1.02.382c-.114.043-.282.031-.449-.083a7.49 7.49 0 00-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 00-1.85-1.567h-1.843zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z&quot; clipRule=&quot;evenodd&quot; /&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+);
+
+
+
+const ActionCard: React.FC&lt;Action&gt; = ({ title, description, to, icon }) =&gt; (
+  &lt;Link
+    to={to</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\About\About.tsx (Line 78:17 - Line 92:183), src\pages\About\About.tsx (Line 51:2 - Line 76:60)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn39" onclick="toggleCodeBlock('cloneGroup39', 'expandBtn39', 'collapseBtn39')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn39" onclick="toggleCodeBlock('cloneGroup39', 'expandBtn39', 'collapseBtn39')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup39"><code class="language-javascript text-sm text-gray-800">} 
+                title=&quot;Nuestra Misión&quot;
+              &gt;
+                &lt;p className=&quot;mb-3&quot;&gt;
+                  Mejorar la experiencia de gestión de filas y atención al cliente mediante una plataforma intuitiva y eficiente que organice los tiempos de espera y proporcione datos valiosos para la toma de decisiones.
+                &lt;/p&gt;
+                &lt;p&gt;
+                  Nos comprometemos a mejorar la satisfacción tanto de los usuarios como de la organización, implementando tecnología de vanguardia que optimice los flujos de atención y maximice la eficiencia de recursos.
+                &lt;/p&gt;
+              &lt;/IconSection&gt;
+
+              &lt;IconSection 
+                icon={
+                  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; strokeWidth={1.5} stroke=&quot;currentColor&quot; className=&quot;w-10 h-10&quot;&gt;
+                    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\About\About.tsx (Line 93:33 - Line 109:594), src\pages\About\About.tsx (Line 76:60 - Line 76:60)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn40" onclick="toggleCodeBlock('cloneGroup40', 'expandBtn40', 'collapseBtn40')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn40" onclick="toggleCodeBlock('cloneGroup40', 'expandBtn40', 'collapseBtn40')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup40"><code class="language-javascript text-sm text-gray-800">&quot; /&gt;
+                  &lt;/svg&gt;
+                } 
+                title=&quot;Nuestra Visión&quot;
+              &gt;
+                &lt;p className=&quot;mb-3&quot;&gt;
+                  Ser reconocidos como el estándar de excelencia en sistemas de gestión de filas y atención al usuario, optimizando la experiencia del cliente en cada interacción.
+                &lt;/p&gt;
+                &lt;p&gt;
+                  Aspiramos a crear un sistema donde los tiempos de espera sean predecibles, la atención sea personalizada, y los recursos sean utilizados de manera óptima, generando una experiencia positiva tanto para los clientes como para el personal.
+                &lt;/p&gt;
+              &lt;/IconSection&gt;
+
+              &lt;IconSection 
+                icon={
+                  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; strokeWidth={1.5} stroke=&quot;currentColor&quot; className=&quot;w-10 h-10&quot;&gt;
+                    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z</code></pre></div><div class="py-4"><p class="text-gray-600">src\services\announcementService.js (Line 82:11 - Line 104:45), src\services\announcementService.js (Line 42:5 - Line 64:40)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn43" onclick="toggleCodeBlock('cloneGroup43', 'expandBtn43', 'collapseBtn43')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn43" onclick="toggleCodeBlock('cloneGroup43', 'expandBtn43', 'collapseBtn43')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup43"><code class="language-javascript text-sm text-gray-800">;
+    
+    if (announcementData.media_file instanceof File) {
+      const file = announcementData.media_file;
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      const filePath = `announcements/${fileName}`;
+      
+      const { error: uploadError } = await supabase.storage
+        .from('media')
+        .upload(filePath, file);
+      
+      if (uploadError) throw uploadError;
+      
+      // Obtener URL pública del archivo
+      const { data: { publicUrl } } = supabase.storage
+        .from('media')
+        .getPublicUrl(filePath);
+      
+      mediaPath = publicUrl;
+    }
+    
+    // Actualizar el anuncio en la base de datos</code></pre></div><div class="py-4"><p class="text-gray-600">src\api\ticketService.js (Line 19:2 - Line 27:43), src\services\ticketService.js (Line 33:2 - Line 41:39)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn50" onclick="toggleCodeBlock('cloneGroup50', 'expandBtn50', 'collapseBtn50')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn50" onclick="toggleCodeBlock('cloneGroup50', 'expandBtn50', 'collapseBtn50')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup50"><code class="language-javascript text-sm text-gray-800">async (userId) =&gt; {
+  const { data, error } = await supabase
+    .from('tickets')
+    .select('*')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error(`Error al obtener tickets para el usuario </code></pre></div><!-- Add more clone groups for .txt format as needed         // Add more clone groups for .txt format as needed--></div><a name="tsx-clones"></a><h2 class="text-2xl font-semibold text-gray-700 mb-4">tsx</h2><div class="divide-y divide-gray-200 border-b-2"><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\components\StatisticsCards.tsx (Line 170:14 - Line 178:31), src\pages\AdminDashboard\components\StatisticsCards.tsx (Line 147:8 - Line 155:34)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn0" onclick="toggleCodeBlock('cloneGroup0', 'expandBtn0', 'collapseBtn0')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn0" onclick="toggleCodeBlock('cloneGroup0', 'expandBtn0', 'collapseBtn0')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup0"><code class="language-tsx text-sm text-gray-800">.total) * 100) : 0}%` }}
+                  &gt;&lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div className=&quot;flex flex-col&quot;&gt;
+              &lt;div className=&quot;flex items-center mb-2&quot;&gt;
+                &lt;div className=&quot;p-2 rounded-md bg-red-100 mr-3</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\components\ChartGrid.tsx (Line 176:9 - Line 192:26), src\pages\AdminDashboard\components\ChartGrid.tsx (Line 115:8 - Line 131:15)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn1" onclick="toggleCodeBlock('cloneGroup1', 'expandBtn1', 'collapseBtn1')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn1" onclick="toggleCodeBlock('cloneGroup1', 'expandBtn1', 'collapseBtn1')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup1"><code class="language-tsx text-sm text-gray-800">&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div className=&quot;p-4 h-80&quot;&gt;
+            &lt;ResponsiveContainer width=&quot;100%&quot; height=&quot;100%&quot;&gt;
+              &lt;PieChart&gt;
+                &lt;Pie
+                  data={ticketsBreakdownChartData}
+                  cx=&quot;50%&quot;
+                  cy=&quot;50%&quot;
+                  labelLine={false}
+                  outerRadius={80}
+                  fill=&quot;#8884d8&quot;
+                  dataKey=&quot;value&quot;
+                  nameKey=&quot;name&quot;
+                  label={({ name, percent }) =&gt; `${name}: ${(percent * 100).toFixed(0)}%`}
+                &gt;
+                  {ticketsBreakdownChartData</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\components\ChartGrid.tsx (Line 207:9 - Line 221:22), src\pages\AdminDashboard\components\ChartGrid.tsx (Line 146:10 - Line 160:17)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn2" onclick="toggleCodeBlock('cloneGroup2', 'expandBtn2', 'collapseBtn2')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn2" onclick="toggleCodeBlock('cloneGroup2', 'expandBtn2', 'collapseBtn2')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup2"><code class="language-tsx text-sm text-gray-800">&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div className=&quot;p-4 h-80&quot;&gt;
+            &lt;ResponsiveContainer width=&quot;100%&quot; height=&quot;100%&quot;&gt;
+              &lt;BarChart
+                data={accessPointsChartData}
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              &gt;
+                &lt;CartesianGrid strokeDasharray=&quot;3 3&quot; stroke=&quot;#f0f0f0&quot; /&gt;
+                &lt;XAxis dataKey=&quot;name&quot; /&gt;
+                &lt;YAxis allowDecimals={false} /&gt;
+                &lt;Tooltip content={&lt;CustomTooltip /&gt;} /&gt;
+                &lt;Legend /&gt;
+                &lt;Bar dataKey=&quot;value&quot; name=&quot;Cantidad&quot;&gt;
+                  {accessPointsChartData</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\ResetPassword\ResetPasswordPage.tsx (Line 10:1 - Line 23:18), src\pages\Signup\SignupPage.tsx (Line 9:1 - Line 22:11)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn3" onclick="toggleCodeBlock('cloneGroup3', 'expandBtn3', 'collapseBtn3')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn3" onclick="toggleCodeBlock('cloneGroup3', 'expandBtn3', 'collapseBtn3')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup3"><code class="language-tsx text-sm text-gray-800">const EyeIcon = ({ className = &quot;w-5 h-5&quot; }: { className?: string }) =&gt; (
+  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; strokeWidth={1.5} stroke=&quot;currentColor&quot; className={className}&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z&quot; /&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M15 12a3 3 0 11-6 0 3 3 0 016 0z&quot; /&gt;
+  &lt;/svg&gt;
+);
+
+const EyeSlashIcon = ({ className = &quot;w-5 h-5&quot; }: { className?: string }) =&gt; (
+  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; strokeWidth={1.5} stroke=&quot;currentColor&quot; className={className}&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 11-4.243-4.243m4.242 4.242L9.88 9.88&quot; /&gt;
+  &lt;/svg&gt;
+);
+
+const ResetPasswordPage</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\ResetPassword\ResetPasswordPage.tsx (Line 200:7 - Line 208:12), src\pages\Signup\SignupPage.tsx (Line 330:4 - Line 338:10)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn4" onclick="toggleCodeBlock('cloneGroup4', 'expandBtn4', 'collapseBtn4')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn4" onclick="toggleCodeBlock('cloneGroup4', 'expandBtn4', 'collapseBtn4')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup4"><code class="language-tsx text-sm text-gray-800">&gt;
+            &lt;/form&gt;
+          ) : (
+            &lt;div className=&quot;text-center space-y-6&quot;&gt;
+              &lt;div className=&quot;text-green-600 flex flex-col items-center&quot;&gt;
+                &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; className=&quot;h-12 w-12&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; stroke=&quot;currentColor&quot;&gt;
+                  &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; strokeWidth={2} d=&quot;M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z&quot; /&gt;
+                &lt;/svg&gt;
+                &lt;p className=&quot;mt-2 text-lg font-medium&quot;&gt;¡Contraseña</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RegisterWorker\CreateWorkerForm.tsx (Line 11:1 - Line 23:11), src\pages\Signup\SignupPage.tsx (Line 9:1 - Line 22:6)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn5" onclick="toggleCodeBlock('cloneGroup5', 'expandBtn5', 'collapseBtn5')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn5" onclick="toggleCodeBlock('cloneGroup5', 'expandBtn5', 'collapseBtn5')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup5"><code class="language-tsx text-sm text-gray-800">const EyeIcon = ({ className = &quot;w-5 h-5&quot; }: { className?: string }) =&gt; (
+  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; strokeWidth={1.5} stroke=&quot;currentColor&quot; className={className}&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z&quot; /&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M15 12a3 3 0 11-6 0 3 3 0 016 0z&quot; /&gt;
+  &lt;/svg&gt;
+);
+
+const EyeSlashIcon = ({ className = &quot;w-5 h-5&quot; }: { className?: string }) =&gt; (
+  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; strokeWidth={1.5} stroke=&quot;currentColor&quot; className={className}&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 11-4.243-4.243m4.242 4.242L9.88 9.88&quot; /&gt;
+  &lt;/svg&gt;
+);
+// --- ---</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RegisterUser\CreateRegularUserForm.tsx (Line 11:1 - Line 24:22), src\pages\Signup\SignupPage.tsx (Line 9:1 - Line 22:11)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn7" onclick="toggleCodeBlock('cloneGroup7', 'expandBtn7', 'collapseBtn7')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn7" onclick="toggleCodeBlock('cloneGroup7', 'expandBtn7', 'collapseBtn7')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup7"><code class="language-tsx text-sm text-gray-800">const EyeIcon = ({ className = &quot;w-5 h-5&quot; }: { className?: string }) =&gt; (
+  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; strokeWidth={1.5} stroke=&quot;currentColor&quot; className={className}&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z&quot; /&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M15 12a3 3 0 11-6 0 3 3 0 016 0z&quot; /&gt;
+  &lt;/svg&gt;
+);
+
+const EyeSlashIcon = ({ className = &quot;w-5 h-5&quot; }: { className?: string }) =&gt; (
+  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; strokeWidth={1.5} stroke=&quot;currentColor&quot; className={className}&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 11-4.243-4.243m4.242 4.242L9.88 9.88&quot; /&gt;
+  &lt;/svg&gt;
+);
+
+const CreateRegularUserForm</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RegisterUser\CreateRegularUserForm.tsx (Line 66:9 - Line 75:63), src\pages\RegisterWorker\CreateWorkerForm.tsx (Line 89:9 - Line 98:40)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn8" onclick="toggleCodeBlock('cloneGroup8', 'expandBtn8', 'collapseBtn8')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn8" onclick="toggleCodeBlock('cloneGroup8', 'expandBtn8', 'collapseBtn8')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup8"><code class="language-tsx text-sm text-gray-800">if (nombre.trim().length &lt; 3) {
+            toast.warn(&quot;El nombre debe tener al menos 3 caracteres.&quot;);
+            return;
+        }
+        if (cedula.length &gt; 10 || !/^\d+$/.test(cedula)) {
+            toast.warn(&quot;La cédula debe tener máximo 10 dígitos numéricos.&quot;);
+            return;
+        }
+        if (!/^\d+$/.test(telefono) || telefono.length &lt; 7 || telefono.length &gt; 15) {
+            toast.warn(&quot;Ingrese un número de teléfono válido (entre 7 y 15 dígitos).&quot;</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RegisterUser\CreateRegularUserForm.tsx (Line 139:5 - Line 147:5), src\pages\RegisterWorker\CreateWorkerForm.tsx (Line 180:5 - Line 188:10)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn9" onclick="toggleCodeBlock('cloneGroup9', 'expandBtn9', 'collapseBtn9')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn9" onclick="toggleCodeBlock('cloneGroup9', 'expandBtn9', 'collapseBtn9')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup9"><code class="language-tsx text-sm text-gray-800">return (
+        &lt;div className=&quot;min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50&quot;&gt;
+            &lt;main className='flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28'&gt;
+                &lt;ToastContainer position={isMobile ? &quot;bottom-center&quot; : &quot;top-right&quot;} autoClose={3500} theme=&quot;light&quot; /&gt;
+                &lt;div className={`bg-white rounded-2xl sm:rounded-3xl shadow-xl w-full max-w-xl lg:max-w-2xl overflow-hidden`}&gt;
+                    &lt;div className={`flex flex-col justify-center p-6 sm:p-8 md:p-10 w-full`}&gt;
+                        &lt;form onSubmit={handleSubmit} className='flex flex-col w-full space-y-5'&gt;
+                            &lt;div className=&quot;text-center sm:text-left mb-4&quot;&gt;
+                                &lt;h2 className=&quot;font-bold text-2xl sm:text-3xl text-neutral-800&quot;&gt;Crea</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RegisterUser\CreateRegularUserForm.tsx (Line 145:25 - Line 153:2), src\pages\Signup\SignupPage.tsx (Line 151:15 - Line 159:13)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn10" onclick="toggleCodeBlock('cloneGroup10', 'expandBtn10', 'collapseBtn10')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn10" onclick="toggleCodeBlock('cloneGroup10', 'expandBtn10', 'collapseBtn10')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup10"><code class="language-tsx text-sm text-gray-800">&lt;form onSubmit={handleSubmit} className='flex flex-col w-full space-y-5'&gt;
+                            &lt;div className=&quot;text-center sm:text-left mb-4&quot;&gt;
+                                &lt;h2 className=&quot;font-bold text-2xl sm:text-3xl text-neutral-800&quot;&gt;Crea tu Cuenta&lt;/h2&gt;
+                                &lt;p className=&quot;text-sm mt-2 text-neutral-600&quot;&gt;
+                                    Ingresa tus datos para registrarte en Q-Manager.
+                                &lt;/p&gt;
+                            &lt;/div&gt;
+
+                            {[</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RegisterUser\CreateRegularUserForm.tsx (Line 149:8 - Line 171:41), src\pages\RegisterWorker\CreateWorkerForm.tsx (Line 190:7 - Line 210:2)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn11" onclick="toggleCodeBlock('cloneGroup11', 'expandBtn11', 'collapseBtn11')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn11" onclick="toggleCodeBlock('cloneGroup11', 'expandBtn11', 'collapseBtn11')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup11"><code class="language-tsx text-sm text-gray-800">.
+                                &lt;/p&gt;
+                            &lt;/div&gt;
+
+                            {[
+                                { name: &quot;nombre&quot;, type: &quot;text&quot;, placeholder: &quot;Nombre Completo&quot;, value: nombre, setter: setNombre, required: true },
+                                { name: &quot;cedula&quot;, type: &quot;number&quot;, placeholder: &quot;Cédula (solo números)&quot;, value: cedula, setter: setCedula, required: true, inputMode: &quot;numeric&quot;, pattern: &quot;[0-9]*&quot; },
+                                { name: &quot;telefono&quot;, type: &quot;tel&quot;, placeholder: &quot;Teléfono&quot;, value: telefono, setter: setTelefono, required: true, inputMode: &quot;tel&quot; },
+                                { name: &quot;email&quot;, type: &quot;email&quot;, placeholder: &quot;Correo Electrónico&quot;, value: email, setter: setEmail, required: true, inputMode: &quot;email&quot; },
+                            ].map(field =&gt; (
+                                &lt;div key={field.name}&gt;
+                                    &lt;label htmlFor={field.name} className=&quot;sr-only&quot;&gt;{field.placeholder}&lt;/label&gt;
+                                    &lt;input
+                                        id={field.name}
+                                        type={field.type}
+                                        name={field.name}
+                                        placeholder={field.placeholder}
+                                        value={field.value}
+                                        onChange={(e) =&gt; field.setter(e.target.value)}
+                                        inputMode={field.inputMode as any}
+                                        pattern={field.pattern}
+                                        className={inputBaseClasses}
+                                        </code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RegisterUser\CreateRegularUserForm.tsx (Line 249:9 - Line 255:3), src\pages\Signup\SignupPage.tsx (Line 306:2 - Line 312:2)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn12" onclick="toggleCodeBlock('cloneGroup12', 'expandBtn12', 'collapseBtn12')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn12" onclick="toggleCodeBlock('cloneGroup12', 'expandBtn12', 'collapseBtn12')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup12"><code class="language-tsx text-sm text-gray-800">&gt;Seleccione un motivo&lt;/option&gt;
+                                            &lt;option value=&quot;A&quot;&gt;Mujer embarazada&lt;/option&gt;
+                                            &lt;option value=&quot;B&quot;&gt;Persona con movilidad reducida&lt;/option&gt;
+                                            &lt;option value=&quot;C&quot;&gt;Adulto mayor (tercera edad)&lt;/option&gt;
+                                            &lt;option value=&quot;D&quot;&gt;Otro caso que requiera prioridad&lt;/option&gt;
+                                        &lt;/select&gt;
+                                    &lt;/</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RegisterUser\CreateRegularUserForm.tsx (Line 263:29 - Line 274:3), src\pages\Signup\SignupPage.tsx (Line 321:17 - Line 332:2)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn13" onclick="toggleCodeBlock('cloneGroup13', 'expandBtn13', 'collapseBtn13')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn13" onclick="toggleCodeBlock('cloneGroup13', 'expandBtn13', 'collapseBtn13')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup13"><code class="language-tsx text-sm text-gray-800">&gt;
+                                {loading ? 'Registrando...' : 'Crear Cuenta'}
+                            &lt;/button&gt;
+
+                            &lt;div className=&quot;text-center text-sm text-neutral-600 pt-2&quot;&gt;
+                                ¿Ya tienes una cuenta?{' '}
+                                &lt;Link to=&quot;/login&quot; className=&quot;font-semibold text-indigo-600 hover:text-indigo-500 hover:underline&quot;&gt;
+                                    Inicia Sesión aquí
+                                &lt;/Link&gt;
+                            &lt;/div&gt;
+                        &lt;/form&gt;
+                    &lt;/</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RegisterActor\CreateUserForm.tsx (Line 11:1 - Line 35:15), src\pages\Signup\SignupPage.tsx (Line 9:1 - Line 35:17)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn15" onclick="toggleCodeBlock('cloneGroup15', 'expandBtn15', 'collapseBtn15')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn15" onclick="toggleCodeBlock('cloneGroup15', 'expandBtn15', 'collapseBtn15')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup15"><code class="language-tsx text-sm text-gray-800">const EyeIcon = ({ className = &quot;w-5 h-5&quot; }: { className?: string }) =&gt; (
+  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; strokeWidth={1.5} stroke=&quot;currentColor&quot; className={className}&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z&quot; /&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M15 12a3 3 0 11-6 0 3 3 0 016 0z&quot; /&gt;
+  &lt;/svg&gt;
+);
+
+const EyeSlashIcon = ({ className = &quot;w-5 h-5&quot; }: { className?: string }) =&gt; (
+  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; strokeWidth={1.5} stroke=&quot;currentColor&quot; className={className}&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 11-4.243-4.243m4.242 4.242L9.88 9.88&quot; /&gt;
+  &lt;/svg&gt;
+);
+// --- ---
+
+function generarContraseña(longitud: number): string {
+  const caracteres = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&amp;*()_+-=[]{}|;:,.&lt;&gt;?&quot;;
+  let contraseña = &quot;&quot;;
+  for (let i = 0; i &lt; longitud; i++) {
+    const indice = Math.floor(Math.random() * caracteres.length);
+    contraseña += caracteres[indice];
+  }
+  return contraseña;
+}
+
+const CreateUserForm</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RegisterActor\CreateUserForm.tsx (Line 38:14 - Line 45:23), src\pages\RegisterUser\CreateRegularUserForm.tsx (Line 29:19 - Line 38:6)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn16" onclick="toggleCodeBlock('cloneGroup16', 'expandBtn16', 'collapseBtn16')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn16" onclick="toggleCodeBlock('cloneGroup16', 'expandBtn16', 'collapseBtn16')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup16"><code class="language-tsx text-sm text-gray-800">] = useState(&quot;&quot;);
+    const [loading, setLoading] = useState(false);
+
+    const [nombre, setNombre] = useState(&quot;&quot;);
+    const [cedula, setCedula] = useState(&quot;&quot;);
+    const [telefono, setTelefono] = useState(&quot;&quot;);
+    const [email, setEmail] = useState(&quot;&quot;);
+    const [prioridadTipo, setPrioridadTipo] = useState&lt;&quot;A&quot; | &quot;B&quot; | &quot;C&quot; | &quot;D&quot; | &quot;&quot;&gt;(&quot;&quot;); // Tipado más estricto</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RegisterActor\CreateUserForm.tsx (Line 85:63 - Line 100:3), src\pages\RegisterUser\CreateRegularUserForm.tsx (Line 63:39 - Line 101:82)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn17" onclick="toggleCodeBlock('cloneGroup17', 'expandBtn17', 'collapseBtn17')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn17" onclick="toggleCodeBlock('cloneGroup17', 'expandBtn17', 'collapseBtn17')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup17"><code class="language-tsx text-sm text-gray-800">);
+            return;
+        }
+        if (nombre.trim().length &lt; 3) {
+            toast.warn(&quot;El nombre debe tener al menos 3 caracteres.&quot;);
+            return;
+        }
+        if (cedula.length &gt; 10 || !/^\d+$/.test(cedula)) {
+            toast.warn(&quot;La cédula debe tener máximo 10 dígitos numéricos.&quot;);
+            return;
+        }
+        if (!/^\d+$/.test(telefono) || telefono.length &lt; 7 || telefono.length &gt; 15) {
+            toast.warn(&quot;Ingrese un número de teléfono válido.&quot;);
+            return;
+        }
+        if</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RegisterActor\CreateUserForm.tsx (Line 160:29 - Line 183:16), src\pages\RegisterWorker\CreateWorkerForm.tsx (Line 193:29 - Line 176:21)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn18" onclick="toggleCodeBlock('cloneGroup18', 'expandBtn18', 'collapseBtn18')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn18" onclick="toggleCodeBlock('cloneGroup18', 'expandBtn18', 'collapseBtn18')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup18"><code class="language-tsx text-sm text-gray-800">{[
+                                { name: &quot;nombre&quot;, type: &quot;text&quot;, placeholder: &quot;Nombre Completo&quot;, value: nombre, setter: setNombre, required: true },
+                                { name: &quot;cedula&quot;, type: &quot;number&quot;, placeholder: &quot;Cédula (solo números)&quot;, value: cedula, setter: setCedula, required: true, inputMode: &quot;numeric&quot;, pattern: &quot;[0-9]*&quot; },
+                                { name: &quot;telefono&quot;, type: &quot;tel&quot;, placeholder: &quot;Teléfono&quot;, value: telefono, setter: setTelefono, required: true, inputMode: &quot;tel&quot; },
+                                { name: &quot;email&quot;, type: &quot;email&quot;, placeholder: &quot;Correo Electrónico&quot;, value: email, setter: setEmail, required: true, inputMode: &quot;email&quot; },
+                            ].map(field =&gt; (
+                                &lt;div key={field.name}&gt;
+                                    &lt;label htmlFor={field.name} className=&quot;sr-only&quot;&gt;{field.placeholder}&lt;/label&gt;
+                                    &lt;input
+                                        id={field.name}
+                                        type={field.type}
+                                        name={field.name}
+                                        placeholder={field.placeholder}
+                                        value={field.value}
+                                        onChange={(e) =&gt; field.setter(e.target.value)}
+                                        inputMode={field.inputMode as any}
+                                        pattern={field.pattern}
+                                        className={inputBaseClasses}
+                                        required={field.required}
+                                    /&gt;
+                                &lt;/div&gt;
+                            ))}
+
+                            {/* Prioridad */</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RecoverPassword\RecoverPasswordPage.tsx (Line 38:5 - Line 52:10), src\pages\ResetPassword\ResetPasswordPage.tsx (Line 104:5 - Line 118:12)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn19" onclick="toggleCodeBlock('cloneGroup19', 'expandBtn19', 'collapseBtn19')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn19" onclick="toggleCodeBlock('cloneGroup19', 'expandBtn19', 'collapseBtn19')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup19"><code class="language-tsx text-sm text-gray-800">} finally {
+      setLoading(false);
+    }
+  };
+
+  // Clases reutilizables
+  const inputBaseClasses = &quot;w-full py-3 px-4 rounded-lg bg-slate-50 border border-gray-300 text-neutral-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors&quot;;
+  const buttonClasses = &quot;w-full py-3 px-4 rounded-lg text-white font-semibold text-base shadow-md hover:shadow-lg active:scale-95 transition-all duration-300 ease-in-out&quot;;
+
+  return (
+    &lt;div className=&quot;min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50&quot;&gt;
+      &lt;main className='flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28'&gt;
+        &lt;ToastContainer position={isMobile ? &quot;bottom-center&quot; : &quot;top-right&quot;} autoClose={3500} theme=&quot;light&quot; /&gt;
+        &lt;div className=&quot;w-full max-w-md p-8 bg-white rounded-2xl shadow-xl&quot;&gt;
+          &lt;h2 className=&quot;text-center text-2xl font-bold mb-6 text-gray-800&quot;&gt;Recuperar</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RecoverPassword\RecoverPasswordPage.tsx (Line 70:15 - Line 83:9), src\pages\ResetPassword\ResetPasswordPage.tsx (Line 182:15 - Line 196:11)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn20" onclick="toggleCodeBlock('cloneGroup20', 'expandBtn20', 'collapseBtn20')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn20" onclick="toggleCodeBlock('cloneGroup20', 'expandBtn20', 'collapseBtn20')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup20"><code class="language-tsx text-sm text-gray-800">&lt;/div&gt;
+              &lt;button
+                type=&quot;submit&quot;
+                disabled={loading}
+                className={`${buttonClasses} ${loading ? 'bg-neutral-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'}`}
+              &gt;
+                {loading ? (
+                  &lt;&gt;
+                    &lt;span className=&quot;flex items-center justify-center&quot;&gt;
+                      &lt;svg className=&quot;animate-spin -ml-1 mr-3 h-5 w-5 text-white&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot;&gt;
+                        &lt;circle className=&quot;opacity-25&quot; cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot; stroke=&quot;currentColor&quot; strokeWidth=&quot;4&quot;&gt;&lt;/circle&gt;
+                        &lt;path className=&quot;opacity-75&quot; fill=&quot;currentColor&quot; d=&quot;M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z&quot;&gt;&lt;/path&gt;
+                      &lt;/svg&gt;
+                      Enviando</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\RecoverPassword\RecoverPasswordPage.tsx (Line 86:32 - Line 95:7), src\pages\ResetPassword\ResetPasswordPage.tsx (Line 199:25 - Line 338:10)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn21" onclick="toggleCodeBlock('cloneGroup21', 'expandBtn21', 'collapseBtn21')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn21" onclick="toggleCodeBlock('cloneGroup21', 'expandBtn21', 'collapseBtn21')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup21"><code class="language-tsx text-sm text-gray-800">}
+              &lt;/button&gt;
+            &lt;/form&gt;
+          ) : (
+            &lt;div className=&quot;text-center space-y-6&quot;&gt;
+              &lt;div className=&quot;text-green-600 flex flex-col items-center&quot;&gt;
+                &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; className=&quot;h-12 w-12&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; stroke=&quot;currentColor&quot;&gt;
+                  &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; strokeWidth={2} d=&quot;M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z&quot; /&gt;
+                &lt;/svg&gt;
+                &lt;p className=&quot;mt-2 text-lg font-medium&quot;&gt;Correo</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\PersonalData\PersonalData.tsx (Line 113:7 - Line 131:2), src\pages\PersonalData\PersonalData.tsx (Line 39:7 - Line 58:8)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn22" onclick="toggleCodeBlock('cloneGroup22', 'expandBtn22', 'collapseBtn22')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn22" onclick="toggleCodeBlock('cloneGroup22', 'expandBtn22', 'collapseBtn22')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup22"><code class="language-tsx text-sm text-gray-800">let roleText = &quot;&quot;;
+      if (userProfile.userType === 'worker') {
+        roleText = &quot;Trabajador&quot;;
+      } else if (userProfile.userType === 'admin') {
+        roleText = &quot;Administrador&quot;;
+      } else if (userProfile.userType === 'actor') {
+        roleText = &quot;Usuario con Prioridad&quot;;
+      } else {
+        roleText = &quot;Usuario Regular&quot;;
+      }
+      
+      setFormData({
+        nombre: userProfile.nombre || &quot;&quot;,
+        cedula: userProfile.cedula?.toString() || &quot;&quot;,
+        email: userProfile.email || &quot;&quot;,
+        phone_number: userProfile.phone_number || &quot;&quot;,
+        role: roleText
+      });
+    }</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\Login\LoginForm.tsx (Line 10:1 - Line 23:10), src\pages\Signup\SignupPage.tsx (Line 9:1 - Line 22:11)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn23" onclick="toggleCodeBlock('cloneGroup23', 'expandBtn23', 'collapseBtn23')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn23" onclick="toggleCodeBlock('cloneGroup23', 'expandBtn23', 'collapseBtn23')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup23"><code class="language-tsx text-sm text-gray-800">const EyeIcon = ({ className = &quot;w-5 h-5&quot; }: { className?: string }) =&gt; (
+  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; strokeWidth={1.5} stroke=&quot;currentColor&quot; className={className}&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z&quot; /&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M15 12a3 3 0 11-6 0 3 3 0 016 0z&quot; /&gt;
+  &lt;/svg&gt;
+);
+
+const EyeSlashIcon = ({ className = &quot;w-5 h-5&quot; }: { className?: string }) =&gt; (
+  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; strokeWidth={1.5} stroke=&quot;currentColor&quot; className={className}&gt;
+    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; d=&quot;M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 11-4.243-4.243m4.242 4.242L9.88 9.88&quot; /&gt;
+  &lt;/svg&gt;
+);
+
+const LoginForm</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\Login\LoginForm.tsx (Line 162:62 - Line 172:6), src\pages\RegisterActor\CreateUserForm.tsx (Line 137:179 - Line 147:18)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn24" onclick="toggleCodeBlock('cloneGroup24', 'expandBtn24', 'collapseBtn24')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn24" onclick="toggleCodeBlock('cloneGroup24', 'expandBtn24', 'collapseBtn24')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup24"><code class="language-tsx text-sm text-gray-800">;
+
+  return (
+    &lt;div className=&quot;min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50&quot;&gt;
+      &lt;main className='flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28'&gt;
+        &lt;ToastContainer position={isMobile ? &quot;bottom-center&quot; : &quot;top-right&quot;} autoClose={3500} theme=&quot;light&quot; /&gt;
+        &lt;div className={`flex bg-white rounded-2xl sm:rounded-3xl shadow-xl w-full max-w-4xl lg:max-w-5xl overflow-hidden ${isMobile ? &quot;flex-col&quot; : &quot;flex-row&quot;}`}&gt;
+          
+          {!isMobile &amp;&amp; (
+            &lt;div className=&quot;w-1/2 md:w-5/12 flex items-center justify-center bg-gradient-to-br from-indigo-100 to-purple-100 p-8 lg:p-12 rounded-l-2xl sm:rounded-l-3xl&quot;&gt;
+              &lt;img src={imagenLogin} alt=&quot;Login</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\ManageWorkers.tsx (Line 261:27 - Line 274:25), src\pages\ManageUserData\ManageUserData.tsx (Line 402:25 - Line 415:21)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn26" onclick="toggleCodeBlock('cloneGroup26', 'expandBtn26', 'collapseBtn26')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn26" onclick="toggleCodeBlock('cloneGroup26', 'expandBtn26', 'collapseBtn26')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup26"><code class="language-tsx text-sm text-gray-800">([]);
+  };
+
+  // Button styles
+  const baseButtonStyles =
+    &quot;py-2 px-4 rounded-lg font-semibold text-sm shadow-md hover:shadow-lg active:scale-95 transition-all duration-300 ease-in-out flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2&quot;;
+  
+  const primaryButtonClasses = `${baseButtonStyles} bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500`;
+  const secondaryButtonClasses = `${baseButtonStyles} bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-100 focus:ring-indigo-500`;
+  const dangerButtonClasses = `${baseButtonStyles} bg-red-600 text-white hover:bg-red-700 focus:ring-red-500`;
+  const editButtonClasses = `px-3 py-1 bg-indigo-600 text-white text-xs font-medium rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors`;
+
+  if (loading) {
+    return &lt;LoadingSpinner message=&quot;Cargando trabajadores...</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\ManageWorkers.tsx (Line 315:13 - Line 330:19), src\pages\ManageUserData\ManageUserData.tsx (Line 448:15 - Line 463:21)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn27" onclick="toggleCodeBlock('cloneGroup27', 'expandBtn27', 'collapseBtn27')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn27" onclick="toggleCodeBlock('cloneGroup27', 'expandBtn27', 'collapseBtn27')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup27"><code class="language-tsx text-sm text-gray-800">&lt;/h2&gt;
+
+            {error &amp;&amp; (
+              &lt;div className=&quot;mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded&quot;&gt;
+                {error}
+              &lt;/div&gt;
+            )}
+
+            &lt;div className=&quot;space-y-5 sm:space-y-6 mb-8 sm:mb-10&quot;&gt;
+              {/* Nombre */}
+              &lt;div&gt;
+                &lt;label className=&quot;block text-sm font-semibold text-neutral-600 mb-1&quot;&gt;
+                  Nombre:
+                &lt;/label&gt;
+                &lt;input
+                  </code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\ManageWorkers.tsx (Line 335:17 - Line 347:19), src\pages\ManageUserData\ManageUserData.tsx (Line 468:19 - Line 480:21)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn28" onclick="toggleCodeBlock('cloneGroup28', 'expandBtn28', 'collapseBtn28')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn28" onclick="toggleCodeBlock('cloneGroup28', 'expandBtn28', 'collapseBtn28')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup28"><code class="language-tsx text-sm text-gray-800">/&gt;
+                {formErrors.nombre &amp;&amp; (
+                  &lt;p className=&quot;mt-1 text-sm text-red-600&quot;&gt;{formErrors.nombre}&lt;/p&gt;
+                )}
+              &lt;/div&gt;
+
+              {/* Cédula */}
+              &lt;div&gt;
+                &lt;label className=&quot;block text-sm font-semibold text-neutral-600 mb-1&quot;&gt;
+                  Cédula:
+                &lt;/label&gt;
+                &lt;input
+                  </code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\ManageWorkers.tsx (Line 352:17 - Line 364:19), src\pages\ManageUserData\ManageUserData.tsx (Line 485:19 - Line 497:21)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn29" onclick="toggleCodeBlock('cloneGroup29', 'expandBtn29', 'collapseBtn29')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn29" onclick="toggleCodeBlock('cloneGroup29', 'expandBtn29', 'collapseBtn29')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup29"><code class="language-tsx text-sm text-gray-800">/&gt;
+                {formErrors.cedula &amp;&amp; (
+                  &lt;p className=&quot;mt-1 text-sm text-red-600&quot;&gt;{formErrors.cedula}&lt;/p&gt;
+                )}
+              &lt;/div&gt;
+
+              {/* Correo */}
+              &lt;div&gt;
+                &lt;label className=&quot;block text-sm font-semibold text-neutral-600 mb-1&quot;&gt;
+                  Correo Electrónico:
+                &lt;/label&gt;
+                &lt;input
+                  </code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\ManageWorkers.tsx (Line 369:17 - Line 381:19), src\pages\ManageUserData\ManageUserData.tsx (Line 502:19 - Line 514:21)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn30" onclick="toggleCodeBlock('cloneGroup30', 'expandBtn30', 'collapseBtn30')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn30" onclick="toggleCodeBlock('cloneGroup30', 'expandBtn30', 'collapseBtn30')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup30"><code class="language-tsx text-sm text-gray-800">/&gt;
+                {formErrors.email &amp;&amp; (
+                  &lt;p className=&quot;mt-1 text-sm text-red-600&quot;&gt;{formErrors.email}&lt;/p&gt;
+                )}
+              &lt;/div&gt;
+
+              {/* Teléfono */}
+              &lt;div&gt;
+                &lt;label className=&quot;block text-sm font-semibold text-neutral-600 mb-1&quot;&gt;
+                  Teléfono:
+                &lt;/label&gt;
+                &lt;input
+                  </code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\ManageWorkers.tsx (Line 461:24 - Line 470:27), src\pages\ManageUserData\ManageUserData.tsx (Line 633:22 - Line 642:29)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn31" onclick="toggleCodeBlock('cloneGroup31', 'expandBtn31', 'collapseBtn31')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn31" onclick="toggleCodeBlock('cloneGroup31', 'expandBtn31', 'collapseBtn31')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup31"><code class="language-tsx text-sm text-gray-800">}
+          &lt;div className=&quot;bg-white overflow-hidden shadow-md rounded-xl&quot;&gt;
+            &lt;div className=&quot;overflow-x-auto&quot;&gt;
+              &lt;table className=&quot;min-w-full divide-y divide-gray-200&quot;&gt;
+                &lt;thead className=&quot;bg-gray-50&quot;&gt;
+                  &lt;tr&gt;
+                    &lt;th scope=&quot;col&quot; className=&quot;px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider&quot;&gt;
+                      &lt;div className=&quot;flex items-center&quot;&gt;
+                        &lt;input
+                          </code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\ManageWorkers.tsx (Line 474:25 - Line 490:9), src\pages\ManageUserData\ManageUserData.tsx (Line 646:27 - Line 662:10)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn32" onclick="toggleCodeBlock('cloneGroup32', 'expandBtn32', 'collapseBtn32')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn32" onclick="toggleCodeBlock('cloneGroup32', 'expandBtn32', 'collapseBtn32')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup32"><code class="language-tsx text-sm text-gray-800">/&gt;
+                      &lt;/div&gt;
+                    &lt;/th&gt;
+                    &lt;th scope=&quot;col&quot; className=&quot;px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider&quot;&gt;
+                      Nombre
+                    &lt;/th&gt;
+                    &lt;th scope=&quot;col&quot; className=&quot;px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider&quot;&gt;
+                      Cédula
+                    &lt;/th&gt;
+                    &lt;th scope=&quot;col&quot; className=&quot;px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider&quot;&gt;
+                      Email
+                    &lt;/th&gt;
+                    &lt;th scope=&quot;col&quot; className=&quot;px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider&quot;&gt;
+                      Teléfono
+                    &lt;/th&gt;
+                    &lt;th scope=&quot;col&quot; className=&quot;px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider&quot;&gt;
+                      Acciones</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\ManageWorkers.tsx (Line 532:23 - Line 558:24), src\pages\ManageUserData\ManageUserData.tsx (Line 716:25 - Line 742:22)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn33" onclick="toggleCodeBlock('cloneGroup33', 'expandBtn33', 'collapseBtn33')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn33" onclick="toggleCodeBlock('cloneGroup33', 'expandBtn33', 'collapseBtn33')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup33"><code class="language-tsx text-sm text-gray-800">&lt;/td&gt;
+                    &lt;/tr&gt;
+                  )}
+                &lt;/tbody&gt;
+              &lt;/table&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/main&gt;
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal &amp;&amp; (
+        &lt;div className=&quot;fixed inset-0 overflow-y-auto z-50 flex items-center justify-center&quot;&gt;
+          &lt;div className=&quot;fixed inset-0 bg-black bg-opacity-10 transition-opacity&quot; onClick={closeDeleteModal}&gt;&lt;/div&gt;
+          
+          &lt;div className=&quot;relative bg-white rounded-lg max-w-md w-full mx-4 p-6 shadow-xl transform transition-all&quot;&gt;
+            &lt;div className=&quot;text-center&quot;&gt;
+              &lt;div className=&quot;mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4&quot;&gt;
+                &lt;svg className=&quot;h-6 w-6 text-red-600&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; stroke=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
+                  &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; strokeWidth=&quot;2&quot; d=&quot;M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+              
+              &lt;h3 className=&quot;text-lg font-medium text-gray-900 mb-2&quot;&gt;Confirmar eliminación&lt;/h3&gt;
+              
+              &lt;p className=&quot;text-sm text-gray-500 mb-6&quot;&gt;
+                ¿Está seguro de eliminar {selectedWorkersToDelete</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\ManageAccessPoints.tsx (Line 490:21 - Line 503:8), src\pages\AdminDashboard\ManageAccessPoints.tsx (Line 428:21 - Line 441:6)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn34" onclick="toggleCodeBlock('cloneGroup34', 'expandBtn34', 'collapseBtn34')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn34" onclick="toggleCodeBlock('cloneGroup34', 'expandBtn34', 'collapseBtn34')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup34"><code class="language-tsx text-sm text-gray-800">&lt;/div&gt;
+                    &lt;div className=&quot;flex justify-end space-x-3&quot;&gt;
+                      &lt;button
+                        type=&quot;button&quot;
+                        onClick={() =&gt; setShowAssignForm(false)}
+                        className=&quot;py-2 px-4 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50&quot;
+                      &gt;
+                        Cancelar
+                      &lt;/button&gt;
+                      &lt;button
+                        type=&quot;submit&quot;
+                        className=&quot;py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700&quot;
+                      &gt;
+                        Asignar</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\ManageAccessPoints.tsx (Line 566:9 - Line 582:4), src\pages\ManageUserData\ManageUserData.tsx (Line 726:9 - Line 742:3)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn35" onclick="toggleCodeBlock('cloneGroup35', 'expandBtn35', 'collapseBtn35')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn35" onclick="toggleCodeBlock('cloneGroup35', 'expandBtn35', 'collapseBtn35')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup35"><code class="language-tsx text-sm text-gray-800">{/* Delete Confirmation Modal */}
+        {showDeleteModal &amp;&amp; (
+          &lt;div className=&quot;fixed inset-0 overflow-y-auto z-50 flex items-center justify-center&quot;&gt;
+            &lt;div className=&quot;fixed inset-0 bg-black bg-opacity-10 transition-opacity&quot; onClick={closeDeleteModal}&gt;&lt;/div&gt;
+            
+            &lt;div className=&quot;relative bg-white rounded-lg max-w-md w-full mx-4 p-6 shadow-xl transform transition-all&quot;&gt;
+              &lt;div className=&quot;text-center&quot;&gt;
+                &lt;div className=&quot;mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4&quot;&gt;
+                  &lt;svg className=&quot;h-6 w-6 text-red-600&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; stroke=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
+                    &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; strokeWidth=&quot;2&quot; d=&quot;M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z&quot; /&gt;
+                  &lt;/svg&gt;
+                &lt;/div&gt;
+                
+                &lt;h3 className=&quot;text-lg font-medium text-gray-900 mb-2&quot;&gt;Confirmar eliminación&lt;/h3&gt;
+                
+                &lt;p className=&quot;text-sm text-gray-500 mb-6&quot;&gt;
+                  ¿Está seguro que</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\ManageAccessPoints.tsx (Line 582:2 - Line 610:19), src\pages\ManageUserData\ManageUserData.tsx (Line 742:2 - Line 770:15)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn36" onclick="toggleCodeBlock('cloneGroup36', 'expandBtn36', 'collapseBtn36')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn36" onclick="toggleCodeBlock('cloneGroup36', 'expandBtn36', 'collapseBtn36')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup36"><code class="language-tsx text-sm text-gray-800">no se puede deshacer.
+                &lt;/p&gt;
+                
+                &lt;div className=&quot;flex justify-center space-x-4&quot;&gt;
+                  &lt;button
+                    type=&quot;button&quot;
+                    onClick={closeDeleteModal}
+                    className=&quot;px-4 py-2 bg-white border border-gray-300 rounded-md font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500&quot;
+                  &gt;
+                    No, cancelar
+                  &lt;/button&gt;
+                  &lt;button
+                    type=&quot;button&quot;
+                    onClick={confirmDelete}
+                    className=&quot;px-4 py-2 bg-red-600 border border-transparent rounded-md font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500&quot;
+                  &gt;
+                    Sí, eliminar
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        )}
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};
+
+export default ManageAccessPoints</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\Announcements.tsx (Line 415:4 - Line 433:8), src\pages\ManageUserData\ManageUserData.tsx (Line 724:5 - Line 582:6)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn37" onclick="toggleCodeBlock('cloneGroup37', 'expandBtn37', 'collapseBtn37')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn37" onclick="toggleCodeBlock('cloneGroup37', 'expandBtn37', 'collapseBtn37')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup37"><code class="language-tsx text-sm text-gray-800">&gt;
+      
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal &amp;&amp; (
+        &lt;div className=&quot;fixed inset-0 overflow-y-auto z-50 flex items-center justify-center&quot;&gt;
+          &lt;div className=&quot;fixed inset-0 bg-black bg-opacity-10 transition-opacity&quot; onClick={closeDeleteModal}&gt;&lt;/div&gt;
+          
+          &lt;div className=&quot;relative bg-white rounded-lg max-w-md w-full mx-4 p-6 shadow-xl transform transition-all&quot;&gt;
+            &lt;div className=&quot;text-center&quot;&gt;
+              &lt;div className=&quot;mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4&quot;&gt;
+                &lt;svg className=&quot;h-6 w-6 text-red-600&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; stroke=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
+                  &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; strokeWidth=&quot;2&quot; d=&quot;M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+              
+              &lt;h3 className=&quot;text-lg font-medium text-gray-900 mb-2&quot;&gt;Confirmar eliminación&lt;/h3&gt;
+              
+              &lt;p className=&quot;text-sm text-gray-500 mb-6&quot;&gt;
+                ¿Está seguro que desea eliminar este anuncio</code></pre></div><div class="py-4"><p class="text-gray-600">src\pages\AdminDashboard\Announcements.tsx (Line 433:8 - Line 456:2), src\pages\AdminDashboard\ManageWorkers.tsx (Line 558:2 - Line 581:3)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn38" onclick="toggleCodeBlock('cloneGroup38', 'expandBtn38', 'collapseBtn38')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn38" onclick="toggleCodeBlock('cloneGroup38', 'expandBtn38', 'collapseBtn38')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup38"><code class="language-tsx text-sm text-gray-800">? Esta acción no se puede deshacer.
+              &lt;/p&gt;
+              
+              &lt;div className=&quot;flex justify-center space-x-4&quot;&gt;
+                &lt;button
+                  type=&quot;button&quot;
+                  onClick={closeDeleteModal}
+                  className=&quot;px-4 py-2 bg-white border border-gray-300 rounded-md font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500&quot;
+                &gt;
+                  No, cancelar
+                &lt;/button&gt;
+                &lt;button
+                  type=&quot;button&quot;
+                  onClick={confirmDelete}
+                  className=&quot;px-4 py-2 bg-red-600 border border-transparent rounded-md font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500&quot;
+                &gt;
+                  Sí, eliminar
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      )}
+    &lt;</code></pre></div><div class="py-4"><p class="text-gray-600">src\contexts\auth\AuthContext.tsx (Line 280:8 - Line 289:35), src\contexts\auth\AuthContext.tsx (Line 227:11 - Line 236:51)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn41" onclick="toggleCodeBlock('cloneGroup41', 'expandBtn41', 'collapseBtn41')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn41" onclick="toggleCodeBlock('cloneGroup41', 'expandBtn41', 'collapseBtn41')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup41"><code class="language-tsx text-sm text-gray-800">,
+          actor: actorData || null,
+          worker: workerData || null,
+          isActor: !!actorData,
+          isWorker: !!workerData,
+          isAdmin: workerData?.is_admin || false,
+          userType: workerData ? (workerData.is_admin ? 'admin' : 'worker') : (actorData ? 'actor' : 'user')
+        };
+        
+        console.log(`AuthContext: Perfil enriquecido:`</code></pre></div><div class="py-4"><p class="text-gray-600">src\hooks\useQueueStatus.tsx (Line 12:7 - Line 33:10), src\pages\QueueView\QueueStatus.tsx (Line 32:4 - Line 53:6)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn44" onclick="toggleCodeBlock('cloneGroup44', 'expandBtn44', 'collapseBtn44')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn44" onclick="toggleCodeBlock('cloneGroup44', 'expandBtn44', 'collapseBtn44')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup44"><code class="language-tsx text-sm text-gray-800">;
+}
+
+interface QueueSection {
+  current: Ticket | null;
+  last_attended: Ticket | null;
+  next_tickets: Ticket[];
+}
+
+interface QueueStatus {
+  user_ticket: Ticket | null;
+  priority: QueueSection;
+  normal: QueueSection;
+  next_tickets: Ticket[];
+  statistics?: {
+    waiting_count: number;
+    avg_wait_time: number;
+    attended_today: number;
+  };
+}
+
+interface</code></pre></div><div class="py-4"><p class="text-gray-600">src\hooks\useQueueStatus.tsx (Line 101:3 - Line 111:14), src\pages\QueueView\QueueStatus.tsx (Line 166:3 - Line 176:10)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn45" onclick="toggleCodeBlock('cloneGroup45', 'expandBtn45', 'collapseBtn45')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn45" onclick="toggleCodeBlock('cloneGroup45', 'expandBtn45', 'collapseBtn45')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup45"><code class="language-tsx text-sm text-gray-800">// Remove update animations after they've played
+  useEffect(() =&gt; {
+    if (updates.length &gt; 0) {
+      const timerId = setTimeout(() =&gt; {
+        setUpdates([]);
+      }, 2000);
+      return () =&gt; clearTimeout(timerId);
+    }
+  }, [updates]);
+
+  const shouldAnimate</code></pre></div><div class="py-4"><p class="text-gray-600">src\components\QueueStatusWidget.tsx (Line 4:19 - Line 35:23), src\hooks\useQueueStatus.tsx (Line 2:22 - Line 33:22)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn46" onclick="toggleCodeBlock('cloneGroup46', 'expandBtn46', 'collapseBtn46')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn46" onclick="toggleCodeBlock('cloneGroup46', 'expandBtn46', 'collapseBtn46')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup46"><code class="language-tsx text-sm text-gray-800">;
+
+interface Ticket {
+  id: number;
+  ticket_number: string;
+  status: string;
+  status_display?: string;
+  service: string;
+  is_priority: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+interface QueueSection {
+  current: Ticket | null;
+  last_attended: Ticket | null;
+  next_tickets: Ticket[];
+}
+
+interface QueueStatus {
+  user_ticket: Ticket | null;
+  priority: QueueSection;
+  normal: QueueSection;
+  next_tickets: Ticket[];
+  statistics?: {
+    waiting_count: number;
+    avg_wait_time: number;
+    attended_today: number;
+  };
+}
+
+interface QueueStatusWidgetProps</code></pre></div><div class="py-4"><p class="text-gray-600">src\components\QueueStatusWidget.tsx (Line 45:1 - Line 51:10), src\hooks\useQueueStatus.tsx (Line 43:2 - Line 48:6)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn47" onclick="toggleCodeBlock('cloneGroup47', 'expandBtn47', 'collapseBtn47')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn47" onclick="toggleCodeBlock('cloneGroup47', 'expandBtn47', 'collapseBtn47')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup47"><code class="language-tsx text-sm text-gray-800">}) =&gt; {
+  const [queueStatus, setQueueStatus] = useState&lt;QueueStatus | null&gt;(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState&lt;string | null&gt;(null);
+  const [updates, setUpdates] = useState&lt;{id: string, type: string}[]&gt;([]);
+
+  useEffect</code></pre></div><div class="py-4"><p class="text-gray-600">src\components\QueueStatusWidget.tsx (Line 67:2 - Line 82:6), src\hooks\useQueueStatus.tsx (Line 99:10 - Line 180:38)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn48" onclick="toggleCodeBlock('cloneGroup48', 'expandBtn48', 'collapseBtn48')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn48" onclick="toggleCodeBlock('cloneGroup48', 'expandBtn48', 'collapseBtn48')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup48"><code class="language-tsx text-sm text-gray-800">]);
+
+  // Remove update animations after they've played
+  useEffect(() =&gt; {
+    if (updates.length &gt; 0) {
+      const timerId = setTimeout(() =&gt; {
+        setUpdates([]);
+      }, 2000);
+      return () =&gt; clearTimeout(timerId);
+    }
+  }, [updates]);
+
+  const fetchData = async () =&gt; {
+    try {
+      setLoading(true);
+      const</code></pre></div><div class="py-4"><p class="text-gray-600">src\components\QueueStatusWidget.tsx (Line 87:35 - Line 98:3), src\pages\QueueView\QueueStatus.tsx (Line 205:28 - Line 216:91)</p><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2" id="expandBtn49" onclick="toggleCodeBlock('cloneGroup49', 'expandBtn49', 'collapseBtn49')">Show code</button><button class="bg-gray-500 text-white px-1 py-0.5 text-xs rounded focus:outline-none ml-2 hidden" id="collapseBtn49" onclick="toggleCodeBlock('cloneGroup49', 'expandBtn49', 'collapseBtn49')">Hide code</button><pre class="bg-gray-100 border border-gray-200 p-4 rounded mt-2 hidden" id="cloneGroup49"><code class="language-tsx text-sm text-gray-800">);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const shouldAnimate = (ticket: Ticket | null) =&gt; {
+    if (!ticket) return false;
+    return updates.some(update =&gt; update.id === String(ticket.id));
+  };
+
+  if</code></pre></div><!-- Add more clone groups for .txt format as needed         // Add more clone groups for .txt format as needed--></div><a name="css-clones"></a><h2 class="text-2xl font-semibold text-gray-700 mb-4">css</h2><div class="divide-y divide-gray-200 border-b-2"><!-- Add more clone groups for .txt format as needed         // Add more clone groups for .txt format as needed--></div></section><!-- Add more sections for other formats and clone groups as needed--></main><footer class="bg-white shadow mt-8 py-4"><div class="container mx-auto px-4 text-center"><p class="text-sm text-gray-600">This report is generated by jscpd, an open-source copy/paste detector.</p><p class="text-sm text-gray-600">jscpd is licensed under the MIT License.</p><a class="text-blue-500 text-sm" href="https://github.com/kucherenko/jscpd" target="_blank" rel="noopener noreferrer">View jscpd on GitHub</a></div></footer><script src="js/prism.js"></script><script>function toggleCodeBlock(codeBlockId, expandBtnId, collapseBtnId) {
+  const codeBlock = document.getElementById(codeBlockId);
+  const expandBtn = document.getElementById(expandBtnId);
+  const collapseBtn = document.getElementById(collapseBtnId);
+
+  codeBlock.classList.toggle('hidden');
+  expandBtn.classList.toggle('hidden');
+  collapseBtn.classList.toggle('hidden');
+}</script></body></html>
