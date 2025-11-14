@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 // import imgRegister from '@/assets/imagenCreateUser.png'; // Consider using a different image or none for regular users
-import useMediaQuery from '@/hooks/useMediaQuery';
+import useMediaQuery from '../../hooks/useMediaQuery';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link, useNavigate } from 'react-router-dom'; // Import Link
-import { useAuth } from '@/contexts/auth/AuthContext';
-import { registerUser } from '@/api/userService'; // Import the registerUser function
+import { useAuth } from '../../contexts/auth/AuthContext';
+import { registerUser } from '../../api/userService'; // Import the registerUser function
 
 // SVG Icons (reused)
 const EyeIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
