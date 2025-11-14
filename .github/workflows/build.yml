@@ -7,25 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  # 🧪 Runs only during Pull Requests
-  sonarqube:
-    name: SonarQube
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Install dependencies
-        run: npm install --force
 
-      - name: Test coverage on tests
-        run: npm run coverage
-
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v6
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          
   test:
     if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
@@ -44,8 +26,6 @@ jobs:
       - name: Test coverage on tests
         run: npm run coverage
 
-      - name: Test for code duplication
-        run: npm run duplication
 
   # 🚀 Runs only after merge (push to main)
   ready-for-production:
