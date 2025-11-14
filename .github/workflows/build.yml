@@ -7,7 +7,6 @@ on:
     branches: [main]
 
 jobs:
-  # 🧪 Runs only during Pull Requests
   sonarqube:
     name: SonarQube
     runs-on: windows-latest
@@ -15,6 +14,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Install dependencies
+        run: npm install --force
+
+      - name: Test coverage on tests
+        run: npm test --coverage
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
