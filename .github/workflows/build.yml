@@ -8,6 +8,7 @@ on:
 
 jobs:
 
+          
   test:
     if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
@@ -26,6 +27,8 @@ jobs:
       - name: Test coverage on tests
         run: npm run coverage
 
+      - name: Test for code duplication
+        run: npm run duplication
 
   # 🚀 Runs only after merge (push to main)
   ready-for-production:
