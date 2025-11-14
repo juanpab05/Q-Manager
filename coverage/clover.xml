@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1763058197071" clover="3.2.0">
-  <project timestamp="1763058197071" name="All files">
+<coverage generated="1763159704084" clover="3.2.0">
+  <project timestamp="1763159704085" name="All files">
     <metrics statements="65" coveredstatements="44" conditionals="39" coveredconditionals="13" methods="19" coveredmethods="11" elements="123" coveredelements="68" complexity="0" loc="65" ncloc="65" packages="1" files="1" classes="1"/>
-    <file name="navbar.tsx" path="C:\Users\User\Documents\GitHub\Q-Manager\src\pages\navbar\navbar.tsx">
+    <file name="navbar.tsx" path="C:\Users\vladi\OneDrive\Documentos\GitHub\Q-Manager\src\pages\navbar\navbar.tsx">
       <metrics statements="65" coveredstatements="44" conditionals="39" coveredconditionals="13" methods="19" coveredmethods="11"/>
       <line num="1" count="1" type="stmt"/>
       <line num="2" count="1" type="stmt"/>

@@ -18,7 +18,7 @@ jobs:
         run: npm install --force
 
       - name: Test coverage on tests
-        run: npm jest --coverage
+        run: npm test --coverage
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
