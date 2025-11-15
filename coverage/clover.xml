@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1762996703531" clover="3.2.0">
-  <project timestamp="1762996703531" name="All files">
+<coverage generated="1763168983983" clover="3.2.0">
+  <project timestamp="1763168983983" name="All files">
     <metrics statements="65" coveredstatements="64" conditionals="39" coveredconditionals="35" methods="19" coveredmethods="18" elements="123" coveredelements="117" complexity="0" loc="65" ncloc="65" packages="1" files="1" classes="1"/>
     <file name="navbar.tsx" path="C:\Users\vladi\OneDrive\Documentos\GitHub\Q-Manager\src\pages\navbar\navbar.tsx">
       <metrics statements="65" coveredstatements="64" conditionals="39" coveredconditionals="35" methods="19" coveredmethods="18"/>
