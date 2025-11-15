@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: npm install --force
 
-      - name: Test coverage on tests
+      - name: Test and coverage
         run: npm run coverage
 
       - name: SonarQube Scan
