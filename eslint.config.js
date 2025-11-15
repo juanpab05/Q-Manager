@@ -23,6 +23,8 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      
+      "complexity": ["warn", { "max": 10 }]
     },
   },
 )
