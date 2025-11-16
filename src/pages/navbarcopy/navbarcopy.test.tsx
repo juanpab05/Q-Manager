@@ -9,7 +9,7 @@ jest.mock('../../contexts/auth/AuthContext', () => ({
 }));
 
 import Navbar from './navbarcopy';
-
+//
 let container: HTMLDivElement | null = null;
 
 beforeEach(() => {
