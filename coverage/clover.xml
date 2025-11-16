@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1763308356510" clover="3.2.0">
-  <project timestamp="1763308356510" name="All files">
+<coverage generated="1763310932460" clover="3.2.0">
+  <project timestamp="1763310932460" name="All files">
     <metrics statements="173" coveredstatements="150" conditionals="145" coveredconditionals="111" methods="35" coveredmethods="32" elements="353" coveredelements="293" complexity="0" loc="173" ncloc="173" packages="2" files="3" classes="3"/>
     <package name="PersonalData">
       <metrics statements="108" coveredstatements="86" conditionals="106" coveredconditionals="76" methods="16" coveredmethods="14"/>
@@ -121,7 +121,7 @@
     </package>
     <package name="navbar">
       <metrics statements="65" coveredstatements="64" conditionals="39" coveredconditionals="35" methods="19" coveredmethods="18"/>
-      <file name="navbar.tsx" path="C:\Users\vladi\OneDrive\Documentos\GitHub\Q-Manager\src\pages\navbar\navbar.tsx">
+      <file name="navbar-copy.tsx" path="C:\Users\vladi\OneDrive\Documentos\GitHub\Q-Manager\src\pages\navbar\navbar-copy.tsx">
         <metrics statements="65" coveredstatements="64" conditionals="39" coveredconditionals="35" methods="19" coveredmethods="18"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
