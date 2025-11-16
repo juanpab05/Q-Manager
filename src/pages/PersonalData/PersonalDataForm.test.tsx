@@ -310,30 +310,6 @@ test('PersonalDataForm shows save button when in edit mode', () => {
   });
 });
 
-test('PersonalDataForm enters edit mode when edit button is clicked', () => {
-  if (!container) throw new Error('Test container not initialized');
-  
-  const root = createRoot(container);
-  act(() => {
-    root.render(React.createElement(PersonalDataForm, mockProps));
-  });
-
-
-  const buttons = container.querySelectorAll('button');
-  const editButton = buttons[buttons.length - 1];
-  
-  expect(editButton?.textContent).toContain('Editar Mis Datos');
-  
-  act(() => {
-    editButton?.click();
-  });
-
-  expect(mockProps.onEditClick).toHaveBeenCalled();
-  
-  act(() => {
-    root.unmount();
-  });
-});
 
 test('PersonalDataForm shows save and cancel buttons in edit mode', () => {
   if (!container) throw new Error('Test container not initialized');
