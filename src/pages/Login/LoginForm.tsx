@@ -90,13 +90,11 @@ const LoginForm: React.FC = () => {
       const success = await auth.login(email, password);
       
       if (success) {
-        console.log("Login successful, redirecting to home-user");
         navigate("/home-user");
       } else {
         toast.error("Credenciales inválidas o error de conexión.");
       }
     } catch (error) {
-      console.error("Login error:", error);
       toast.error("Error al iniciar sesión. Intente nuevamente.");
     } finally {
       setLoading(false);
@@ -122,7 +120,6 @@ const LoginForm: React.FC = () => {
         toast.error(result.error || "Error al enviar el código de verificación.");
       }
     } catch (error: any) {
-      console.error("Error al enviar OTP:", error);
       toast.error(error.message || "Error al enviar el código de verificación.");
     } finally {
       setLoading(false);
@@ -143,13 +140,11 @@ const LoginForm: React.FC = () => {
       
       if (result.success) {
         toast.success("Verificación exitosa.");
-        console.log("Login successful, redirecting to home-user");
         navigate("/home-user");
       } else {
         toast.error(result.error || "Error al verificar el código.");
       }
     } catch (error: any) {
-      console.error("Error al verificar OTP:", error);
       toast.error(error.message || "Error al verificar el código.");
     } finally {
       setLoading(false);
@@ -203,7 +198,7 @@ const LoginForm: React.FC = () => {
             </div>
 
             {authMethod === 'email' && (
-              <form onSubmit={handleEmailLogin} className='flex flex-col w-full space-y-5'>
+              <form noValidate onSubmit={handleEmailLogin} className='flex flex-col w-full space-y-5'>
                 <div>
                   <label htmlFor="email" className="sr-only">Email</label>
                   <input
