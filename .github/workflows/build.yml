@@ -17,22 +17,8 @@ jobs:
       - name: Install dependencies
         run: npm install --force
 
-      - name: Test and coverage
-        run: npm run coverage
-        env:
-          CI: true
-
-      - name: Check coverage threshold
-        run: |
-          echo "✓ Coverage report generated"
-          echo "Coverage will be validated by SonarCloud quality gates"
-          
-      - name: Upload coverage artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage/
-          retention-days: 7
+      - name: Test coverage on tests
+        run: npm test --coverage
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
