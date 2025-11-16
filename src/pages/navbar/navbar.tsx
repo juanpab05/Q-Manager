@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from '../../contexts/auth/AuthContext';
+// 
 
 const useMediaQuery = (query: string): boolean => {
   const [matches, setMatches] = useState(false);

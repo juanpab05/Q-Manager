@@ -12,6 +12,12 @@ import Navbar from './navbar';
 
 let container: HTMLDivElement | null = null;
 
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => jest.fn(),
+}));
+
+
 beforeEach(() => {
   container = document.createElement('div');
   document.body.appendChild(container);
