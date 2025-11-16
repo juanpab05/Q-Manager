@@ -1,47 +1,36 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../contexts/auth/AuthContext";
-
-
 import { useMediaQuery, MenuIcon, CloseIcon } from "./NavbarUtils";
-
 const Navbar = () => {
   const auth = useAuth();
   const isAuthenticated = auth?.isAuthenticated;
-
   const handleLogout = async () => {
     try {
       console.log("Navbar: Attempting to logout...");
-
       localStorage.removeItem("usuario");
       await auth.logout();
-
       console.log("Navbar: Logout initiated via AuthContext");
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
       window.location.href = '/login';
     }
   };
-
   const handleLogoutClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     handleLogout();
   };
-
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonMenuRef = useRef<HTMLButtonElement>(null);
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -52,41 +41,29 @@ const Navbar = () => {
         setMenuOpen(false);
       }
     };
-
     if (isMobile) document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [menuOpen, isMobile]);
-
   useEffect(() => {
     if (menuOpen) setMenuOpen(false);
   }, [location?.pathname]);
-
   const navLinkBase =
     "px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-800 relative";
-
   const activeClasses =
     "text-indigo-600 font-semibold after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:h-[2px] after:w-4/5 after:bg-indigo-600 after:rounded-full";
-
   const inactiveClasses = "text-neutral-600 hover:text-indigo-600";
-
   const getClass = ({ isActive }: { isActive: boolean }) =>
     isActive ? `${navLinkBase} ${activeClasses}` : `${navLinkBase} ${inactiveClasses}`;
-
   const mobileBase =
     "block w-full py-3.5 px-5 text-base font-medium rounded-lg transition-all duration-200 ease-in-out transform active:scale-98";
-
   const mobileActive = "bg-indigo-50 text-indigo-700 font-semibold border-l-4 border-indigo-600";
   const mobileInactive = "text-neutral-700 hover:bg-indigo-50/50 hover:text-indigo-600";
-
   const getMobileClass = ({ isActive }: { isActive: boolean }) =>
     isActive ? `${mobileBase} ${mobileActive}` : `${mobileBase} ${mobileInactive}`;
-
   const logoutBtn =
     "px-4 py-2 rounded-md text-sm font-medium text-white bg-red-500 hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-800 transition-all duration-200 ease-out transform hover:scale-105 active:scale-95";
-
   const mobileLogoutBtn =
     "block w-full py-3.5 px-5 mt-2 text-base font-medium rounded-lg text-white bg-red-500 hover:bg-red-600 active:bg-red-700 transition-all duration-200 ease-in-out transform active:scale-98";
-
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${
@@ -101,24 +78,20 @@ const Navbar = () => {
           >
             Q-Manager
           </Link>
-
           {!isMobile && (
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-2">
                 <NavLink to="/" className={getClass}>
                   Inicio
                 </NavLink>
-
                 {isAuthenticated && (
                   <NavLink to="/home-user" className={getClass}>
                     Dashboard
                   </NavLink>
                 )}
-
                 <NavLink to="/about" className={getClass}>
                   Sobre nosotros
                 </NavLink>
-
                 {isAuthenticated ? (
                   <button onClick={handleLogoutClick} className={logoutBtn}>
                     Cerrar sesión
@@ -136,7 +109,6 @@ const Navbar = () => {
               </div>
             </div>
           )}
-
           {isMobile && (
             <button
               ref={buttonMenuRef}
@@ -153,7 +125,6 @@ const Navbar = () => {
                 >
                   <MenuIcon />
                 </span>
-
                 <span
                   className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${
                     menuOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-95"
@@ -166,7 +137,6 @@ const Navbar = () => {
           )}
         </div>
       </div>
-
       {isMobile && (
         <div
           ref={menuRef}
@@ -179,17 +149,14 @@ const Navbar = () => {
             <NavLink to="/" className={getMobileClass}>
               Inicio
             </NavLink>
-
             {isAuthenticated && (
               <NavLink to="/home-user" className={getMobileClass}>
                 Dashboard
               </NavLink>
             )}
-
             <NavLink to="/about" className={getMobileClass}>
               Sobre nosotros
             </NavLink>
-
             {isAuthenticated ? (
               <button onClick={handleLogoutClick} className={mobileLogoutBtn}>
                 Cerrar sesión
@@ -204,7 +171,6 @@ const Navbar = () => {
                 </NavLink>
               </>
             )}
-
             <div className="pt-1 mt-2 border-t border-gray-200"></div>
             <div className="text-xs text-center text-gray-500 py-1">
               © {new Date().getFullYear()} Q-Manager
@@ -215,5 +181,4 @@ const Navbar = () => {
     </nav>
   );
 };
-
 export default Navbar;

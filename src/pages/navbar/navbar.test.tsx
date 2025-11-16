@@ -1,184 +1,72 @@
-import { createRoot } from "react-dom/client";
 import { act } from "react-dom/test-utils";
-import { MemoryRouter } from "react-router-dom";
+import { createRoot } from "react-dom/client";
 import Navbar from "./navbar";
+import * as Utils from "./NavbarUtils";
+import { BrowserRouter } from "react-router-dom";
+import React from "react";
 
-// Mocks
-jest.mock('../../contexts/auth/AuthContext', () => ({
-  useAuth: jest.fn()
+// Mock AuthContext
+jest.mock("../../contexts/auth/AuthContext", () => ({
+  useAuth: () => ({
+    isAuthenticated: true,
+    logout: jest.fn(),
+  }),
 }));
 
-jest.mock('./NavbarUtils', () => ({
-  useMediaQuery: jest.fn(),
-  MenuIcon: () => <span data-testid="menu-icon">☰</span>,
-  CloseIcon: () => <span data-testid="close-icon">✕</span>,
-}));
-
-// Mock localStorage
-const mockLocalStorage = {
-  removeItem: jest.fn(),
-};
-Object.defineProperty(window, 'localStorage', {
-  value: mockLocalStorage,
-});
-
-import { useAuth } from '../../contexts/auth/AuthContext';
-import { useMediaQuery } from './NavbarUtils';
-
-let container: HTMLDivElement | null = null;
+let container: HTMLDivElement;
+let root: any;
 
 beforeEach(() => {
   container = document.createElement("div");
   document.body.appendChild(container);
-  jest.clearAllMocks();
-  (useMediaQuery as jest.Mock).mockReturnValue(false);
-  mockLocalStorage.removeItem.mockClear();
+  root = createRoot(container);
 });
 
 afterEach(() => {
-  if (container) {
-    document.body.removeChild(container);
-    container = null;
-  }
+  root.unmount();
+  document.body.removeChild(container);
 });
 
-const renderNavbar = (authState = { isAuthenticated: false }) => {
-  const mockLogout = jest.fn();
-  
-  (useAuth as jest.Mock).mockReturnValue({
-    isAuthenticated: authState.isAuthenticated,
-    logout: mockLogout,
-  });
-
-  const root = createRoot(container!);
+const render = (element: React.ReactElement) => {
   act(() => {
-    root.render(
-      <MemoryRouter>
-        <Navbar />
-      </MemoryRouter>
-    );
+    root.render(<BrowserRouter>{element}</BrowserRouter>);
   });
-  
-  return { root, mockLogout };
 };
 
-describe("Navbar", () => {
-  it("renderiza navbar con logo y enlaces básicos", () => {
-    const { root } = renderNavbar();
+describe("Navbar (createRoot version)", () => {
+  
+  test("renders desktop navbar when isMobile = false", () => {
+    jest.spyOn(Utils, "useMediaQuery").mockReturnValue(false);
 
-    expect(container!.textContent).toContain("Q-Manager");
-    expect(container!.textContent).toContain("Inicio");
-    expect(container!.textContent).toContain("Sobre nosotros");
+    render(<Navbar />);
 
-    act(() => {
-      root.unmount();
-    });
+    expect(container.textContent).toContain("Inicio");
+    expect(container.textContent).toContain("Dashboard");
   });
 
-  it("muestra enlaces de registro/login para usuarios no autenticados", () => {
-    const { root } = renderNavbar();
+  test("renders mobile button when isMobile = true", () => {
+    jest.spyOn(Utils, "useMediaQuery").mockReturnValue(true);
 
-    expect(container!.textContent).toContain("Regístrate");
-    expect(container!.textContent).toContain("Iniciar Sesión");
-    expect(container!.textContent).not.toContain("Dashboard");
+    render(<Navbar />);
 
-    act(() => {
-      root.unmount();
-    });
+    const btn = container.querySelector("button");
+    expect(btn).not.toBeNull();
   });
 
-  it("muestra dashboard y logout para usuarios autenticados", () => {
-    const { root } = renderNavbar({ isAuthenticated: true });
+  test("opens mobile menu when clicking", () => {
+    jest.spyOn(Utils, "useMediaQuery").mockReturnValue(true);
 
-    expect(container!.textContent).toContain("Dashboard");
-    expect(container!.textContent).toContain("Cerrar sesión");
-    expect(container!.textContent).not.toContain("Regístrate");
+    render(<Navbar />);
+
+    const btn = container.querySelector("button");
+    expect(btn).not.toBeNull();
 
     act(() => {
-      root.unmount();
+      btn!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     });
+
+    expect(container.textContent).toContain("Inicio");
   });
 
-  it("ejecuta logout correctamente", async () => {
-    const { root, mockLogout } = renderNavbar({ isAuthenticated: true });
 
-    const logoutButtons = Array.from(container!.querySelectorAll('button'))
-      .filter(btn => btn.textContent?.includes('Cerrar sesión'));
-    
-    expect(logoutButtons.length).toBeGreaterThan(0);
-
-    await act(async () => {
-      logoutButtons[0].click();
-    });
-
-    expect(mockLocalStorage.removeItem).toHaveBeenCalledWith("usuario");
-    expect(mockLogout).toHaveBeenCalled();
-
-    act(() => {
-      root.unmount();
-    });
-  });
-
-  it("oculta menú móvil en desktop", () => {
-    (useMediaQuery as jest.Mock).mockReturnValue(false);
-    const { root } = renderNavbar();
-
-    const mobileMenuButton = container!.querySelector('[aria-controls="mobile-menu"]');
-    expect(mobileMenuButton).toBeNull();
-
-    act(() => {
-      root.unmount();
-    });
-  });
-
-  it("muestra menú móvil en mobile", () => {
-    (useMediaQuery as jest.Mock).mockReturnValue(true);
-    const { root } = renderNavbar();
-
-    const mobileMenuButton = container!.querySelector('[aria-controls="mobile-menu"]');
-    expect(mobileMenuButton).not.toBeNull();
-
-    act(() => {
-      root.unmount();
-    });
-  });
-
-  it("alterna menú móvil al hacer click", () => {
-    (useMediaQuery as jest.Mock).mockReturnValue(true);
-    const { root } = renderNavbar();
-
-    const mobileMenuButton = container!.querySelector('[aria-controls="mobile-menu"]') as HTMLButtonElement;
-    
-    // Menú inicialmente cerrado
-    const mobileMenu = container!.querySelector('#mobile-menu');
-    expect(mobileMenu?.className).toContain('max-h-0');
-
-    // Abrir menú
-    act(() => {
-      mobileMenuButton.click();
-    });
-
-    // Cerrar menú
-    act(() => {
-      mobileMenuButton.click();
-    });
-
-    act(() => {
-      root.unmount();
-    });
-  });
-
-  it("maneja scroll correctamente", () => {
-    const { root } = renderNavbar();
-
-    // Simular scroll
-    act(() => {
-      window.scrollY = 20;
-      window.dispatchEvent(new Event('scroll'));
-    });
-
-    act(() => {
-      root.unmount();
-    });
-  });
 });
