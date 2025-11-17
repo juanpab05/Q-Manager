@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 // Navbar import is intentionally removed
-import { getQueueStatus, subscribeToTicketUpdates } from '@/api/ticketService';
-// import { getAllAnnouncements } from '@/api/announcementService'; // Removed
+import { getQueueStatus, subscribeToTicketUpdates } from '../../api/ticketService';
+// import { getAllAnnouncements } from '../../api/announcementService'; // Removed
 import { AnimatePresence, motion } from 'framer-motion';
-import supabase from '@/utils/supabaseClient';
-import AnnouncementsCarousel from '@/components/AnnouncementsCarousel/AnnouncementsCarousel'; // Added
-import { useAuth } from '@/contexts/auth/AuthContext'; // Fixed import path
-import LoadingSpinner from '@/components/LoadingSpinner';
+import supabase from '../../utils/supabaseClient';
+import AnnouncementsCarousel from '../../components/AnnouncementsCarousel/AnnouncementsCarousel'; // Added
+import { useAuth } from '../../contexts/auth/AuthContext'; // Fixed import path
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 // interface Announcement { // Removed
 //   id: number;
@@ -518,4 +518,4 @@ const QueueStatusView: React.FC = () => {
   );
 };
 
-export default QueueStatusView; 
+export default QueueStatusView;
