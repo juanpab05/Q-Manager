@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1763256889018" clover="3.2.0">
-  <project timestamp="1763256889019" name="All files">
-    <metrics statements="173" coveredstatements="130" conditionals="145" coveredconditionals="89" methods="35" coveredmethods="25" elements="353" coveredelements="244" complexity="0" loc="173" ncloc="173" packages="2" files="3" classes="3"/>
+<coverage generated="1763402245420" clover="3.2.0">
+  <project timestamp="1763402245420" name="All files">
+    <metrics statements="186" coveredstatements="143" conditionals="151" coveredconditionals="94" methods="39" coveredmethods="29" elements="376" coveredelements="266" complexity="0" loc="186" ncloc="186" packages="3" files="4" classes="4"/>
+    <package name="About">
+      <metrics statements="13" coveredstatements="13" conditionals="6" coveredconditionals="5" methods="4" coveredmethods="4"/>
+      <file name="About.tsx" path="/workspaces/Q-Manager/src/pages/About/About.tsx">
+        <metrics statements="13" coveredstatements="13" conditionals="6" coveredconditionals="5" methods="4" coveredmethods="4"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="6" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="27" count="18" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="6" type="stmt"/>
+        <line num="44" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="46" count="6" type="stmt"/>
+        <line num="147" count="6" type="stmt"/>
+        <line num="174" count="1" type="stmt"/>
+      </file>
+    </package>
     <package name="PersonalData">
       <metrics statements="108" coveredstatements="86" conditionals="106" coveredconditionals="76" methods="16" coveredmethods="14"/>
-      <file name="PersonalData.tsx" path="C:\GitHub\Q-Manager\src\pages\PersonalData\PersonalData.tsx">
+      <file name="PersonalData.tsx" path="/workspaces/Q-Manager/src/pages/PersonalData/PersonalData.tsx">
         <metrics statements="46" coveredstatements="43" conditionals="27" coveredconditionals="22" methods="10" coveredmethods="10"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -53,7 +72,7 @@
         <line num="115" count="6" type="stmt"/>
         <line num="124" count="1" type="stmt"/>
       </file>
-      <file name="PersonalDataForm.tsx" path="C:\GitHub\Q-Manager\src\pages\PersonalData\PersonalDataForm.tsx">
+      <file name="PersonalDataForm.tsx" path="/workspaces/Q-Manager/src/pages/PersonalData/PersonalDataForm.tsx">
         <metrics statements="62" coveredstatements="43" conditionals="79" coveredconditionals="54" methods="6" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -121,7 +140,7 @@
     </package>
     <package name="navbar">
       <metrics statements="65" coveredstatements="44" conditionals="39" coveredconditionals="13" methods="19" coveredmethods="11"/>
-      <file name="navbar.tsx" path="C:\GitHub\Q-Manager\src\pages\navbar\navbar.tsx">
+      <file name="navbar.tsx" path="/workspaces/Q-Manager/src/pages/navbar/navbar.tsx">
         <metrics statements="65" coveredstatements="44" conditionals="39" coveredconditionals="13" methods="19" coveredmethods="11"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
