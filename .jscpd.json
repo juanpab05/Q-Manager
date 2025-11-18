@@ -4,6 +4,10 @@
   "ignore": [
     "**/node_modules/**",
     "**/.git/**",
-    "**/*.md"
+    "**/*.md",
+    "**/*copy.ts",
+    "**/*copy.tsx",
+    "**/*copy.test.ts", 
+    "**/*copy.test.tsx"
   ]
 }
