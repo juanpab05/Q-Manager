@@ -11,9 +11,9 @@ import {
   AccessPoint,
   Ticket,
   attendTicket
-} from '../../api/accessPointService';
-import { useAuth } from '../../contexts/auth/AuthContext';
-import LoadingSpinner from '../../components/LoadingSpinner';
+} from '@/api/accessPointService';
+import { useAuth } from '@/contexts/auth/AuthContext';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 const ManageQueue: React.FC = () => {
   const navigate = useNavigate();
@@ -30,16 +30,11 @@ const ManageQueue: React.FC = () => {
   useEffect(() => {
     // Utilizar el contexto de autenticación si está disponible, de lo contrario usar localStorage
     if (auth && auth.user) {
-      const newData = {
+      setUserData({
         id: auth.user.id,
-        role: auth.user.user_metadata?.role || "worker",
+        role: auth.user.user_metadata?.role || 'worker',
         is_admin: auth.user.user_metadata?.is_admin || false
-      };
-
-      // Evitar render en bucle: solo actualizar si cambió
-      if (JSON.stringify(newData) !== JSON.stringify(userData)) {
-        setUserData(newData);
-      }
+      });
     } else {
       // Fallback a localStorage si no hay contexto de auth
     const storedUser = localStorage.getItem("usuario");
