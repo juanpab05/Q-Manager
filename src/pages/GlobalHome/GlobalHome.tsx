@@ -6,7 +6,7 @@ import AnnouncementsCarousel from "@/components/AnnouncementsCarousel/Announceme
 
 // --- Updated modern icons ---
 const UserFriendlyIcon = ({ className = "w-8 h-8" }: { className?: string }) => (
-  <div className="p-3 rounded-xl bg-gradient-to-br from-indigo-400 to-blue-600 shadow-md">
+  <div className="p-3 rounded-xl bg-gradient-to-br from-blue-400 to-blue-600 shadow-md">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`${className} text-white`}>
       <path fillRule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z" clipRule="evenodd" />
       <path fillRule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zm9.586 4.594a.75.75 0 00-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 00-1.06 1.06l1.5 1.5a.75.75 0 001.116-.062l3-3.75z" clipRule="evenodd" />
@@ -56,17 +56,17 @@ export default function HomePage() {
   const secondaryButtonClasses = "py-3 px-8 rounded-lg font-semibold text-lg shadow-md hover:shadow-lg active:scale-95 transition-all duration-300 ease-in-out";
 
   return (
-    <section className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-4 sm:p-6">
+    <section className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white via-blue-50 to-blue-100 p-4 sm:p-6">
       <div className={`flex flex-col ${isMobile ? "w-full max-w-xl" : "w-full max-w-6xl lg:max-w-7xl"} bg-white rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden`}>
         
         {/* Hero Section with Queue Widgets - Optimized Two Column Layout */}
-        <div className="px-6 py-8 sm:px-10 sm:py-12 md:px-16 md:py-16 bg-white">
+        <div className="px-6 py-8 sm:px-10 sm:py-12 md:px-16 md:py-16 bg-gradient-to-r from-slate-100 via-slate-200 to-slate-300">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-8 items-center">
             
             {/* Left Column - Welcome Message */}
             <div className="lg:col-span-2 flex flex-col justify-center text-center lg:text-left">
               <h1 className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold text-neutral-800 mb-4">
-                Bienvenido a <span className="text-indigo-600">Q-Manager</span>
+                Bienvenido a <span className="text-blue-600">Q-Manager</span>
               </h1>
               <p className="text-neutral-600 text-base sm:text-lg mb-6 max-w-lg mx-auto lg:mx-0">
                 Optimiza tu tiempo con nuestro sistema de gestión de turnos. Una experiencia más ágil y ordenada para todos los usuarios.
@@ -79,19 +79,19 @@ export default function HomePage() {
                   <>
                     <Link
                       to="/login"
-                      className={`${primaryButtonClasses} bg-indigo-600 hover:bg-indigo-700 text-center`}
+                      className={`${primaryButtonClasses} bg-blue-600 hover:bg-blue-700 text-center`}
                     >
                       Iniciar Sesión
                     </Link>
                     <Link
                       to="/signup"
-                      className={`${secondaryButtonClasses} bg-transparent border-2 border-purple-600 text-purple-600 hover:bg-purple-50 text-center`}
+                      className={`${secondaryButtonClasses} bg-transparent border-2 border-red-600 text-red-600 hover:bg-red-50 text-center`}
                     >
                       Regístrate
                     </Link>
                     <Link
                       to="/about"
-                      className={`${secondaryButtonClasses} bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 text-center`}
+                      className={`${secondaryButtonClasses} bg-transparent border-2 border-blue-600 text-blue-600 hover:bg-blue-50 text-center`}
                     >
                       Más sobre nosotros
                     </Link>
@@ -106,7 +106,7 @@ export default function HomePage() {
                     </Link>
                     <Link
                       to="/about"
-                      className={`${secondaryButtonClasses} bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 text-center`}
+                      className={`${secondaryButtonClasses} bg-transparent border-2 border-blue-600 text-blue-600 hover:bg-blue-50 text-center`}
                     >
                       Más sobre nosotros
                     </Link>
@@ -158,13 +158,13 @@ export default function HomePage() {
                   <div className="flex flex-col sm:flex-row gap-2 justify-center lg:justify-start">
                     <Link
                       to="/signup"
-                      className="py-2 px-4 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition-colors"
+                      className="py-2 px-4 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors"
                     >
                       Registrarse
                     </Link>
                     <Link
                       to="/login"
-                      className="py-2 px-4 rounded-lg border border-indigo-600 text-indigo-600 text-sm font-semibold hover:bg-indigo-50 transition-colors"
+                      className="py-2 px-4 rounded-lg border border-blue-600 text-blue-600 text-sm font-semibold hover:bg-blue-50 transition-colors"
                     >
                       Iniciar Sesión
                     </Link>
@@ -176,7 +176,7 @@ export default function HomePage() {
         </div>
 
         {/* Sección de Beneficios para Usuarios */}
-        <div className="px-6 py-10 sm:px-10 sm:py-16 md:px-16 md:py-20 bg-slate-50 border-t border-slate-200">
+        <div className="px-6 py-10 sm:px-10 sm:py-16 md:px-16 md:py-20 bg-gradient-to-r from-slate-100 via-slate-200 to-slate-300 border-t border-slate-200">
           <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-800 mb-10 sm:mb-12 text-center">
             Mejora tu experiencia como usuario
           </h2>

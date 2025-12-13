@@ -97,7 +97,7 @@ const QueueStatusWidget: React.FC<QueueStatusWidgetProps> = ({
 
   if (variant === 'carousel') {
     return (
-      <div className={`bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-6 text-white ${className}`}>
+      <div className={`bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl p-6 text-white ${className}`}>
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-xl font-bold">Estado de la Cola</h3>
           <div className="flex items-center">

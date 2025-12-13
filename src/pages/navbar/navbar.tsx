@@ -120,7 +120,7 @@ const Navbar = () => {
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${scrolled || menuOpen ? "bg-white/95 shadow-xl backdrop-blur-md" : "bg-white/90 shadow-md"}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex-shrink-0 text-2xl font-bold text-indigo-600 hover:text-indigo-500 transition-colors duration-200 ease-out transform hover:scale-105 active:scale-100">
+          <Link to="/" className="flex-shrink-0 text-2xl font-bold text-blue-600 hover:text-blue-500 transition-colors duration-200 ease-out transform hover:scale-105 active:scale-100">
             Q-Manager
           </Link>
 
