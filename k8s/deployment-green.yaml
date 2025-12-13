@@ -21,4 +21,4 @@ spec:
         - name: qmanager
           image: juanpazcai/qmanager:v1.0.1   # v1.0.1 stage
           ports:
-            - containerPort: 80
+            - containerPort: 4173
