@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qmanager-blue
+  labels:
+    app: qmanager
+    color: blue
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: qmanager
+      color: blue
+  template:
+    metadata:
+      labels:
+        app: qmanager
+        color: blue
+    spec:
+      containers:
+        - name: qmanager
+          image: juanpazcai/qmanager:v1.0.0   # v1.0.0 en producción
+          ports:
+            - containerPort: 80
