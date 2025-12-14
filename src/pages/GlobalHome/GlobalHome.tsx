@@ -134,8 +134,18 @@ export default function HomePage() {
                   className="w-full"
                 />
                 
-                {/* Componente de anuncios ajustado al tamaño del widget */}
-                <div className="bg-white rounded-lg shadow-md border border-gray-200 p-4 w-full">
+              
+              </div>
+
+            </div>
+            
+          </div>
+          
+        </div>
+ 
+        <div className="px-10 py-12 sm:px-10 sm:py-12 md:px-16 md:py-16 bg-gradient-to-r from-slate-100 via-slate-200 to-slate-300">
+          {/* Componente de anuncios ajustado al tamaño del widget */}
+                <div className="bg-white rounded-lg shadow-md border border-gray-200 p-4 w-full max-w-3xl mx-auto">
                   <div className="flex items-center justify-between mb-3">
                     <h4 className="text-lg font-medium text-gray-800">Anuncios</h4>
                     <div className="flex items-center">
@@ -147,32 +157,6 @@ export default function HomePage() {
                     <AnnouncementsCarousel />
                   </div>
                 </div>
-              </div>
-
-              {/* Call to action para usuarios no autenticados - más compacto */}
-              {!auth.isAuthenticated && (
-                <div className="text-center lg:text-left">
-                  <p className="text-neutral-600 text-sm mb-3">
-                    ¿Quieres solicitar tu turno y evitar las esperas?
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-2 justify-center lg:justify-start">
-                    <Link
-                      to="/signup"
-                      className="py-2 px-4 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors"
-                    >
-                      Registrarse
-                    </Link>
-                    <Link
-                      to="/login"
-                      className="py-2 px-4 rounded-lg border border-blue-600 text-blue-600 text-sm font-semibold hover:bg-blue-50 transition-colors"
-                    >
-                      Iniciar Sesión
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
         </div>
 
         {/* Sección de Beneficios para Usuarios */}
