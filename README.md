@@ -69,4 +69,4 @@ Once the dependencies are installed and environment variables are set up, you ca
 npm run dev
 ```
 
-This will start the application on `http://localhost:5173` (or another port if 5173 is in use).
+This will start the application on `http://localhost:5173` (or another port if 5173 is in use)
